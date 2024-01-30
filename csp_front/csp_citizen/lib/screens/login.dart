@@ -25,7 +25,22 @@ class _LoginState extends State<Login> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => OtpPage(otp: otp)));
         } else {
-          print('failed');
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  backgroundColor: Colors.grey[300],
+                  title: Text('CSP'),
+                  content: Text('Failed!'),
+                  actions: [
+                    MaterialButton(onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('ok'),
+                    )
+                  ],
+                );
+              });
         }
       } catch (e) {
         print(e.toString());

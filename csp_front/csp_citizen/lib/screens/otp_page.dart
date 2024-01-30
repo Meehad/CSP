@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatelessWidget {
-  const OtpPage({Key? key, required this.otp}):super(key: key);
+  const OtpPage({Key? key, required this.otp}) : super(key: key);
 
   final String otp;
 
@@ -62,7 +62,25 @@ class OtpPage extends StatelessWidget {
                   if (pin == otp)
                     {Navigator.pushNamed(context, '/home')}
                   else
-                    {print('error')}
+                    {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.grey[300],
+                              title: Text('CSP'),
+                              content: Text('Error!'),
+                              actions: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('ok'),
+                                )
+                              ],
+                            );
+                          }),
+                    }
                 },
               ),
             ],

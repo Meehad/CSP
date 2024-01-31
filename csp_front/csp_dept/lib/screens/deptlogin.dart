@@ -1,3 +1,4 @@
+import 'package:csp_dept/screens/depthome.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -60,12 +61,24 @@ class deptlogin extends StatelessWidget {
                               color: Color.fromARGB(255, 158, 158, 158))),
                       obscureText: false,
                     )),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text('Log in')),
-                ),
+                const SizedBox(height: 30),
+                
+                 ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                               primary: Colors.white, // background color
+                            onPrimary: Colors.green, // text color
+                             elevation: 5, // elevation
+                         shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // rounded corners
+                              ),
+                                    ),
+                               onPressed: () {
+                                          // onPressed handler
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> depthome()));
+                              },
+                               child: Text('LOGIN'),
+                             ),
+                
               ],
             ),
           ),

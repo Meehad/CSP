@@ -1,6 +1,9 @@
 // ignore_for_file: camel_case_types
 
 import 'package:csp_dept/screens/deptdetails.dart';
+import 'package:csp_dept/screens/deptevent.dart';
+import 'package:csp_dept/screens/deptform.dart';
+import 'package:csp_dept/screens/deptviewdata.dart';
 import 'package:flutter/material.dart';
 
 class depthome extends StatefulWidget {
@@ -18,7 +21,7 @@ class _depthomeState extends State<depthome> {
       backgroundColor: Colors.green,
       appBar: AppBar(
         title:  const Padding(
-          padding: EdgeInsets.only(left: 15.0),
+          padding: EdgeInsets.only(left: 5.0),
           child: Center(
             child: Text(
               'CSP',
@@ -28,7 +31,7 @@ class _depthomeState extends State<depthome> {
         ),
         actions: [
           IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptdetails()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  deptdetails()));
           }, icon: const Icon(Icons.list,),iconSize:45.0,)
         ],
       ),
@@ -45,10 +48,14 @@ class _depthomeState extends State<depthome> {
                               onPrimary: Colors.green, // text color
                                elevation: 5, // elevation
                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10), // rounded corners
+                              borderRadius: BorderRadius.circular(15), // rounded corners
                                 ),
-                        ),onPressed: (){},
-                        child: Text('CREATE FORM'),
+                        ),onPressed: (){
+
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptform()));
+                              
+                        },
+                        child: const Text('CREATE FORM'),
                       ),
                        const SizedBox(height: 50,),
         
@@ -59,10 +66,12 @@ class _depthomeState extends State<depthome> {
                               onPrimary: Colors.green, // text color
                                elevation: 5, // elevation
                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10), // rounded corners
+                              borderRadius: BorderRadius.circular(15), // rounded corners
                                 ),
-                        ),onPressed: (){},
-                        child: Text('PUBLISH AN EVENT'),
+                        ),onPressed: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptevent()));
+                        },
+                        child: const Text('PUBLISH AN EVENT'),
                       ),
 
                       const SizedBox(height: 50,),
@@ -74,13 +83,15 @@ class _depthomeState extends State<depthome> {
                               onPrimary: Colors.green, // text color
                                elevation: 5, // elevation
                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10), // rounded corners
+                              borderRadius: BorderRadius.circular(15), // rounded corners
                                 ),
-                        ),onPressed: (){},
-                        child: Text('VIEW DATA'),
+                        ),onPressed: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptviewdata()));
+                        },
+                        child: const Text('VIEW DATA'),
                       ),
 
-
+                      
         
         
         

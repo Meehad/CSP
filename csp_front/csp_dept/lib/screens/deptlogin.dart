@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class deptlogin extends StatelessWidget {
   const deptlogin({super.key});
-// backgroundColor: const Color.fromARGB(255, 106, 233, 110),
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +13,7 @@ class deptlogin extends StatelessWidget {
             child: Text(
               "WELCOME TO CSP",
               style: TextStyle(
-                  color: Color.fromARGB(179, 253, 251, 251), fontSize: 25),
+                  color: Color.fromARGB(179, 253, 251, 251), fontSize: 30),
             ),
           ),
           backgroundColor: Colors.green,
@@ -27,21 +26,24 @@ class deptlogin extends StatelessWidget {
                   padding: EdgeInsets.all(10.0),
                   child: Image(
                     image: AssetImage('assets/logo.png'),
-                    height: 100,
+                    height: 175,
                   ),
                 ),
-                const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                const SizedBox(height: 45,),
+                 Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: TextField(
                       decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
-                          fillColor: Colors.white,
+                          enabledBorder:  OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)
+                              ),
+                          fillColor: const Color.fromRGBO(255, 255, 255, 1),
                           filled: true,
                           hintText: "DEPARTMENT ID",
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                               color: Color.fromARGB(255, 158, 158, 158))),
                       obscureText: false,
                     )),
@@ -51,9 +53,11 @@ class deptlogin extends StatelessWidget {
                     child: TextField(
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)),
+                              borderSide: BorderSide(color: Colors.white)
+                              ),
                           fillColor: Colors.white,
                           filled: true,
                           hintText: "PASSWORD",
@@ -69,14 +73,14 @@ class deptlogin extends StatelessWidget {
                             onPrimary: Colors.green, // text color
                              elevation: 5, // elevation
                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10), // rounded corners
+                            borderRadius: BorderRadius.circular(15), // rounded corners
                               ),
                                     ),
                                onPressed: () {
                                           // onPressed handler
-                                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> depthome()));
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const depthome()));
                               },
-                               child: Text('LOGIN'),
+                               child: const Text('LOGIN'),
                              ),
                 
               ],

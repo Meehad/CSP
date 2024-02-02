@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const Login(),
       routes: {
-        '/home':(context) => const MyHomePage(title: 'CSP'),
-        '/profile':(context) => const profile(),
-        '/complaint':(context) => const complaint(),
-        '/survey':(context) => const survey(),
-        '/feedback':(context) => const feedback(),
+       '/home':(context) => const MyHomePage(title: 'CSP'),
+        '/profile':(context) => const ProfilePage(),
+        '/complaint':(context) => const ComplaintPage(),
+        '/survey':(context) => const SurveyPage(),
+        '/feedback':(context) => const FeedbackPage(),
       },
     );
   }

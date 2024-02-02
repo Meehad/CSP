@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatelessWidget {
-  const OtpPage({Key? key, required this.otp}) : super(key: key);
+  const OtpPage({super.key});
 
-  final String otp;
+  // final String otp;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class OtpPage extends StatelessWidget {
       height: 68,
       textStyle: const TextStyle(
         fontSize: 22,
-        color: Colors.black,
+        color: Color.fromARGB(255, 14, 14, 14),
       ),
       decoration: BoxDecoration(
         color: Colors.green.shade100,
@@ -23,8 +23,9 @@ class OtpPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CSP'),
+      backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+      appBar: AppBar(backgroundColor: Colors.green,
+        title: const Text('CSP',style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -36,7 +37,7 @@ class OtpPage extends StatelessWidget {
               const Text(
                 'Verification',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 255, 255, 255),
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
@@ -59,7 +60,7 @@ class OtpPage extends StatelessWidget {
                       .copyWith(border: Border.all(color: Colors.green)),
                 ),
                 onCompleted: (pin) => {
-                  if (pin == otp)
+                  if (pin == "1234")
                     {Navigator.pushNamed(context, '/home')}
                   else
                     {
@@ -68,14 +69,14 @@ class OtpPage extends StatelessWidget {
                           builder: (context) {
                             return AlertDialog(
                               backgroundColor: Colors.grey[300],
-                              title: Text('CSP'),
-                              content: Text('Error!'),
+                              title: const Text('CSP'),
+                              content: const Text('Error!'),
                               actions: [
                                 MaterialButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('ok'),
+                                  child: const Text('ok'),
                                 )
                               ],
                             );

@@ -32,7 +32,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               const SizedBox(height: 16),
               // Additional cards
               _buildFeedbackCard(
-                'assets/oppie.jpeg',
+                'assets/oppie.jpg',
                 'The development of the atomic bomb',
                 'Description for Image 2',
               ),

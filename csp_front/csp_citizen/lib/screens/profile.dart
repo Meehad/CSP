@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart'; // Import your login page file
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(
-              top: 175, bottom: 185), //white container dimentions
+              top: 175, bottom: 185), //white container dimensions
           child: Container(
             padding: const EdgeInsets.all(20.0),
             decoration: BoxDecoration(
@@ -70,6 +71,25 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.green,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                // Navigate to the login page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

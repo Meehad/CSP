@@ -5,6 +5,7 @@ import 'package:csp_citizen/screens/otp_page.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,6 +18,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     TextEditingController adId = TextEditingController();
+    final TextEditingController _controller = TextEditingController();
     void login(String Id) async {
       try {
         Response response =
@@ -77,6 +79,11 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                 controller: _controller,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
+          ],
                  decoration: InputDecoration(
                           enabledBorder:  OutlineInputBorder(
                               borderSide: const BorderSide(color: Colors.white),
@@ -108,7 +115,7 @@ class _LoginState extends State<Login> {
                                onPressed: () {
                               login(adId.text);
                              },
-                               child: const Text('LOGIN',style: TextStyle(fontSize: 20),),
+                               child: const Text('SEND OTP',style: TextStyle(fontSize: 20),),
                              ),
           ],
         )

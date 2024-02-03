@@ -144,9 +144,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               items: [
                 // Add your image items here
-                Image.network('https://www.mediaoneonline.com/h-upload/2023/11/17/1397946-navakerala-sadass.webp', fit: BoxFit.cover),
-                Image.network('https://img.etimg.com/thumb/width-640,height-480,imgsize-99240,resizemode-75,msid-94473942/news/politics-and-nation/bharat-jodo-yatra-enters-malappuram-in-kerala/rahul-gandhi-resumes-bharat-jodo-yatra-from-aluva-uc-college-in-kerala.jpg', fit: BoxFit.cover)
-                
+                Image.network('https://images.moneycontrol.com/static-mcnews/2021/04/P-Vijayan-770x433.jpg?impolicy=website&width=770&height=431', fit: BoxFit.cover),
+                Image.network("https://1.bp.blogspot.com/-FwixDe2oaT0/YNidS5zzGEI/AAAAAAAA7_E/roj_M-86vcEG6wZUM0pSflsFkBBH7M9iwCLcBGAsYHQ/s0/govt-of-kerala-mobile-apps.webp")
               
                 // Add more images as needed
               ],)

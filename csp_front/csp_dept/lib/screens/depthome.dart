@@ -5,6 +5,7 @@ import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptform.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class depthome extends StatefulWidget {
   const depthome({super.key});
@@ -90,11 +91,26 @@ class _depthomeState extends State<depthome> {
                         },
                         child: const Text('VIEW DATA',style: TextStyle(fontSize: 18),),
                       ),
-
-                      
-        
-        
-        
+                      const SizedBox(height: 50),
+     CarouselSlider(
+              options: CarouselOptions(
+                height: 300.0,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                aspectRatio: 16 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                viewportFraction: 0.9,
+              ),
+              items: [
+                // Add your image items here
+                Image.network('https://images.moneycontrol.com/static-mcnews/2021/04/P-Vijayan-770x433.jpg?impolicy=website&width=770&height=431', fit: BoxFit.cover),
+                
+                Image.network('https://1.bp.blogspot.com/-FwixDe2oaT0/YNidS5zzGEI/AAAAAAAA7_E/roj_M-86vcEG6wZUM0pSflsFkBBH7M9iwCLcBGAsYHQ/s0/govt-of-kerala-mobile-apps.webp', fit: BoxFit.cover),
+               
+                // Add more images as needed
+              ],)
         
         ],),
       )

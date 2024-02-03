@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-// ignore: camel_case_types
 class deptevent extends StatefulWidget {
   const deptevent({Key? key}) : super(key: key);
 
@@ -41,6 +42,7 @@ class _EventFormState extends State<EventForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _eventNameController = TextEditingController();
   TextEditingController _eventDateController = TextEditingController();
+  XFile? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -108,11 +110,21 @@ class _EventFormState extends State<EventForm> {
                   },
                 ),
                 const SizedBox(height: 35.0),
-                // Add Picture IconButton (No functionality)
+                // Add Picture IconButton (with functionality)
                 Center(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.add_a_photo, color: Colors.black,size: 36.0),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (_selectedImage != null)
+                        CircleAvatar(
+                          backgroundImage: FileImage(File(_selectedImage!.path)),
+                          radius: 50,
+                        ),
+                      IconButton(
+                        onPressed: _pickImage,
+                        icon: const Icon(Icons.add_a_photo, color: Colors.black, size: 36.0),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -134,6 +146,9 @@ class _EventFormState extends State<EventForm> {
                     // Perform form submission
                     print('Event Name: ${_eventNameController.text}');
                     print('Event Date: ${_eventDateController.text}');
+                    if (_selectedImage != null) {
+                      print('Selected Image: ${_selectedImage!.path}');
+                    }
                   }
                 },
                 child: const Text('SUBMIT'),
@@ -143,5 +158,14 @@ class _EventFormState extends State<EventForm> {
         ),
       ),
     );
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _selectedImage = image;
+    });
   }
 }

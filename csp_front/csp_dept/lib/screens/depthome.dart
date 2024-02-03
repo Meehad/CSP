@@ -55,7 +55,7 @@ class _depthomeState extends State<depthome> {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptform()));
                               
                         },
-                        child: const Text('CREATE FORM'),
+                        child: const Text('CREATE FORM',style: TextStyle(fontSize: 18),),
                       ),
                        const SizedBox(height: 50,),
         
@@ -71,7 +71,7 @@ class _depthomeState extends State<depthome> {
                         ),onPressed: (){
                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptevent()));
                         },
-                        child: const Text('PUBLISH AN EVENT'),
+                        child: const Text('PUBLISH AN EVENT',style: TextStyle(fontSize: 18),),
                       ),
 
                       const SizedBox(height: 50,),
@@ -88,7 +88,7 @@ class _depthomeState extends State<depthome> {
                         ),onPressed: (){
                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptviewdata()));
                         },
-                        child: const Text('VIEW DATA'),
+                        child: const Text('VIEW DATA',style: TextStyle(fontSize: 18),),
                       ),
 
                       

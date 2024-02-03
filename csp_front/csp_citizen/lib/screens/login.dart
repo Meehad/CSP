@@ -74,12 +74,24 @@ class _LoginState extends State<Login> {
             style: TextStyle(
                   color: Color.fromARGB(179, 253, 251, 251), fontSize: 20),),
             // adhaar textfeild
-            TextField(
-              controller: adId,
-              decoration: const InputDecoration(label: Text('Adhaar ID') ,
-              contentPadding: EdgeInsets.symmetric(horizontal:(20.0)) //text field label hint alignment(Adhaar ID)
-              ),
-            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextField(
+                 decoration: InputDecoration(
+                          enabledBorder:  OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white)
+                              ),
+                          fillColor: const Color.fromRGBO(255, 255, 255, 1),
+                          filled: true,
+                          hintText: "AADHAAR NO",
+                          hintStyle: const TextStyle(
+                              color: Color.fromARGB(255, 158, 158, 158))),
+                      obscureText: false,
+                    )),
+                    SizedBox(height: 20),
             // buttonar
             
                 ElevatedButton(
@@ -89,7 +101,7 @@ class _LoginState extends State<Login> {
                             onPrimary: Colors.green, // text color
                              elevation: 5, // elevation
                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(15)
                              // rounded corners
                               ),
                                     ),

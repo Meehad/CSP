@@ -69,6 +69,7 @@ class deptlogin extends StatelessWidget {
                 
                  ElevatedButton(
                        style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(140, 40),
                                primary: Colors.white, // background color
                             onPrimary: Colors.green, // text color
                              elevation: 5, // elevation
@@ -80,7 +81,7 @@ class deptlogin extends StatelessWidget {
                                           // onPressed handler
                                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const depthome()));
                               },
-                               child: const Text('LOGIN'),
+                               child: const Text('LOGIN',style: TextStyle(fontSize: 20),),
                              ),
                 
               ],

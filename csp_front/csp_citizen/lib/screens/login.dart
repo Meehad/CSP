@@ -61,6 +61,7 @@ class _LoginState extends State<Login> {
             const Text("CITIZEN SERVICE PORTAL",
             style: 
             TextStyle(
+               fontWeight: FontWeight.bold,
                   color: Color.fromARGB(179, 253, 251, 251), fontSize: 25),),
             const Padding(
                   padding: EdgeInsets.all(40.0),
@@ -74,6 +75,7 @@ class _LoginState extends State<Login> {
             
             const Text("WELCOME",
             style: TextStyle(
+              fontWeight: FontWeight.bold,
                   color: Color.fromARGB(179, 253, 251, 251), fontSize: 20),),
             // adhaar textfeild
             Padding(

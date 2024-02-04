@@ -48,7 +48,7 @@ class deptdetails extends StatelessWidget {
               IconButton(
                 onPressed: ()
                 {
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const deptlogin()));
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const DeptLogin()));
                 }, // Set onPressed to null for no functionality
                 icon: const Icon(Icons.logout, color: Colors.black, size: 50.0),
               ),

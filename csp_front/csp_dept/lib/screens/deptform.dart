@@ -109,7 +109,7 @@ class _QuestionFormState extends State<QuestionForm> {
                 _formKey.currentState!.save();
               }
             },
-            child: const Text('ADD QUESTION'),
+            child: const Text('ADD QUESTION',style: TextStyle(fontSize: 15)),
           ),
           const SizedBox(height: 30,),
        ElevatedButton(
@@ -121,7 +121,7 @@ class _QuestionFormState extends State<QuestionForm> {
                               borderRadius: BorderRadius.circular(15), // rounded corners
                                 ),
                         ),onPressed: (){},                                                      
-                        child: const Text('SUBMIT'),
+                        child: const Text('SUBMIT',style: TextStyle(fontSize: 15)),
                       ),
 
        

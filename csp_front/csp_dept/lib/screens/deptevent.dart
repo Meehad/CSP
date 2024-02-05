@@ -151,7 +151,8 @@ class _EventFormState extends State<EventForm> {
                     }
                   }
                 },
-                child: const Text('SUBMIT'),
+                child: const Text('SUBMIT', style: TextStyle(fontSize: 15))
+                ,
               ),
             ),
           ],

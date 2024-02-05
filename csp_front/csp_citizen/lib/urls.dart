@@ -1,1 +1,1 @@
-Uri loginurl = Uri.parse("${{ secrets.LOGIN_API }}");
+Uri loginurl = Uri.parse(${{ secrets.LOGIN_API }});

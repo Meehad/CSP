@@ -18,7 +18,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     TextEditingController adId = TextEditingController();
-    final TextEditingController _controller = TextEditingController();
     void login(String Id) async {
       try {
         Response response =
@@ -37,10 +36,11 @@ class _LoginState extends State<Login> {
                   title: const Text('CSP'),
                   content: const Text('Failed!'),
                   actions: [
-                    MaterialButton(onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('ok'),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('ok'),
                     )
                   ],
                 );
@@ -54,74 +54,81 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.green,
       body: SafeArea(
-          child: Center(
-        child: Column(
+        child: Center(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("CITIZEN SERVICE PORTAL",
-            style: 
-            TextStyle(
-               fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251), fontSize: 25),),
+            const Text(
+              "CITIZEN SERVICE PORTAL",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(179, 253, 251, 251),
+                  fontSize: 25),
+            ),
             const Padding(
-                  padding: EdgeInsets.all(40.0),
-                  child: Image(
-                    image: AssetImage('assets/logo.png'),
-                    height: 200,
-                  ),
-                ),
-            
+              padding: EdgeInsets.all(40.0),
+              child: Image(
+                image: AssetImage('assets/logo.png'),
+                height: 200,
+              ),
+            ),
+
             // Hello again
-            
-            const Text("WELCOME",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251), fontSize: 20),),
+
+            const Text(
+              "WELCOME",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(179, 253, 251, 251),
+                  fontSize: 20),
+            ),
             // adhaar textfeild
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: TextField(
-                 controller: _controller,
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
-          ],
-                 decoration: InputDecoration(
-                          enabledBorder:  OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white)
-                              ),
-                          fillColor: const Color.fromRGBO(255, 255, 255, 1),
-                          filled: true,
-                          hintText: "AADHAAR NO",
-                          hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 158, 158, 158))),
-                      obscureText: false,
-                    )),
-                    SizedBox(height: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: adId,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
+                  ],
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20.0)),
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      fillColor: const Color.fromRGBO(255, 255, 255, 1),
+                      filled: true,
+                      hintText: "AADHAAR NO",
+                      hintStyle: const TextStyle(
+                          color: Color.fromARGB(255, 158, 158, 158))),
+                  obscureText: false,
+                )),
+            SizedBox(height: 20),
             // buttonar
-            
-                ElevatedButton(
-                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(140, 40),//button dimentions for login button
-                               primary: Colors.white, // background color
-                            onPrimary: Colors.green, // text color
-                             elevation: 5, // elevation
-                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)
-                             // rounded corners
-                              ),
-                                    ),
-                               onPressed: () {
-                              login(adId.text);
-                             },
-                               child: const Text('SEND OTP',style: TextStyle(fontSize: 20),),
-                             ),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize:
+                    const Size(140, 40), //button dimentions for login button
+                primary: Colors.white, // background color
+                onPrimary: Colors.green, // text color
+                elevation: 5, // elevation
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
+                    // rounded corners
+                    ),
+              ),
+              onPressed: () {
+                login(adId.text);
+              },
+              child: const Text(
+                'SEND OTP',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ],
-        )
-        ),
+        )),
       ),
     );
   }

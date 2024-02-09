@@ -1,6 +1,6 @@
+import 'package:csp_dept/widgets/cards.dart';
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types
 class deptform extends StatefulWidget {
   const deptform({super.key});
 
@@ -8,14 +8,13 @@ class deptform extends StatefulWidget {
   State<deptform> createState() => _deptformState();
 }
 
-// ignore: camel_case_types
 class _deptformState extends State<deptform> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-             backgroundColor: const Color.fromRGBO(146, 245, 142, 1),
+    return Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-        title:  const Padding(
+        title: const Padding(
           padding: EdgeInsets.only(right: 50.0),
           child: Center(
             child: Text(
@@ -24,11 +23,11 @@ class _deptformState extends State<deptform> {
             ),
           ),
         ),
-        ),
-           body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: QuestionForm(),
-        ),      
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: QuestionForm(),
+      ),
     );
   }
 }
@@ -41,6 +40,7 @@ class QuestionForm extends StatefulWidget {
 class _QuestionFormState extends State<QuestionForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<String> questions = [];
+  TextEditingController tbox = TextEditingController();
 
   void _addQuestion(String question) {
     setState(() {
@@ -48,89 +48,140 @@ class _QuestionFormState extends State<QuestionForm> {
     });
   }
 
+  List<QuestionCard> questionCards = [];
+  String selectedValue = "Short Answer";
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
+    return SingleChildScrollView(
       child: Column(
         children: [
-          // Questions
-          for (String question in questions)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(question),
+          for (var card in questionCards) card,
+          SizedBox(height: 16),
+          Card(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: tbox,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: "QUESTION",
+                    hintStyle: TextStyle(
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButton(
+                      value: selectedValue,
+                      items: ["Short Answer", "Multiple Choice"]
+                          .map((String value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedValue = newValue!;
+                        });
+                      },
+                    ),
+                    SizedBox(width: 5),
+                    IconButton(
+                      onPressed: () {
+                        _addQuestionCard();
+                      },
+                      icon: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 50,),
-          // Question Input
-          TextFormField(
-             decoration:  InputDecoration(
-                          enabledBorder:  OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(30.0)),
-                          focusedBorder: const OutlineInputBorder(
-
-                              borderSide: BorderSide(color: Colors.white),
-                              ),
-                          fillColor: const Color.fromRGBO(255, 255, 255, 1),
-
-                          filled: true,
-                          hintText: "ENTER A QUESTION",
-                          hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 158, 158, 158))),
-            
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a question';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              _addQuestion(value!);
-            },
           ),
-          const SizedBox(height: 30,),
-          // Add Question Button
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                                 primary: Colors.white, // background color
-                              onPrimary: Colors.green, // text color
-                               elevation: 5, // elevation
-                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15), // rounded corners
-                                ),
-                        ),
+              primary: Colors.orange,
+              onPrimary: Colors.white,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-              }
+              // Handle submit logic here
             },
-            child: const Text('ADD QUESTION',style: TextStyle(fontSize: 15)),
+            child: const Text('SUBMIT'),
           ),
-          const SizedBox(height: 30,),
-       ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                                 primary: Colors.white, // background color
-                              onPrimary: Colors.green, // text color
-                               elevation: 5, // elevation
-                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15), // rounded corners
-                                ),
-                        ),onPressed: (){},                                                      
-                        child: const Text('SUBMIT',style: TextStyle(fontSize: 15)),
-                      ),
+        ],
+      ),
+    );
+  }
 
-       
+  void _addQuestionCard() {
+    setState(() {
+      questionCards.add(QuestionCard(
+        question: tbox.text,
+        type: selectedValue,
+        onDelete: () {
+          _removeQuestionCard(questionCards.length - 1);
+        },
+      ));
+    });
+  }
+
+  void _removeQuestionCard(int index) {
+    setState(() {
+      questionCards.removeAt(index);
+    });
+  }
+}
+
+class QuestionCard extends StatelessWidget {
+  final String question;
+  final String type;
+  final VoidCallback onDelete;
+
+  const QuestionCard({
+    required this.question,
+    required this.type,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(question),
+            subtitle: Text(type),
+            trailing: IconButton(
+              onPressed: onDelete,
+              icon: Icon(Icons.remove),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-
-
-    
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: Cards(),
+    ),
+  ));
+}

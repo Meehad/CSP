@@ -1,11 +1,28 @@
+import 'package:csp_citizen/models/user_data.dart';
+// ignore: unused_import
+import 'package:csp_citizen/providers/user_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'login.dart'; // Import your login page file
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    final postModel = Provider.of<DataClass>(context, listen: false);
+    postModel.getPostData();
+  }
+
   Widget build(BuildContext context) {
+    final postModel = Provider.of<DataClass>(context);
+    final String img_url = postModel.post?.image ?? "";
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Profile'),
@@ -31,39 +48,69 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
                   radius: 70.0,
-                  backgroundImage: AssetImage('assets/profile1.jpg'),
+                  backgroundImage: AssetImage('assets/profile1.jpg'), //NetworkImage("http://10.0.2.2:8000" +img_url),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
-                  'Tyler Durden',
-                  style: TextStyle(
+                  // 'Tyler Durden'
+                  postModel.post?.name ?? "",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                Text(
-                  'Phone no: +91 7893458254',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 16, color: Color.fromARGB(255, 43, 43, 43)),
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Phone no:',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontSize: 16, color: Color.fromARGB(255, 43, 43, 43)),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      postModel.post?.phone_number ?? "",
+                      // (currentUser.phoneNumber).toString(),
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontSize: 16, color: Color.fromARGB(255, 43, 43, 43)),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Date of Birth: 18/12/1963',
-                  style: TextStyle(
-                      fontSize: 16, color: Color.fromARGB(255, 40, 40, 40)),
-                  overflow: TextOverflow.ellipsis,
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Date of Birth:',
+                      style: TextStyle(
+                          fontSize: 16, color: Color.fromARGB(255, 40, 40, 40)),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      postModel.post?.date_of_birth ?? "",
+                      // currentUser.dob,
+                      style: const TextStyle(
+                          fontSize: 16, color: Color.fromARGB(255, 40, 40, 40)),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -81,6 +128,7 @@ class ProfilePage extends StatelessWidget {
               icon: const Icon(Icons.logout),
               onPressed: () {
                 // Navigate to the login page
+                print('$img_url');
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Login()),

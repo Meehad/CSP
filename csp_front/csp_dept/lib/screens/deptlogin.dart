@@ -1,11 +1,49 @@
+import 'dart:convert';
+
 import 'package:csp_dept/screens/depthome.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class DeptLogin extends StatelessWidget {
   const DeptLogin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController dpId = TextEditingController();
+    TextEditingController dppwd = TextEditingController();
+    // void login(String Id, String pwd) async {
+    //   try {
+    //     Response response = await post(loginurl,
+    //         body: {'dept_id': Id.toString(), 'dpassword': pwd.toString()});
+    //     if (response.statusCode == 200) {
+    //       Navigator.of(context).push(MaterialPageRoute(
+    //         builder: (context) => const Depthome(),
+    //       ));
+    //     } else {
+    //       showDialog(
+    //           context: context,
+    //           builder: (context) {
+    //             return AlertDialog(
+    //               backgroundColor: Colors.grey[300],
+    //               title: const Text('CSP'),
+    //               content: const Text('Failed!'),
+    //               actions: [
+    //                 MaterialButton(
+    //                   onPressed: () {
+    //                     Navigator.pop(context);
+    //                   },
+    //                   child: const Text('ok'),
+    //                 )
+    //               ],
+    //             );
+    //           });
+    //     }
+    //   } catch (e) {
+    //     print(e.toString());
+    //   }
+    // }
+
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
@@ -37,6 +75,7 @@ class DeptLogin extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
+                  controller: dpId,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -59,6 +98,7 @@ class DeptLogin extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
+                  controller: dppwd,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),

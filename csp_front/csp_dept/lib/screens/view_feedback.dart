@@ -1,52 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class FeedbackPage extends StatefulWidget {
-  const FeedbackPage({Key? key}) : super(key: key);
+class ViewFeedback extends StatefulWidget {
+  const ViewFeedback({Key? key}) : super(key: key);
 
   @override
-  State<FeedbackPage> createState() => _FeedbackPageState();
+  State<ViewFeedback> createState() => _ViewFeedbackState();
 }
 
-class _FeedbackPageState extends State<FeedbackPage> {
-  double rating = 3.0; // Default rating value
+class _ViewFeedbackState extends State<ViewFeedback> {
+  double rating = 3.0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: const Text('Feedback'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildFeedbackCard(
-                'assets/rahul.jpg',
-                'Rahul\'s Image',
-                'Description for Rahul\'s Image',
-              ),
-              const SizedBox(height: 16),
-              // Additional cards
-              _buildFeedbackCard(
-                'assets/oppie.jpg',
-                'The development of the atomic bomb',
-                'Description for Image 2',
-              ),
-              const SizedBox(height: 16),
-              _buildFeedbackCard(
-                'assets/Navakerala.jpg',
-                'NavaKerala',
-                'Description for Image 3',
-              ),
-            ],
-          ),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildFeedbackCard(
+              'assets/rahul.jpg',
+              'Rahul\'s Image',
+              'Description for Rahul\'s Image',
+            ),
+            const SizedBox(height: 16),
+            // Additional cards
+            _buildFeedbackCard(
+              'assets/oppie.jpg',
+              'The development of the atomic bomb',
+              'Description for Image 2',
+            ),
+            const SizedBox(height: 16),
+            _buildFeedbackCard(
+              'assets/joker.png',
+              'DANCIn',
+              'Description for Image 3',
+            ),
+          ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 35, 35, 35),
     );
   }
 
@@ -57,7 +50,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Image.asset(
           imagePath,
-          height: 150, // Adjust the height as needed
+          height: 150,
           fit: BoxFit.cover,
         ),
         const SizedBox(height: 8),
@@ -116,16 +109,14 @@ class _FeedbackPageState extends State<FeedbackPage> {
         ElevatedButton(
           onPressed: () {
             // Add logic to submit feedback for this card
-            // ignore: avoid_print
             print('Feedback submitted for $title');
           },
           style: ElevatedButton.styleFrom(
-            primary: Color.fromARGB(255, 58, 58, 58), // Background color
-            onPrimary: Color.fromARGB(255, 213, 213, 213), // Text color
+            primary: Color.fromARGB(255, 58, 58, 58),
+            onPrimary: Color.fromARGB(255, 213, 213, 213),
             elevation: 3,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  2), // Adjust the border radius as needed
+              borderRadius: BorderRadius.circular(2),
             ),
           ),
           child: const Text(
@@ -139,10 +130,4 @@ class _FeedbackPageState extends State<FeedbackPage> {
       ]),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: FeedbackPage(),
-  ));
 }

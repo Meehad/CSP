@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(179, 253, 251, 251),
-                  fontSize: 25),
+                  fontSize: 30),
             ),
             const Padding(
               padding: EdgeInsets.all(40.0),
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(179, 253, 251, 251),
-                  fontSize: 20),
+                  fontSize: 25),
             ),
             // adhaar textfeild
             Padding(
@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
               },
               child: const Text(
                 'SEND OTP',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 15),
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/complaint.dart';
 import 'package:csp_citizen/screens/feedback.dart';
 import 'package:csp_citizen/screens/home.dart';
@@ -5,9 +6,14 @@ import 'package:csp_citizen/screens/login.dart';
 import 'package:csp_citizen/screens/profile.dart';
 import 'package:csp_citizen/screens/survey.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => DataClass(),
+    child: const MyApp(),
+   ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,11 +31,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const Login(),
       routes: {
-       '/home':(context) => const MyHomePage(title: 'CSP'),
-        '/profile':(context) => const ProfilePage(),
-        '/complaint':(context) => const ComplaintPage(),
-        '/survey':(context) => const SurveyPage(),
-        '/feedback':(context) => const FeedbackPage(),
+        '/home': (context) => const MyHomePage(title: 'CSP'),
+        '/profile': (context) => const ProfilePage(),
+        '/complaint': (context) => const ComplaintPage(),
+        '/survey': (context) => const SurveyPage(),
+        '/feedback': (context) => const FeedbackPage(),
       },
     );
   }

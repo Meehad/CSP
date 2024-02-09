@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Citizen {
   final String name;
   final int age;
@@ -29,58 +28,56 @@ class deptviewdata extends StatefulWidget {
 
 // ignore: camel_case_types
 class _deptviewdataState extends State<deptviewdata> {
+  Citizen citizen1 = Citizen(
+    name: "Anshad K",
+    age: 21,
+    dob: "27/06/2003",
+    address: "Mannarmala(PO),679325(PIN)",
+    occupation: "NULL",
+    aadhaarNo: "1234-5678-9012",
+  );
 
+  Citizen citizen2 = Citizen(
+    name: "Meehad",
+    age: 21,
+    dob: "05/12/2003",
+    address: "Vaniyambalam",
+    occupation: "NULL",
+    aadhaarNo: "9876-5432-1098",
+  );
 
-   Citizen citizen1 = Citizen(
-      name: "Anshad K",
-      age: 21,
-      dob: "27/06/2003",
-      address: "Mannarmala(PO),679325(PIN)",
-      occupation: "NULL",
-      aadhaarNo: "1234-5678-9012",
-    );
+  Citizen citizen3 = Citizen(
+    name: "Shafad",
+    age: 21,
+    dob: "10/05/2003",
+    address: "Chemmaniyod",
+    occupation: "NULL",
+    aadhaarNo: "5678-9012-3456",
+  );
+  Citizen citizen4 = Citizen(
+    name: "Wissam",
+    age: 21,
+    dob: "03/08/2003",
+    address: "Wandoor",
+    occupation: "NULL",
+    aadhaarNo: "2345-6789-0123",
+  );
 
-    Citizen citizen2 = Citizen(
-      name: "Meehad",
-      age: 21,
-      dob: "05/12/2003",
-      address: "Vaniyambalam",
-      occupation: "NULL",
-      aadhaarNo: "9876-5432-1098",
-    );
-
-    Citizen citizen3 = Citizen(
-      name: "Shafad",
-      age: 21,
-      dob: "10/05/2003",
-      address: "Chemmaniyod",
-      occupation: "NULL",
-      aadhaarNo: "5678-9012-3456",
-    );
-     Citizen citizen4 = Citizen(
-      name: "Wissam",
-      age: 21,
-      dob: "03/08/2003",
-      address: "Wandoor",
-      occupation: "NULL",
-      aadhaarNo: "2345-6789-0123",
-    );
-
-    Citizen citizen5 = Citizen(
-      name: "Shaheel Kotta",
-      age: 21,
-      dob: "12/12/2003",
-      address: "Pookottur",
-      occupation: "NULL",
-      aadhaarNo: "6789-0123-4567",
-    );
+  Citizen citizen5 = Citizen(
+    name: "Shaheel Kotta",
+    age: 21,
+    dob: "12/12/2003",
+    address: "Pookottur",
+    occupation: "NULL",
+    aadhaarNo: "6789-0123-4567",
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- backgroundColor: const Color.fromRGBO(146, 245, 142, 1),
+      backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
-        title:  const Padding(
+        title: const Padding(
           padding: EdgeInsets.only(right: 50.0),
           child: Center(
             child: Text(
@@ -89,18 +86,18 @@ class _deptviewdataState extends State<deptviewdata> {
             ),
           ),
         ),
-        ),
-        body: ListView(
-          padding: const EdgeInsets.all(16.0), // Add padding to the entire ListView
-          children: [
-            CitizenCard(citizen1),
-            CitizenCard(citizen2),
-            CitizenCard(citizen3),
-            CitizenCard(citizen4),
-            CitizenCard(citizen5),
-          ],
-        ),
-     
+      ),
+      body: ListView(
+        padding:
+            const EdgeInsets.all(16.0), // Add padding to the entire ListView
+        children: [
+          CitizenCard(citizen1),
+          CitizenCard(citizen2),
+          CitizenCard(citizen3),
+          CitizenCard(citizen4),
+          CitizenCard(citizen5),
+        ],
+      ),
     );
   }
 }
@@ -160,13 +157,13 @@ class CitizenCard extends StatelessWidget {
           actions: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                                 primary: Colors.white, // background color
-                              onPrimary: Colors.green, // text color
-                               elevation: 5, // elevation
-                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15), // rounded corners
-                                ),
-                        ),
+                primary: Colors.white, // background color
+                onPrimary: Colors.green, // text color
+                elevation: 5, // elevation
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), // rounded corners
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },

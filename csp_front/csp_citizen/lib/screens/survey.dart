@@ -106,9 +106,3 @@ class _SurveyPageState extends State<SurveyPage> {
     );
   }
 }
-
-void main() {
-  runApp(const MaterialApp(
-    home: SurveyPage(),
-  ));
-}

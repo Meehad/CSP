@@ -22,7 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
-    final String img_url = postModel.post?.image ?? "";
+    final String img = postModel.post?.image ?? "";
+    final String img_url = "http://10.0.2.2:8000$img";
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Profile'),
@@ -54,7 +55,8 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 CircleAvatar(
                   radius: 70.0,
-                  backgroundImage: AssetImage('assets/profile1.jpg'), //NetworkImage("http://10.0.2.2:8000" +img_url),
+                  backgroundImage: NetworkImage(
+                      img_url), //NetworkImage("http://10.0.2.2:8000" +img_url),
                 ),
                 const SizedBox(height: 16),
                 Text(

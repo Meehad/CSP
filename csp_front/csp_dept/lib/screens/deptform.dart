@@ -12,17 +12,18 @@ class _deptformState extends State<deptform> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(right: 50.0),
           child: Center(
             child: Text(
               'FORMS SECTION',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
         ),
+         backgroundColor: Colors.teal[400],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -109,10 +110,11 @@ class _QuestionFormState extends State<QuestionForm> {
               ],
             ),
           ),
+          SizedBox(height: 20,),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.orange,
-              onPrimary: Colors.white,
+              primary: Colors.white,
+              onPrimary: Colors.teal[900],
               elevation: 5,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),

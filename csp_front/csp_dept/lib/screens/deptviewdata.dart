@@ -75,17 +75,18 @@ class _deptviewdataState extends State<deptviewdata> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(right: 50.0),
           child: Center(
             child: Text(
               'DATA SECTION',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
         ),
+         backgroundColor: Colors.teal[400],
       ),
       body: ListView(
         padding:
@@ -158,7 +159,7 @@ class CitizenCard extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.white, // background color
-                onPrimary: Colors.green, // text color
+                onPrimary: Colors.teal[900], // text color
                 elevation: 5, // elevation
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15), // rounded corners

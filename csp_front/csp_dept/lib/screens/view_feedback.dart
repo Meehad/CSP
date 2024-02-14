@@ -112,11 +112,11 @@ class _ViewFeedbackState extends State<ViewFeedback> {
             print('Feedback submitted for $title');
           },
           style: ElevatedButton.styleFrom(
-            primary: Color.fromARGB(255, 58, 58, 58),
-            onPrimary: Color.fromARGB(255, 213, 213, 213),
-            elevation: 3,
+            primary: Colors.deepOrange[200],
+            onPrimary: Colors.teal[900],
+            elevation: 5,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(50),
             ),
           ),
           child: const Text(

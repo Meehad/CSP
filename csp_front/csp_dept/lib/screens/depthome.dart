@@ -16,14 +16,14 @@ class _DepthomeState extends State<Depthome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: Center(
             child: Text(
               'CSP',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
         ),
@@ -34,10 +34,11 @@ class _DepthomeState extends State<Depthome> {
                 MaterialPageRoute(builder: (context) => deptdetails()),
               );
             },
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.list,color: Colors.black,),
             iconSize: 45.0,
           )
         ],
+        backgroundColor: Colors.teal[400],
       ),
       body: Center(
         child: Column(
@@ -46,10 +47,10 @@ class _DepthomeState extends State<Depthome> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                onPrimary: Colors.lightBlueAccent,
+                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
               onPressed: () {
@@ -57,16 +58,19 @@ class _DepthomeState extends State<Depthome> {
                   MaterialPageRoute(builder: (context) => const deptform()),
                 );
               },
-              child: const Text('CREATE FORM', style: TextStyle(fontSize: 18)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
+                child: const Text('CREATE FORM', style: TextStyle(fontSize: 20)),
+              ),
             ),
             const SizedBox(height: 50),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                onPrimary: Colors.lightBlueAccent,
+                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
               onPressed: () {
@@ -74,16 +78,19 @@ class _DepthomeState extends State<Depthome> {
                   MaterialPageRoute(builder: (context) => const deptevent()),
                 );
               },
-              child: const Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 18)),
+              child: Padding(
+                padding: EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
+                child: const Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 20)),
+              ),
             ),
             const SizedBox(height: 50),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.white,
-                onPrimary: Colors.lightBlueAccent,
+                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
               onPressed: () {
@@ -91,7 +98,10 @@ class _DepthomeState extends State<Depthome> {
                   MaterialPageRoute(builder: (context) => const deptviewdata()),
                 );
               },
-              child: const Text('VIEW DATA', style: TextStyle(fontSize: 18)),
+              child: Padding(
+                padding: EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
+                child: const Text('VIEW DATA', style: TextStyle(fontSize: 20)),
+              ),
             ),
             const SizedBox(height: 50),
             CarouselSlider(

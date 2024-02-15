@@ -108,10 +108,10 @@ class _Event_publishState extends State<Event_publish> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
-                  onPrimary: Colors.green,
+                  onPrimary: Colors.teal[900],
                   elevation: 5,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 onPressed: () {
@@ -124,7 +124,10 @@ class _Event_publishState extends State<Event_publish> {
                     }
                   }
                 },
-                child: const Text('SUBMIT', style: TextStyle(fontSize: 15)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
+                  child: const Text('SUBMIT', style: TextStyle(fontSize: 20)),
+                ),
               ),
             ),
           ],

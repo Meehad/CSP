@@ -43,7 +43,7 @@ class DeptLogin extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Center(
           child: Text(
@@ -55,7 +55,7 @@ class DeptLogin extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.teal[400],
       ),
       body: SafeArea(
         child: Center(
@@ -119,7 +119,7 @@ class DeptLogin extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 40),
                   primary: Colors.white,
-                  onPrimary: Colors.lightBlueAccent,
+                  onPrimary: Colors.teal[900],
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),

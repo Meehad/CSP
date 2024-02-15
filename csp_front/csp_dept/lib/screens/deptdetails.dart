@@ -10,9 +10,8 @@ class Department {
   Department(this.id, this.name, this.head, this.imagePath);
 }
 
-// ignore: camel_case_types
 class deptdetails extends StatelessWidget {
-   deptdetails({Key? key}) : super(key: key);
+  deptdetails({Key? key}) : super(key: key);
 
   final List<Department> departments = [
     Department(1, 'KSEB', 'Dr. Rajan N. Khobragade', 'assets/kseblogo.png'),
@@ -21,17 +20,18 @@ class deptdetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(146, 245, 142, 1),
+      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(right: 40.0),
           child: Center(
             child: Text(
               'DEPARTMENT DETAILS',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
         ),
+         backgroundColor: Colors.teal[400],
       ),
       body: Center(
         child: Padding(
@@ -44,13 +44,26 @@ class deptdetails extends StatelessWidget {
                 return _buildRectangle(department);
               }).toList(),
               const SizedBox(height: 70.0), // Add spacing
-              // Logout IconButton
-              IconButton(
-                onPressed: ()
-                {
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const DeptLogin()));
-                }, // Set onPressed to null for no functionality
-                icon: const Icon(Icons.logout, color: Colors.black, size: 50.0),
+              // Logout Button
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.lightBlueAccent,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const DeptLogin()),
+                  );
+                },
+                icon: Icon(Icons.logout,color: Color.fromARGB(255, 44, 44, 44)),
+                label: Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 15),
+                  child: const Text('LOGOUT', style: TextStyle(fontSize: 20,color: Colors.teal)),
+                ),
               ),
             ],
           ),
@@ -65,7 +78,7 @@ class deptdetails extends StatelessWidget {
       height: 150.0,
       decoration: BoxDecoration(
         border: Border.all(),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

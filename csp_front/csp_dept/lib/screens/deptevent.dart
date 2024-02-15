@@ -13,7 +13,10 @@ class deptevent extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("CSP EVENT"),
+            title: Padding(
+              padding: const EdgeInsets.only(right: 55),
+              child: Center(child: Text(" EVENT SECTION")),
+            ),
             bottom: TabBar(
               isScrollable: true,
               indicatorColor: Colors.white,
@@ -30,12 +33,13 @@ class deptevent extends StatelessWidget {
                 ),
               ],
             ),
+             backgroundColor: Colors.teal[400],
           ),
           body: TabBarView(controller: _controller, children: const [
             Event_publish(),
             ViewFeedback(),
           ]),
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: Colors.teal[400],
         ));
   }
 }

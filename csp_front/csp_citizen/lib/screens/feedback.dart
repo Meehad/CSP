@@ -113,15 +113,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
           height: 5,
           width: 50,
         ),
+        // ignore: unnecessary_const
         ElevatedButton(
           onPressed: () {
+
             // Add logic to submit feedback for this card
             // ignore: avoid_print
             print('Feedback submitted for $title');
           },
           style: ElevatedButton.styleFrom(
-            primary: Color.fromARGB(255, 58, 58, 58), // Background color
-            onPrimary: Color.fromARGB(255, 213, 213, 213), // Text color
+            primary: const Color.fromARGB(255, 58, 58, 58), // Background color
+            onPrimary: const Color.fromARGB(255, 213, 213, 213), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(

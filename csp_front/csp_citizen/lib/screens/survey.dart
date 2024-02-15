@@ -67,6 +67,25 @@ class _SurveyPageState extends State<SurveyPage> {
             ),
             const SizedBox(height: 16),
             _buildAnswerOptions(index + 1, options),
+          const SizedBox(height: 15,),
+            ElevatedButton(
+
+              onPressed: () {
+                
+                // Handle submission for the current card here
+                // You may want to store the responses, show a confirmation, etc.
+                print('Submit for Question ${index + 1}');
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 210, 210, 210), // Change the background color
+                onPrimary: Colors.white, // Change the text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0), // Adjust the button border radius
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // Adjust padding
+              ),
+              child: const Text('Submit',style: TextStyle(color: Colors.black),),
+            ),
           ],
         ),
       ),

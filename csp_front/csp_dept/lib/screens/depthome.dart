@@ -18,6 +18,7 @@ class _DepthomeState extends State<Depthome> {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: Center(
@@ -74,7 +75,8 @@ class _DepthomeState extends State<Depthome> {
                   MaterialPageRoute(builder: (context) => const deptevent()),
                 );
               },
-              child: const Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 18)),
+              child: const Text('PUBLISH AN EVENT',
+                  style: TextStyle(fontSize: 18)),
             ),
             const SizedBox(height: 50),
             ElevatedButton(

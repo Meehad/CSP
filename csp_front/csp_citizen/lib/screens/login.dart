@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/otp_page.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -121,6 +123,7 @@ class _LoginState extends State<Login> {
               ),
               onPressed: () {
                 login(adId.text);
+                context.read<DataClass>().changeId(new_id_num: adId.text);
               },
               child: const Text(
                 'SEND OTP',

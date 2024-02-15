@@ -18,6 +18,7 @@ class _DepthomeState extends State<Depthome> {
     return Scaffold(
       backgroundColor: Colors.teal[400],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: Center(

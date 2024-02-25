@@ -13,14 +13,14 @@ class DataClass extends ChangeNotifier {
   DataClass({this.id_num = ""});
 
   void changeId({required String new_id_num}) async {
-    id_num=new_id_num;
+    id_num = new_id_num;
   }
 
   Future<UserModel?> getSinglePostData({required String id_num}) async {
     UserModel? result;
     try {
       final response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/adm/${id_num}/showprofile/"),
+          Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showprofile/"),
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           });

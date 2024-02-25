@@ -33,9 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(
-              top: 175, bottom: 185), //white container dimensions
+              top: 170, bottom: 180), //white container dimensions
           child: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
               color: Colors.white, // Box background color
               borderRadius:
@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   backgroundImage: NetworkImage(
                       img_url), //NetworkImage("http://10.0.2.2:8000" +img_url),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 4),
                 Text(
                   // 'Tyler Durden'
                   postModel.post?.name ?? "",
@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 2,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,10 +142,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: ProfilePage(),
-  ));
 }

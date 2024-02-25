@@ -32,7 +32,8 @@ class UserModel {
   final String date_of_birth;
 
   UserModel(
-      {required this.name,
+      {
+      required this.name,
       required this.id_number,
       required this.phone_number,
       required this.image,
@@ -40,7 +41,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        name: json['name'] ?? "",
+      name: json['name'] ?? "",
         id_number: json['id_number'] ?? "",
         phone_number: json['phone_number'] ?? "",
         image: json['image'] ?? "",

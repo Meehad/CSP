@@ -31,11 +31,12 @@ class _DepthomeState extends State<Depthome> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => deptdetails()),
-              );
+              Navigator.pushNamed(context, '/dept_details');
             },
-            icon: const Icon(Icons.list,color: Colors.black,),
+            icon: const Icon(
+              Icons.list,
+              color: Colors.black,
+            ),
             iconSize: 45.0,
           )
         ],
@@ -55,13 +56,13 @@ class _DepthomeState extends State<Depthome> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const deptform()),
-                );
+                Navigator.pushNamed(context, '/survey');
               },
               child: Padding(
-                padding: const EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
-                child: const Text('CREATE FORM', style: TextStyle(fontSize: 20)),
+                padding: const EdgeInsets.only(
+                    left: 90, right: 90, top: 15, bottom: 15),
+                child:
+                    const Text('CREATE FORM', style: TextStyle(fontSize: 20)),
               ),
             ),
             const SizedBox(height: 50),
@@ -80,8 +81,10 @@ class _DepthomeState extends State<Depthome> {
                 );
               },
               child: Padding(
-                padding: EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
-                child: const Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 20)),
+                padding:
+                    EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
+                child: const Text('PUBLISH AN EVENT',
+                    style: TextStyle(fontSize: 20)),
               ),
             ),
             const SizedBox(height: 50),
@@ -100,7 +103,8 @@ class _DepthomeState extends State<Depthome> {
                 );
               },
               child: Padding(
-                padding: EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
+                padding:
+                    EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
                 child: const Text('VIEW DATA', style: TextStyle(fontSize: 20)),
               ),
             ),

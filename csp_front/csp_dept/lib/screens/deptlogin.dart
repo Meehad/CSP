@@ -1,7 +1,9 @@
+import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/screens/depthome.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 class DeptLogin extends StatelessWidget {
   const DeptLogin({Key? key}) : super(key: key);
@@ -15,9 +17,7 @@ class DeptLogin extends StatelessWidget {
         Response response = await post(loginurl,
             body: {'dept_id': Id.toString(), 'dpassword': pwd.toString()});
         if (response.statusCode == 200) {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Depthome(),
-          ));
+          Navigator.pushNamed(context, '/home');
         } else {
           showDialog(
               context: context,
@@ -45,6 +45,7 @@ class DeptLogin extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.teal[400],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Center(
           child: Text(
             "WELCOME TO CSP",
@@ -63,13 +64,13 @@ class DeptLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Image.asset(
                   'assets/logo.png',
-                  height: 175,
+                  height: 165,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
@@ -91,7 +92,7 @@ class DeptLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
@@ -114,7 +115,7 @@ class DeptLogin extends StatelessWidget {
                   obscureText: true,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 7),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 40),
@@ -127,6 +128,7 @@ class DeptLogin extends StatelessWidget {
                 ),
                 onPressed: () {
                   login(dpId.text, dppwd.text);
+                  context.read<DeptDataClass>().changeId(new_id_num: dpId.text);
                 },
                 child: const Text(
                   'LOGIN',

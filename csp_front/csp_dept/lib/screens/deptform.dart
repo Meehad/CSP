@@ -1,189 +1,292 @@
-import 'package:csp_dept/widgets/cards.dart';
 import 'package:flutter/material.dart';
 
-class deptform extends StatefulWidget {
-  const deptform({super.key});
-
+class SurveyApp extends StatefulWidget {
   @override
-  State<deptform> createState() => _deptformState();
+  _SurveyAppState createState() => _SurveyAppState();
 }
 
-class _deptformState extends State<deptform> {
+class _SurveyAppState extends State<SurveyApp> {
+  List<SurveyCard> surveyCards = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[400],
+      backgroundColor: const Color.fromARGB(255, 16, 185, 185),
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(right: 50.0),
-          child: Center(
-            child: Text(
-              'FORMS SECTION',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ),
-         backgroundColor: Colors.teal[400],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: QuestionForm(),
-      ),
-    );
-  }
-}
-
-class QuestionForm extends StatefulWidget {
-  @override
-  _QuestionFormState createState() => _QuestionFormState();
-}
-
-class _QuestionFormState extends State<QuestionForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<String> questions = [];
-  TextEditingController tbox = TextEditingController();
-
-  void _addQuestion(String question) {
-    setState(() {
-      questions.add(question);
-    });
-  }
-
-  List<QuestionCard> questionCards = [];
-  String selectedValue = "Short Answer";
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (var card in questionCards) card,
-          SizedBox(height: 16),
-          Card(
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              children: [
-                TextField(
-                  controller: tbox,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: "QUESTION",
-                    hintStyle: TextStyle(
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DropdownButton(
-                      value: selectedValue,
-                      items: ["Short Answer", "Multiple Choice"]
-                          .map((String value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                        });
-                      },
-                    ),
-                    SizedBox(width: 5),
-                    IconButton(
-                      onPressed: () {
-                        _addQuestionCard();
-                      },
-                      icon: Icon(Icons.add),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20,),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.white,
-              onPrimary: Colors.teal[900],
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
+        title: const Text('Survey App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
             onPressed: () {
-              // Handle submit logic here
+              _showAddCardDialog(context);
             },
-            child: const Text('SUBMIT'),
           ),
         ],
       ),
+      body: ListView.builder(
+        itemCount: surveyCards.length,
+        itemBuilder: (context, index) {
+          return Dismissible(
+            key: Key(surveyCards[index].hashCode.toString()),
+            onDismissed: (direction) {
+              _deleteSurveyCard(index);
+            },
+            child: surveyCards[index],
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showAddCardDialog(context);
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  void _addQuestionCard() {
+  void _addSurveyCard(bool isMultipleChoice, int numberOfChoices) {
     setState(() {
-      questionCards.add(QuestionCard(
-        question: tbox.text,
-        type: selectedValue,
+      surveyCards.add(SurveyCard(
         onDelete: () {
-          _removeQuestionCard(questionCards.length - 1);
+          _deleteSurveyCard(surveyCards.length - 1);
         },
+        isMultipleChoice: isMultipleChoice,
+        numberOfChoices: numberOfChoices,
       ));
     });
   }
 
-  void _removeQuestionCard(int index) {
+  void _deleteSurveyCard(int index) {
     setState(() {
-      questionCards.removeAt(index);
+      surveyCards.removeAt(index);
     });
+  }
+
+  Future<void> _showAddCardDialog(BuildContext context) async {
+    bool? isMultipleChoice = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Card Type'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true); // Multiple Choice
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.blue),
+                child: const Text(
+                  'Multiple Choice',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false); // Short Answer
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.green),
+                child: const Text(
+                  'Short Answer',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (isMultipleChoice != null) {
+      if (isMultipleChoice) {
+        int? numberOfChoices = await showDialog<int>(
+          context: context,
+          builder: (BuildContext context) {
+            TextEditingController controller = TextEditingController();
+            return AlertDialog(
+              title: const Text('Enter Number of Choices'),
+              content: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(int.tryParse(controller.text));
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 16, 185, 185)),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+        if (numberOfChoices != null) {
+          _addSurveyCard(isMultipleChoice, numberOfChoices);
+        }
+      } else {
+        _addSurveyCard(isMultipleChoice, 0);
+      }
+    }
   }
 }
 
-class QuestionCard extends StatelessWidget {
-  final String question;
-  final String type;
+class SurveyCard extends StatefulWidget {
   final VoidCallback onDelete;
+  final bool isMultipleChoice;
+  final int numberOfChoices;
 
-  const QuestionCard({
-    required this.question,
-    required this.type,
+  const SurveyCard({
     required this.onDelete,
+    required this.isMultipleChoice,
+    required this.numberOfChoices,
   });
+
+  @override
+  _SurveyCardState createState() => _SurveyCardState();
+}
+
+class _SurveyCardState extends State<SurveyCard> {
+  TextEditingController questionController = TextEditingController();
+  List<String> options = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < widget.numberOfChoices; i++) {
+      options.add('Option ${i + 1}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(question),
-            subtitle: Text(type),
-            trailing: IconButton(
-              onPressed: onDelete,
-              icon: Icon(Icons.remove),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: widget.onDelete,
+                ),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            TextField(
+              controller: questionController,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              decoration: const InputDecoration(
+                labelText: 'Enter your question',
+                labelStyle: TextStyle(color: Colors.blue),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (widget.isMultipleChoice)
+              for (int i = 0; i < options.length; i++)
+                ListTile(
+                  title: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: options[i],
+                          onChanged: (value) {
+                            options[i] = value;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Option ${i + 1}',
+                            labelStyle: const TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            options.removeAt(i);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  leading: Radio(
+                    value: i,
+                    groupValue: null,
+                    onChanged: (value) {},
+                  ),
+                ),
+            if (!widget.isMultipleChoice)
+              ListTile(
+                title: TextFormField(
+                  onChanged: (value) {
+                    // Handle short answer
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Short Answer',
+                    labelStyle: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ),
+            const SizedBox(height: 16),
+            if (widget.isMultipleChoice)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        options.add('Option ${options.length + 1}');
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 16, 185, 185)),
+                    child: const Text(
+                      'Add Option',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle survey submission
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 16, 185, 185),
+                    ),
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            if (!widget.isMultipleChoice)
+              ElevatedButton(
+                onPressed: () {
+                  // Handle survey submission for short answer
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 16, 185, 185),
+                ),
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: Cards(),
-    ),
-  ));
 }

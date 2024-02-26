@@ -116,14 +116,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
         // ignore: unnecessary_const
         ElevatedButton(
           onPressed: () {
-
             // Add logic to submit feedback for this card
             // ignore: avoid_print
             print('Feedback submitted for $title');
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromARGB(255, 58, 58, 58), // Background color
-            onPrimary: const Color.fromARGB(255, 213, 213, 213), // Text color
+            foregroundColor: const Color.fromARGB(255, 213, 213, 213), 
+            backgroundColor: const Color.fromARGB(255, 58, 58, 58), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -141,10 +140,4 @@ class _FeedbackPageState extends State<FeedbackPage> {
       ]),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: FeedbackPage(),
-  ));
 }

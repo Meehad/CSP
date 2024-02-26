@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class UserProvider extends ChangeNotifier {
-  String _userName = 'xdgvh';
+  String _userName = 'UserName';
 
   String get userName => _userName;
 

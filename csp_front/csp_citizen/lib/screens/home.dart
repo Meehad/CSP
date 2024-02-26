@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
-    // This method is rerun every time setState is called, for instance as done
+    // This method is return every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods

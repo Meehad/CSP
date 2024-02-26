@@ -6,6 +6,7 @@ class event(models.Model):
     dept_id = models.ForeignKey(DeptProfile, on_delete=models.CASCADE)
     event_name = models.TextField(max_length=105, unique=True)
     event_details = models.TextField()
+    event_img = models.ImageField(upload_to='event_images/')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

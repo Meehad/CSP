@@ -75,128 +75,41 @@ class _deptviewdataState extends State<deptviewdata> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[400],
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(right: 50.0),
-          child: Center(
-            child: Text(
-              'DATA SECTION',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-        ),
-         backgroundColor: Colors.teal[400],
-      ),
-      body: ListView(
-        padding:
-            const EdgeInsets.all(16.0), // Add padding to the entire ListView
-        children: [
-          CitizenCard(citizen1),
-          CitizenCard(citizen2),
-          CitizenCard(citizen3),
-          CitizenCard(citizen4),
-          CitizenCard(citizen5),
-        ],
-      ),
-    );
-  }
-}
-
-class CitizenCard extends StatelessWidget {
-  final Citizen citizen;
-
-  const CitizenCard(this.citizen);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        _showCitizenDetailsDialog(context, citizen);
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Card(
-          elevation: 5.0,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Name",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 5.0),
-                Text(citizen.name),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showCitizenDetailsDialog(BuildContext context, Citizen citizen) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("CITIZEN DETAILS"),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DetailItem("Name", citizen.name),
-              DetailItem("Age", citizen.age.toString()),
-              DetailItem("DOB", citizen.dob),
-              DetailItem("Address", citizen.address),
-              DetailItem("Occupation", citizen.occupation),
-              DetailItem("Aadhaar No", citizen.aadhaarNo),
-            ],
-          ),
-          actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white, // background color
-                onPrimary: Colors.teal[900], // text color
-                elevation: 5, // elevation
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // rounded corners
-                ),
+        backgroundColor: Colors.teal[400],
+        appBar: AppBar(
+          title: const Padding(
+            padding: EdgeInsets.only(right: 50.0),
+            child: Center(
+              child: Text(
+                'DATA SECTION',
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("CLOSE"),
             ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class DetailItem extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const DetailItem(this.label, this.value);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(value),
-        ],
-      ),
-    );
+          backgroundColor: Colors.teal[400],
+        ),
+        body: DataTable(columns: <DataColumn>[
+          DataColumn(label: Text('Answer_entry_id')),
+          DataColumn(label: Text('Id _number')),
+          DataColumn(label: Text('Question')),
+          // DataColumn(label: Text('Answer')),
+          // DataColumn(label: Text('Time_Submit')),
+        ], rows: <DataRow>[
+          DataRow(cells: <DataCell>[
+            DataCell(Text(citizen1.name)),
+            DataCell(Text(citizen1.occupation)),
+            DataCell(Text(citizen1.address)),
+          ]),
+          DataRow(cells: <DataCell>[
+            DataCell(Text(citizen2.name)),
+            DataCell(Text(citizen2.occupation)),
+            DataCell(Text(citizen2.address)),
+          ]),
+          DataRow(cells: <DataCell>[
+            DataCell(Text(citizen3.name)),
+            DataCell(Text(citizen3.occupation)),
+            DataCell(Text(citizen3.address)),
+          ]),
+        ]));
   }
 }

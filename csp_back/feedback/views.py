@@ -7,6 +7,8 @@ from .serializers import EventSerializer
 from rest_framework import status
 
 # Create your views here.
+
+
 @api_view(['GET'])
 def Review_rate(request):
     if request.method == "GET":
@@ -26,6 +28,7 @@ def Event_post(request):
         dept_id=data['dept_id'],
         event_name=data['event_name'],
         events_details=data['event_details'],
+        event_img=data['event_img'],
     )
     serializer = EventSerializer(eventc, many=False)
     return Response(serializer.data)

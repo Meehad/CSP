@@ -114,7 +114,8 @@ class _SurveyAppState extends State<SurveyApp> {
                   onPressed: () {
                     Navigator.of(context).pop(int.tryParse(controller.text));
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 16, 185, 185)),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 16, 185, 185)),
                   child: const Text(
                     'OK',
                     style: TextStyle(color: Colors.white),
@@ -202,7 +203,6 @@ class _SurveyCardState extends State<SurveyCard> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: options[i],
                           onChanged: (value) {
                             options[i] = value;
                           },
@@ -222,11 +222,11 @@ class _SurveyCardState extends State<SurveyCard> {
                       ),
                     ],
                   ),
-                  leading: Radio(
-                    value: i,
-                    groupValue: null,
-                    onChanged: (value) {},
-                  ),
+                  // leading: Radio(
+                  //   value: i,
+                  //   groupValue: null,
+                  //   onChanged: (value) {},
+                  // ),
                 ),
             if (!widget.isMultipleChoice)
               ListTile(
@@ -251,7 +251,8 @@ class _SurveyCardState extends State<SurveyCard> {
                         options.add('Option ${options.length + 1}');
                       });
                     },
-                    style: ElevatedButton.styleFrom(primary: Color.fromARGB(255, 16, 185, 185)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 16, 185, 185)),
                     child: const Text(
                       'Add Option',
                       style: TextStyle(color: Colors.white),

@@ -4,7 +4,7 @@ from .models import feedback, event
 # Register your models here.
 @admin.register(event)
 class Event(admin.ModelAdmin):
-    list_display = ['dept_id', 'event_name',
+    list_display = ['name', 'event_name',
                     'event_details', 'date']
     readonly_fields = ['date']
 

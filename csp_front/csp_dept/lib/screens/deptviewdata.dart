@@ -18,16 +18,14 @@ class Citizen {
   });
 }
 
-// ignore: camel_case_types
-class deptviewdata extends StatefulWidget {
-  const deptviewdata({super.key});
+class DeptViewData extends StatefulWidget {
+  const DeptViewData({Key? key}) : super(key: key);
 
   @override
-  State<deptviewdata> createState() => _deptviewdataState();
+  State<DeptViewData> createState() => _DeptViewDataState();
 }
 
-// ignore: camel_case_types
-class _deptviewdataState extends State<deptviewdata> {
+class _DeptViewDataState extends State<DeptViewData> {
   Citizen citizen1 = Citizen(
     name: "Anshad K",
     age: 21,
@@ -55,61 +53,72 @@ class _deptviewdataState extends State<deptviewdata> {
     aadhaarNo: "5678-9012-3456",
   );
   Citizen citizen4 = Citizen(
-    name: "Wissam",
+    name: "Shaheel kotta",
     age: 21,
-    dob: "03/08/2003",
-    address: "Wandoor",
+    dob: "10/05/2003",
+    address: "Pokottur",
     occupation: "NULL",
-    aadhaarNo: "2345-6789-0123",
-  );
-
-  Citizen citizen5 = Citizen(
-    name: "Shaheel Kotta",
-    age: 21,
-    dob: "12/12/2003",
-    address: "Pookottur",
-    occupation: "NULL",
-    aadhaarNo: "6789-0123-4567",
+    aadhaarNo: "5678-9012-3456",
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.teal[400],
-        appBar: AppBar(
-          title: const Padding(
-            padding: EdgeInsets.only(right: 50.0),
-            child: Center(
-              child: Text(
-                'DATA SECTION',
-                style: TextStyle(color: Colors.white, fontSize: 25),
-              ),
+      backgroundColor: Colors.teal[400],
+      appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.only(right: 50.0),
+          child: Center(
+            child: Text(
+              'DATA SECTION',
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
           ),
-          backgroundColor: Colors.teal[400],
         ),
-        body: DataTable(columns: <DataColumn>[
-          DataColumn(label: Text('Answer_entry_id')),
-          DataColumn(label: Text('Id _number')),
-          DataColumn(label: Text('Question')),
-          // DataColumn(label: Text('Answer')),
-          // DataColumn(label: Text('Time_Submit')),
-        ], rows: <DataRow>[
-          DataRow(cells: <DataCell>[
-            DataCell(Text(citizen1.name)),
-            DataCell(Text(citizen1.occupation)),
-            DataCell(Text(citizen1.address)),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text(citizen2.name)),
-            DataCell(Text(citizen2.occupation)),
-            DataCell(Text(citizen2.address)),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text(citizen3.name)),
-            DataCell(Text(citizen3.occupation)),
-            DataCell(Text(citizen3.address)),
-          ]),
-        ]));
+        backgroundColor: Colors.white,
+      ),
+      body: Card(
+        elevation: 8.0,
+        margin: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              headingTextStyle:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo),
+              dataTextStyle: TextStyle(fontStyle: FontStyle.normal),
+              columns: <DataColumn>[
+                DataColumn(label: Text('Answer Entry ID')),
+                DataColumn(label: Text('ID Number')),
+                DataColumn(label: Text('Question')),
+              ],
+              rows: <DataRow>[
+                DataRow(cells: <DataCell>[
+                  DataCell(Text(citizen1.name)),
+                  DataCell(Text(citizen1.occupation)),
+                  DataCell(Text(citizen1.address)),
+                ]),
+                DataRow(cells: <DataCell>[
+                  DataCell(Text(citizen2.name)),
+                  DataCell(Text(citizen2.occupation)),
+                  DataCell(Text(citizen2.address)),
+                ]),
+                DataRow(cells: <DataCell>[
+                  DataCell(Text(citizen3.name)),
+                  DataCell(Text(citizen3.occupation)),
+                  DataCell(Text(citizen3.address)),
+                ]),
+                DataRow(cells: <DataCell>[
+                  DataCell(Text(citizen4.name)),
+                  DataCell(Text(citizen4.occupation)),
+                  DataCell(Text(citizen4.address)),
+                ]),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

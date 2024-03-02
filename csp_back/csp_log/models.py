@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 
 
 class DeptProfile(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     dept_id = models.CharField(max_length=10, unique=True)
     # Assuming a simple phone number format
     head = models.CharField(max_length=100)
@@ -27,7 +27,7 @@ class DeptProfile(models.Model):
     dpassword = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.dept_id
+        return f"{self.dept_id},{self.name}"
 
 
 class CitizenLogin(models.Model):

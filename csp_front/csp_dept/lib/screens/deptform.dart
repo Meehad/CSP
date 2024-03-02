@@ -13,7 +13,10 @@ class _SurveyAppState extends State<SurveyApp> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 16, 185, 185),
       appBar: AppBar(
-        title: const Text('Survey App'),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 40),
+          child: const Text('SURVEY SECTION'),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),

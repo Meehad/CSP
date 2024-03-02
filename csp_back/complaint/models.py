@@ -10,7 +10,7 @@ class Complaint(models.Model):
     loc = models.CharField()
     image = models.ImageField(upload_to='admin_images/')
     # Make is_read not editable by users
-    is_read = models.BooleanField(default=False, editable=False)
+    # is_read = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Complaint from {self.id_number}"

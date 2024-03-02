@@ -9,7 +9,7 @@ class deptevent extends StatelessWidget {
   Widget build(BuildContext context) {
     TabController? _controller;
     return DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 2,
         child: Scaffold(
           appBar: AppBar(
@@ -33,7 +33,7 @@ class deptevent extends StatelessWidget {
                 ),
               ],
             ),
-             backgroundColor: Colors.teal[400],
+            backgroundColor: Colors.white,
           ),
           body: TabBarView(controller: _controller, children: const [
             Event_publish(),

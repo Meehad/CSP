@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:csp_dept/models/dept_data.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Event_publish extends StatefulWidget {
-  const Event_publish({super.key});
+  const Event_publish({Key? key}) : super(key: key);
 
   @override
   State<Event_publish> createState() => _Event_publishState();
@@ -12,11 +16,98 @@ class Event_publish extends StatefulWidget {
 class _Event_publishState extends State<Event_publish> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _eventNameController = TextEditingController();
-  TextEditingController _eventDateController = TextEditingController();
-  XFile? _selectedImage;
-  
+  TextEditingController _eventDescController = TextEditingController();
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    final imagePicker = ImagePicker();
+    try {
+      final pickedFile =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        setState(() {
+          _selectedImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('Error picking image: $e');
+      // Handle the error (show a dialog, log it, etc.)
+    }
+  }
+
+  void _submitEvent(String n, String en, String ed) async {
+    final request = http.MultipartRequest(
+      "POST",
+      eventUrl,
+    );
+
+    request.fields['name'] = n;
+    request.fields['event_name'] = en;
+    request.fields['event_details'] = ed;
+
+    final headers = {"Content-type": "multipart/form-data"};
+    request.files.add(http.MultipartFile('event_img',
+        _selectedImage!.readAsBytes().asStream(), _selectedImage!.lengthSync(),
+        filename: _selectedImage!.path.split("/").last));
+    print(request);
+    request.headers.addAll(headers);
+    final response = await request.send();
+    http.Response res = await http.Response.fromStream(response);
+    setState(() {
+      _selectedImage = null;
+    });
+    _eventDescController.clear();
+    _eventNameController.clear();
+    if (res.statusCode == 201) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text('Success!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('ok'),
+                )
+              ],
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text('Failed!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('ok'),
+                )
+              ],
+            );
+          });
+    }
+  }
+
   @override
+  void initState() {
+    super.initState();
+    final postModel = Provider.of<DeptDataClass>(context, listen: false);
+    postModel.getPostData();
+  }
+
   Widget build(BuildContext context) {
+    final postModel = Provider.of<DeptDataClass>(context);
     return Form(
       key: _formKey,
       child: Container(
@@ -51,56 +142,32 @@ class _Event_publishState extends State<Event_publish> {
                 return null;
               },
             ),
-            const SizedBox(height: 20.0),
-            // Event Date
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _eventDateController,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                    fillColor: const Color.fromRGBO(255, 255, 255, 1),
-                    filled: true,
-                    hintText: "EVENT DATE",
-                    hintStyle: const TextStyle(
-                      color: Color.fromARGB(255, 158, 158, 158),
-                    ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _eventDescController,
+              maxLines: 4,
+              decoration: const InputDecoration(
+                labelText: 'Description',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 35.0),
+            // Add Picture IconButton (with functionality)
+            _selectedImage == null
+                ? Container()
+                : Image.file(
+                    _selectedImage as File,
+                    height: 100,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the event date';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 35.0),
-                // Add Picture IconButton (with functionality)
-                Center(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (_selectedImage != null)
-                        CircleAvatar(
-                          backgroundImage:
-                              FileImage(File(_selectedImage!.path)),
-                          radius: 50,
-                        ),
-                      IconButton(
-                        onPressed: _pickImage,
-                        icon: const Icon(Icons.add_a_photo,
-                            color: Colors.black, size: 36.0),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            const SizedBox(height: 8),
+            IconButton(
+              onPressed: _pickImage,
+              icon: Center(
+                child: const Icon(Icons.add_a_photo,
+                    color: Colors.black, size: 36.0),
+              ),
             ),
             const SizedBox(height: 50.0),
             // Submit Button
@@ -115,18 +182,16 @@ class _Event_publishState extends State<Event_publish> {
                   ),
                 ),
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Perform form submission
-                    print('Event Name: ${_eventNameController.text}');
-                    print('Event Date: ${_eventDateController.text}');
-                    if (_selectedImage != null) {
-                      print('Selected Image: ${_selectedImage!.path}');
-                    }
-                  }
+                  _submitEvent(
+                    postModel.post?.name ?? "",
+                    _eventNameController.text,
+                    _eventDescController.text,
+                  );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 90,right: 90,top: 15,bottom: 15),
-                  child: const Text('SUBMIT', style: TextStyle(fontSize: 20)),
+                child: const Padding(
+                  padding:
+                      EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
+                  child: Text('SUBMIT', style: TextStyle(fontSize: 20)),
                 ),
               ),
             ),
@@ -134,13 +199,5 @@ class _Event_publishState extends State<Event_publish> {
         ),
       ),
     );
-  }
-  Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _selectedImage = image;
-    });
   }
 }

@@ -30,11 +30,11 @@ class _deptdetailsState extends State<deptdetails> {
           child: Center(
             child: Text(
               'DEPARTMENT DETAILS',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
           ),
         ),
-        backgroundColor: Colors.teal[400],
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
@@ -45,9 +45,17 @@ class _deptdetailsState extends State<deptdetails> {
                 width: 300.0,
                 height: 280.0,
                 decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 190, 190, 190)
+                            .withOpacity(1),
+                        spreadRadius: 0,
+                        blurRadius: 0,
+                        offset: const Offset(0, 0),
+                      ),
+                    ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

@@ -20,11 +20,11 @@ class _DepthomeState extends State<Depthome> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Padding(
-          padding: const EdgeInsets.only(left: 5.0),
+          padding: const EdgeInsets.only(left: 60.0),
           child: Center(
             child: Text(
               'CSP',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
           ),
         ),
@@ -40,7 +40,7 @@ class _DepthomeState extends State<Depthome> {
             iconSize: 45.0,
           )
         ],
-        backgroundColor: Colors.teal[400],
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
@@ -99,7 +99,7 @@ class _DepthomeState extends State<Depthome> {
               ),
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const deptviewdata()),
+                  MaterialPageRoute(builder: (context) => const DeptViewData()),
                 );
               },
               child: Padding(

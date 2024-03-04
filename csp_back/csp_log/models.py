@@ -32,7 +32,6 @@ class DeptProfile(models.Model):
 
 class CitizenLogin(models.Model):
     id_number = models.CharField(max_length=10)
-
     def __str__(self):
         return self.id_number
 
@@ -40,6 +39,5 @@ class CitizenLogin(models.Model):
 class DeptLogin(models.Model):
     dept_id = models.CharField(max_length=10)
     dpassword = models.CharField(max_length=10)
-
     def __str__(self):
         return self.dept_id

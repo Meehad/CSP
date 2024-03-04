@@ -10,20 +10,33 @@ from csp_log.models import UserProfile
 
 @api_view(['POST'])
 def createSurvey(request):
-    data = request.data
-    survey = Survey_Q.objects.create(
-        dept_id=data['dept_id'],
-        question=data['question'],
-    )
-    serializer = SurveyqSerializer(survey, many=False)
-    return Response(serializer.data)
+    print(request.data)
+    serializer = SurveyqSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
+def Questions_view(request):
+    questions = Survey_Q.objects.all()
+    serializer = SurveyqSerializer(questions, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
 def submit_survey(request):
-    if request.method == "GET":
-        id_number = UserProfile.objects.get(id_number=id_number)
-        question = Survey_Q.objects.get(question=question)
-        answer = request.GET.get('answer')
-        Survey_A(id_number=id_number, question=question,
-                 answer=answer)
-        return Response({}, status=status.HTTP_200_OK)
+    print(request.data)
+    serializer = SurveyaSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def Answers_view(request):
+    answers = Survey_A.objects.all()
+    serializer = SurveyaSerializer(answers, many=True)
+    return Response(serializer.data)

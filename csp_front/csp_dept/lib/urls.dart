@@ -9,3 +9,5 @@ Uri profileurl =
     Uri.parse("http://10.0.2.2:8000/csp_log/2012022022/showprofile");
 
 Uri eventUrl = Uri.parse("http://10.0.2.2:8000/feedback/event/");
+
+Uri showfeeds = Uri.parse("http://10.0.2.2:8000/feedback/feeds_view/");

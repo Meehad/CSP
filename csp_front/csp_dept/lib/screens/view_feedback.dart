@@ -1,5 +1,12 @@
+import 'dart:convert';
+import 'package:csp_dept/models/viewfeed_data.dart';
+import 'package:csp_dept/models/viewfeed_model.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class ViewFeedback extends StatefulWidget {
   const ViewFeedback({Key? key}) : super(key: key);
@@ -9,58 +16,48 @@ class ViewFeedback extends StatefulWidget {
 }
 
 class _ViewFeedbackState extends State<ViewFeedback> {
+  Client client = http.Client();
   double rating = 3.0;
+  List<FeedModel> feedbacks = [];
 
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildFeedbackCard(
-              'assets/rahul.jpg',
-              'Rahul\'s Image',
-              'Description for Rahul\'s Image',
-            ),
-            const SizedBox(height: 16),
-            // Additional cards
-            _buildFeedbackCard(
-              'assets/oppie.jpg',
-              'The development of the atomic bomb',
-              'Description for Image 2',
-            ),
-            const SizedBox(height: 16),
-            _buildFeedbackCard(
-              'assets/joker.png',
-              'DANCIn',
-              'Description for Image 3',
-            ),
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    _retrieveFeedbacks();
+    final postFeed = Provider.of<FeedClass>(context, listen: false);
+    postFeed.getPostData();
+  }
+
+  _retrieveFeedbacks() async {
+    feedbacks = [];
+    List response = jsonDecode((await client.get(showfeeds)).body);
+    for (var element in response) {
+      feedbacks.add(FeedModel.fromJson(element));
+    }
+    setState(() {});
   }
 
   Widget _buildFeedbackCard(
-      String imagePath, String title, String description) {
+      String id, String en, String r, String f, String d) {
     return Card(
       elevation: 3,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Image.asset(
-          imagePath,
-          height: 150,
-          fit: BoxFit.cover,
-        ),
-        const SizedBox(height: 8),
         Text(
-          title,
+          id,
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            en,
+            style: const TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
+          ),
         ),
         const SizedBox(height: 8),
         Padding(
@@ -81,53 +78,46 @@ class _ViewFeedbackState extends State<ViewFeedback> {
                 rating = newRating;
               });
             },
+            ignoreGestures: true,
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            description,
+            f,
             style: const TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),
         ),
         const SizedBox(height: 8),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TextField(
-            maxLines: 4,
-            decoration: InputDecoration(
-              hintText: 'Enter your feedback here...',
-              border: OutlineInputBorder(),
-            ),
-          ),
-        ),
         const SizedBox(
           height: 5,
           width: 50,
         ),
-        ElevatedButton(
-          onPressed: () {
-            // Add logic to submit feedback for this card
-            print('Feedback submitted for $title');
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.deepOrange[200],
-            onPrimary: Colors.teal[900],
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-          child: const Text(
-            'Submit Feedback',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            d,
+            style: const TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
           ),
         ),
+        const SizedBox(height: 8),
       ]),
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: feedbacks.length,
+      itemBuilder: (context, index) {
+        return _buildFeedbackCard(
+            feedbacks[index].id_number,
+            feedbacks[index].event_name,
+            feedbacks[index].rating,
+            feedbacks[index].feed,
+            feedbacks[index].date);
+      },
     );
   }
 }

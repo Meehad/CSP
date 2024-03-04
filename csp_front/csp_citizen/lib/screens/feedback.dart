@@ -39,7 +39,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     setState(() {});
   }
 
-  _submitFeedback(int ind, String event_name) async {
+  _submitFeedback(int ind, String event_name, double rate) async {
     try {
       final postModel = Provider.of<DataClass>(context, listen: false);
       postModel.getPostData();
@@ -47,7 +47,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         'id_number': postModel.post?.id_number ?? "",
         'event_name': event_name,
         'feed': feedbackControllers[ind].text,
-        'rating': rating.toString(),
+        'rating': rate.toString(),
       });
       if (res.statusCode == 201) {
         showDialog(
@@ -163,7 +163,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         ElevatedButton(
           onPressed: () {
             // Add logic to submit feedback for this card
-            _submitFeedback(ind, title);
+            _submitFeedback(ind, title, rating);
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: const Color.fromARGB(255, 213, 213, 213),

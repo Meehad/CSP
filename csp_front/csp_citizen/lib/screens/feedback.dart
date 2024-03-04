@@ -28,13 +28,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     super.initState();
     final postEvent = Provider.of<EventClass>(context, listen: false);
     postEvent.getPostData();
-    final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
-    for (int i = 0; i < events.length; i++) {
-      feedbackControllers.add(TextEditingController());
-      }
-    }
-
+  }
 
   _retrieveEvents() async {
     events = [];
@@ -45,13 +39,68 @@ class _FeedbackPageState extends State<FeedbackPage> {
     setState(() {});
   }
 
+  _submitFeedback(int ind, String event_name) async {
+    try {
+      final postModel = Provider.of<DataClass>(context, listen: false);
+      postModel.getPostData();
+      Response res = await post(postfeed, body: {
+        'id_number': postModel.post?.id_number ?? "",
+        'event_name': event_name,
+        'feed': feedbackControllers[ind].text,
+        'rating': rating.toString(),
+      });
+      if (res.statusCode == 201) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.grey[300],
+                title: const Text('CSP'),
+                content: const Text('Success!'),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        events.removeAt(ind);
+                      });
+                    },
+                    child: const Text('ok'),
+                  )
+                ],
+              );
+            });
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.grey[300],
+                title: const Text('CSP'),
+                content: const Text('Failed!'),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('ok'),
+                  )
+                ],
+              );
+            });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Widget _buildFeedbackCard(
-      String imagePath, String title, String description,int index) {
+      String imagePath, String title, String description, int ind) {
     return Card(
       elevation: 3,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Image(
-          image: NetworkImage("http://10.0.2.2:8000$imagePath"),
+        Image.network(
+          "http://10.0.2.2:8000$imagePath",
           height: 150, // Adjust the height as needed
           width: 150,
           fit: BoxFit.cover,
@@ -95,12 +144,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ),
         ),
         const SizedBox(height: 8),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: TextField(
-            controller: feedbackControllers[index],
+            controller: feedbackControllers[ind],
             maxLines: 4,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter your feedback here...',
               border: OutlineInputBorder(),
             ),
@@ -114,7 +163,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         ElevatedButton(
           onPressed: () {
             // Add logic to submit feedback for this card
-            print("$title");
+            _submitFeedback(ind, title);
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: const Color.fromARGB(255, 213, 213, 213),
@@ -138,6 +187,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -149,8 +199,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
         child: ListView.builder(
           itemCount: events.length,
           itemBuilder: (context, index) {
+            feedbackControllers.add(TextEditingController());
             return _buildFeedbackCard(events[index].event_img,
-                events[index].event_name, events[index].event_details,index);
+                events[index].event_name, events[index].event_details, index);
           },
         ),
       ),

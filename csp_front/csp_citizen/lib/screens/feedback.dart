@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FeedbackPage extends StatefulWidget {
@@ -94,8 +95,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
     }
   }
 
-  Widget _buildFeedbackCard(
-      String imagePath, String title, String description, int ind) {
+  Widget _buildFeedbackCard(String imagePath, String title, String description,
+      String date, int ind) {
+    DateTime apiDate = DateTime.parse(date);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
     return Card(
       elevation: 3,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -156,6 +159,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ),
         ),
         const SizedBox(
+          height: 3,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            formattedDate,
+            style: const TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(
           height: 5,
           width: 50,
         ),
@@ -200,8 +214,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
           itemCount: events.length,
           itemBuilder: (context, index) {
             feedbackControllers.add(TextEditingController());
-            return _buildFeedbackCard(events[index].event_img,
-                events[index].event_name, events[index].event_details, index);
+            return _buildFeedbackCard(
+                events[index].event_img,
+                events[index].event_name,
+                events[index].event_details,
+                events[index].date,
+                index);
           },
         ),
       ),

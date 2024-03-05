@@ -17,7 +17,7 @@ class ViewFeedback extends StatefulWidget {
 
 class _ViewFeedbackState extends State<ViewFeedback> {
   Client client = http.Client();
-  double rating = 3.0;
+  // double rating = 3.0;
   List<FeedModel> feedbacks = [];
 
   @override
@@ -38,7 +38,7 @@ class _ViewFeedbackState extends State<ViewFeedback> {
   }
 
   Widget _buildFeedbackCard(
-      String id, String en, String r, String f, String d) {
+      String id, String en, double r, String f, String d) {
     return Card(
       elevation: 3,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -63,7 +63,7 @@ class _ViewFeedbackState extends State<ViewFeedback> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: RatingBar.builder(
-            initialRating: rating,
+            initialRating: r,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: true,
@@ -75,7 +75,7 @@ class _ViewFeedbackState extends State<ViewFeedback> {
             ),
             onRatingUpdate: (newRating) {
               setState(() {
-                rating = newRating;
+                r = newRating;
               });
             },
             ignoreGestures: true,
@@ -111,10 +111,11 @@ class _ViewFeedbackState extends State<ViewFeedback> {
     return ListView.builder(
       itemCount: feedbacks.length,
       itemBuilder: (context, index) {
+        double rate = double.parse(feedbacks[index].rating);
         return _buildFeedbackCard(
             feedbacks[index].id_number,
             feedbacks[index].event_name,
-            feedbacks[index].rating,
+            rate,
             feedbacks[index].feed,
             feedbacks[index].date);
       },

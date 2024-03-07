@@ -1,4 +1,3 @@
-// Import necessary packages and classes
 import 'dart:convert';
 import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/feedback_model.dart';
@@ -9,33 +8,30 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
-// Define a stateful widget called MyHomePage
+import 'login.dart';
+
 class MyHomePage extends StatefulWidget {
-  // Constructor to initialize the title
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // Required parameter: title to be displayed on the app bar
   final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-// Define the state for MyHomePage
 class _MyHomePageState extends State<MyHomePage> {
   List<EventModel> events = [];
   Client client = http.Client();
-  String imagePath = "";
-  int i = 0;
+  int _currentIndex = 0;
 
-  // Override initState to perform one-time initialization tasks
   @override
   void initState() {
     super.initState();
     _retrieveEvents();
 
-    // Get post data using the DataClass provider
     final postModel = Provider.of<DataClass>(context, listen: false);
     postModel.getPostData();
 
@@ -43,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     postEvent.getPostData();
   }
 
-  // Fetch events data from the API
   _retrieveEvents() async {
     events = [];
     List response = jsonDecode((await client.get(showEvents)).body);
@@ -53,179 +48,363 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  // Build method to construct the UI
+  // Dummy list of unanswered survey questions
+  // Dummy count of unanswered survey questions
+  int unansweredQuestionsCount = 3; // Replace with the actual count
+
   @override
   Widget build(BuildContext context) {
-    // Get post data using the DataClass provider
     final postModel = Provider.of<DataClass>(context);
 
-    // Return the main scaffold containing the app structure
     return Scaffold(
-      // App bar with a title and profile button
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        // here along side title we give current username from user model we created using provider
         title: Text('${widget.title} : ${postModel.post?.name ?? ""}'),
-        // button to navigate to profile page
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-            icon: const Icon(Icons.person),
-          ),
-        ],
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
       ),
 
-      // Body of the app containing a column with various buttons navigate to different pages for each service for citizen and a carousel to show events
-      body: Center(
-        child: Column(children: [
-          const SizedBox(height: 50),
-          Column(
-            children: [
-              // Button to navigate to the complaint screen
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/complaint');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 255, 255, 255)),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.report,
-                          size: 30, color: Color.fromARGB(255, 44, 44, 44)),
-                      SizedBox(width: 8),
-                      Text(
-                        'Report a Complaint',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 50, 50, 50),
-                        ),
-                      ),
-                    ],
-                  ),
+       drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF97B1A6),
+              ),
+              child: Text(
+                'Navigation',
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+            ListTile(
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/profile');
+              },
+            ),
+            ListTile(
+              title: const Text('About'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/about');
+              },
+            ),
+            ListTile(
+              title: const Text('Feedback'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/submitFeeback');
+              },
+            ),
+            ListTile(
+              title: const Text('Help'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.red,
                 ),
               ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Login()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
 
-              // Button to navigate to the survey screen
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/survey');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 255, 255, 255)),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.poll,
-                          size: 30, color: Color.fromARGB(255, 48, 48, 48)),
-                      SizedBox(width: 8),
-                      Text(
-                        'Take a Survey',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 48, 48, 48),
-                        ),
-                      ),
-                    ],
-                  ),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          // Carousel to display events
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 300.0,
+              enlargeCenterPage: true,
+              autoPlay: true,
+              aspectRatio: 16 / 9,
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enableInfiniteScroll: true,
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              viewportFraction: 0.9,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
+            items: [
+              for (int i = 0; i < events.length; i++)
+                Image.network(
+                  "http://10.0.2.2:8000${events[i].event_img}",
+                  fit: BoxFit.cover,
                 ),
-              ),
-
-              // Button to navigate to the feedback screen
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/feedback');
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromARGB(255, 255, 255, 255)),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.feedback,
-                          size: 30, color: Color.fromARGB(255, 45, 45, 45)),
-                      SizedBox(width: 8),
-                      Text(
-                        'Provide Feedback',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 48, 48, 48),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Carousel to display events
-              const SizedBox(height: 40),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 300.0,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  aspectRatio: 16 / 9,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: true,
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  viewportFraction: 0.9,
-                ),
-                items: [
-                  // Images in the carousel
-                  for (int i = 0; i < events.length; i++)
-                    Image.network(
-                      "http://10.0.2.2:8000${events[i].event_img}",
-                      fit: BoxFit.cover,
-                    ),
-                ],
-              )
             ],
           ),
-        ]),
-      ),
 
-      // Background color of the scaffold
-      backgroundColor: Colors.green,
+          // Dot indicator
+          DotsIndicator(
+            dotsCount: events.length,
+            position: _currentIndex.toInt(),
+            decorator: DotsDecorator(
+              color: Colors.black,
+              size: const Size.square(6.0),
+              activeSize: const Size.square(8.0),
+              activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+
+          // Animated buttons at the bottom
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/complaint');
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF698996),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/complaint');
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.report, size: 30, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Report a Complaint',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/survey');
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF97B1A6),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/survey');
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.poll, size: 30, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Take a Survey',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/feedback');
+              },
+              child: Material(
+                color: Colors.transparent,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFC9C5BA),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/feedback');
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.feedback, size: 30, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Provide Feedback',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // Scrollable card at the bottom with unanswered survey questions
+          Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: SingleChildScrollView(
+    child: Card(
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Survey',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Display the count of unanswered survey questions
+            Text(
+              'Number of Unanswered Questions: $unansweredQuestionsCount',
+              style: const TextStyle(fontSize: 16),
+            ),
+
+            // Add designed buttons for forms and help
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle button press for forms
+                    Navigator.pushNamed(context, '/forms'); // Replace '/forms' with your actual route
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Choose your preferred color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.assignment,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Forms',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle button press for help
+                    Navigator.pushNamed(context, '/help'); // Replace '/help' with your actual route
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green, // Choose your preferred color for the "Help" button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.help,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Help',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+        ],
+      ),
+      backgroundColor: const Color.fromARGB(255, 226, 226, 226),
     );
   }
 }

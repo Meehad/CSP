@@ -205,7 +205,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 240, 240, 240),
         title: const Text('Feedback'),
       ),
       body: Padding(
@@ -223,7 +223,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           },
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 35, 35, 35),
+      backgroundColor: Color(0xFF97B1A6),
     );
   }
 }

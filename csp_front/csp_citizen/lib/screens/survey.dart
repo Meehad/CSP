@@ -25,7 +25,7 @@ class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: const Color(0xFFC9C5BA),
       appBar: AppBar(
         title: const Text(
           'Survey',

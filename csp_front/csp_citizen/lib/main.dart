@@ -6,6 +6,7 @@ import 'package:csp_citizen/screens/home.dart';
 import 'package:csp_citizen/screens/login.dart';
 import 'package:csp_citizen/screens/profile.dart';
 import 'package:csp_citizen/screens/survey.dart';
+import 'package:csp_citizen/screens/about.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/complaint': (context) => const ComplaintPage(),
         '/survey': (context) => const SurveyPage(),
         '/feedback': (context) => const FeedbackPage(),
+        '/about': (context) => AboutPage(),
       },
     );
   }

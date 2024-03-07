@@ -14,9 +14,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'login.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -58,19 +57,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text('${widget.title} : ${postModel.post?.name ?? ""}'),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
+  backgroundColor: Color(0xFF698996),
+  title: Text('Welcome ${postModel.post?.name ?? ""}'),
+  leading: Builder(
+    builder: (BuildContext context) {
+      return IconButton(
+        icon: const Icon(Icons.menu),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      );
+    },
+  ),
+  actions: [
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Image.asset(
+        'assets/logo 2.png', // Replace with the path to your logo
+        width: 50,
+        height: 50,
       ),
+    ),
+  ],
+),
 
        drawer: Drawer(
         child: ListView(
@@ -134,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           const SizedBox(height: 10),
           // Carousel to display events
-          CarouselSlider(
+          events.isNotEmpty
+              ? CarouselSlider(
             options: CarouselOptions(
               height: 300.0,
               enlargeCenterPage: true,
@@ -157,153 +167,141 @@ class _MyHomePageState extends State<MyHomePage> {
                   fit: BoxFit.cover,
                 ),
             ],
-          ),
+          ): CircularProgressIndicator(),
 
           // Dot indicator
-          DotsIndicator(
+          events.isNotEmpty
+              ?DotsIndicator(
             dotsCount: events.length,
             position: _currentIndex.toInt(),
             decorator: DotsDecorator(
               color: Colors.black,
               size: const Size.square(6.0),
+              activeColor: Colors.white,
               activeSize: const Size.square(8.0),
               activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-          ),
+          ):SizedBox(),
 
           // Animated buttons at the bottom
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/complaint');
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF698996),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10.0),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/complaint');
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.report, size: 30, color: Colors.white),
-                          SizedBox(width: 8),
-                          Text(
-                            'Report a Complaint',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+         Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    Padding(
+      padding: const EdgeInsets.only(left: 5),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/complaint');
+        },
+        style: ElevatedButton.styleFrom(
+          primary: const Color(0xFF698996),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          minimumSize: const Size(100, 150), // Set the desired height and width
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+            Image.asset(
+              'assets/complaint.png', // Replace with the path to your image
+              width: 70,
+              height: 70,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Complaint',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
+          ],
+        ),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/survey');
+        },
+        style: ElevatedButton.styleFrom(
+          primary: const Color(0xFF97B1A6),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          const SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/survey');
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF97B1A6),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10.0),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/survey');
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.poll, size: 30, color: Colors.white),
-                          SizedBox(width: 8),
-                          Text(
-                            'Take a Survey',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+          minimumSize: const Size(120, 150), // Set the desired height and width
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Image.asset(
+                'assets/form.png', // Replace with the path to your image
+                width: 65,
+                height: 65,
               ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/feedback');
-              },
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFC9C5BA),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10.0),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/feedback');
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.feedback, size: 30, color: Colors.white),
-                          SizedBox(width: 8),
-                          Text(
-                            'Provide Feedback',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+            SizedBox(height: 8),
+            Text(
+              'Survey',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
+          ],
+        ),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.only(right: 7),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/feedback');
+        },
+        style: ElevatedButton.styleFrom(
+          primary: const Color(0xFFC9C5BA),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
+          minimumSize: const Size(100, 150), // Set the desired height and width
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/feedback.png', // Replace with the path to your image
+              width: 70,
+              height: 70,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Feedback',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+)
+
+,
 
           // Scrollable card at the bottom with unanswered survey questions
           Padding(
-  padding: const EdgeInsets.all(8.0),
+  padding: const EdgeInsets.only(top: 20),
   child: SingleChildScrollView(
     child: Card(
       elevation: 5,
@@ -338,7 +336,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/forms'); // Replace '/forms' with your actual route
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Choose your preferred color
+                    backgroundColor: Color(0xFF97B1A6), // Choose your preferred color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -360,8 +358,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white,
                         ),
                       ),
+                      
                     ],
+                    
                   ),
+                  
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -369,7 +370,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/help'); // Replace '/help' with your actual route
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green, // Choose your preferred color for the "Help" button
+                    primary: Color(0xFF698996), // Choose your preferred color for the "Help" button
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),

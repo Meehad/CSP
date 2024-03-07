@@ -27,9 +27,10 @@ class _SurveyPageState extends State<SurveyPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFC9C5BA),
       appBar: AppBar(
+        backgroundColor: Color(0xFF698996),
         title: const Text(
           'Survey',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
         ),
       ),
       body: Padding(

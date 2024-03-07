@@ -1,22 +1,14 @@
+import 'dart:convert';
+
+import 'package:csp_dept/models/dept_data.dart';
+import 'package:csp_dept/models/survey_data.dart';
+import 'package:csp_dept/models/survey_model.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
-
-class Citizen {
-  final String name;
-  final int age;
-  final String dob;
-  final String address;
-  final String occupation;
-  final String aadhaarNo;
-
-  Citizen({
-    required this.name,
-    required this.age,
-    required this.dob,
-    required this.address,
-    required this.occupation,
-    required this.aadhaarNo,
-  });
-}
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DeptViewData extends StatefulWidget {
   const DeptViewData({Key? key}) : super(key: key);
@@ -26,40 +18,34 @@ class DeptViewData extends StatefulWidget {
 }
 
 class _DeptViewDataState extends State<DeptViewData> {
-  Citizen citizen1 = Citizen(
-    name: "Anshad K",
-    age: 21,
-    dob: "27/06/2003",
-    address: "Mannarmala(PO),679325(PIN)",
-    occupation: "How was this Year Rainfall",
-    aadhaarNo: "1234-5678-9012",
-  );
+  Client client = http.Client();
+  List<SurveyModel> responses = [];
 
-  Citizen citizen2 = Citizen(
-    name: "Meehad",
-    age: 21,
-    dob: "05/12/2003",
-    address: "Vaniyambalam",
-    occupation: "How was this Year Harvest",
-    aadhaarNo: "9876-5432-1098",
-  );
+  @override
+  void initState() {
+    super.initState();
+    _retrieveSurvey();
+    final getSurvey = Provider.of<SurveyClass>(context, listen: false);
+    getSurvey.getPostData();
+    final postModel = Provider.of<DeptDataClass>(context, listen: false);
+    postModel.getPostData();
+  }
 
-  Citizen citizen3 = Citizen(
-    name: "Shafad",
-    age: 21,
-    dob: "10/05/2003",
-    address: "Chemmaniyod",
-    occupation: "How was this Year Rainfall",
-    aadhaarNo: "5678-9012-3456",
-  );
-  Citizen citizen4 = Citizen(
-    name: "Shaheel kotta",
-    age: 21,
-    dob: "10/05/2003",
-    address: "Pokottur",
-    occupation: "How was this Year Harvest ",
-    aadhaarNo: "5678-9012-3456",
-  );
+  _retrieveSurvey() async {
+    final postModel = Provider.of<DeptDataClass>(context);
+    String name = postModel.post?.name ?? "";
+    responses = [];
+    List response = jsonDecode((await client.get(showans)).body);
+    for (var element in response) {
+      String q = element['question'];
+      var surveyQ = await client.get('$showQ?question=$q' as Uri);
+      var surveyQData = jsonDecode(surveyQ.body);
+      if (element['name'] == 'KSEB,kseb123') {
+        responses.add(SurveyModel.fromJson(element));
+      }
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,29 +78,20 @@ class _DeptViewDataState extends State<DeptViewData> {
                 DataColumn(label: Text('ID Number')),
                 DataColumn(label: Text('Question')),
                 DataColumn(label: Text('Answer')),
+                DataColumn(label: Text('Date submitted')),
               ],
-              rows: <DataRow>[
-                DataRow(cells: <DataCell>[
-                  DataCell(Text(citizen1.name)),
-                  DataCell(Text(citizen1.occupation)),
-                  DataCell(Text(citizen1.address)),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text(citizen2.name)),
-                  DataCell(Text(citizen2.occupation)),
-                  DataCell(Text(citizen2.address)),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text(citizen3.name)),
-                  DataCell(Text(citizen3.occupation)),
-                  DataCell(Text(citizen3.address)),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text(citizen4.name)),
-                  DataCell(Text(citizen4.occupation)),
-                  DataCell(Text(citizen4.address)),
-                ]),
-              ],
+              rows: responses.map((r) {
+                DateTime apiDate = DateTime.parse(r.time_sub);
+                String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
+                return DataRow(
+                  cells: [
+                    DataCell(Text(r.id_number)),
+                    DataCell(Text(r.question)),
+                    DataCell(Text(r.answer)),
+                    DataCell(Text(formattedDate)),
+                  ],
+                );
+              }).toList(),
             ),
           ),
         ),

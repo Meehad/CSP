@@ -16,7 +16,7 @@ class Survey_Q(models.Model):
 
 
 class Survey_A(models.Model):
-    name = Survey_Q.name
+    name =  Survey_Q.name
     id_number = models.ForeignKey(
         UserProfile, to_field='id_number', on_delete=models.CASCADE)
     question = models.ForeignKey(

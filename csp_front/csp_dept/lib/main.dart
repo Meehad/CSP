@@ -1,5 +1,6 @@
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/models/event_data.dart';
+import 'package:csp_dept/models/survey_data.dart';
 import 'package:csp_dept/models/viewfeed_data.dart';
 import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
@@ -17,7 +18,8 @@ void main() {
           create: (context) => DeptDataClass(),
         ),
         ChangeNotifierProvider(create: (context) => FeedClass()),
-        ChangeNotifierProvider(create: (context) => EventClass())
+        ChangeNotifierProvider(create: (context) => EventClass()),
+        ChangeNotifierProvider(create: (context) => SurveyClass())
       ],
       child: const MyApp(),
     ),

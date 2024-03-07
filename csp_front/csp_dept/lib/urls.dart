@@ -11,3 +11,5 @@ Uri profileurl =
 Uri eventUrl = Uri.parse("http://10.0.2.2:8000/feedback/event/");
 
 Uri showfeeds = Uri.parse("http://10.0.2.2:8000/feedback/feeds_view/");
+
+Uri showEvents = Uri.parse("http://10.0.2.2:8000/feedback/events_view/");

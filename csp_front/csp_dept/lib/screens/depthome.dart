@@ -137,12 +137,20 @@
 //     );
 //   }
 // }
+import 'dart:convert';
+
+import 'package:csp_dept/models/event_data.dart';
+import 'package:csp_dept/models/event_models.dart';
 import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
-import 'package:csp_dept/screens/deptform.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
 
 class Depthome extends StatefulWidget {
   const Depthome({Key? key});
@@ -152,6 +160,34 @@ class Depthome extends StatefulWidget {
 }
 
 class _DepthomeState extends State<Depthome> {
+  List<EventModel> events = [];
+  Client client = http.Client();
+  String imagePath = "";
+  int i = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+    _retrieveEvents();
+
+    // Get post data using the DataClass provider
+    final postModel = Provider.of<EventClass>(context, listen: false);
+    postModel.getPostData();
+
+    final postEvent = Provider.of<EventClass>(context, listen: false);
+    postEvent.getPostData();
+  }
+
+  _retrieveEvents() async {
+  events = [];
+  List response = jsonDecode((await client.get(showEvents)).body);
+  for (var element in response) {
+    events.add(EventModel.fromJson(element));
+  }
+  setState(() {});
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -247,7 +283,7 @@ class _DepthomeState extends State<Depthome> {
                 child: Text('VIEW DATA', style: TextStyle(fontSize: 20)),
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 60),
             CarouselSlider(
               options: CarouselOptions(
                 height: 300.0,
@@ -260,16 +296,14 @@ class _DepthomeState extends State<Depthome> {
                 viewportFraction: 0.9,
               ),
               items: [
-                Image.network(
-                  'https://images.moneycontrol.com/static-mcnews/2021/04/P-Vijayan-770x433.jpg?impolicy=website&width=770&height=431',
-                  fit: BoxFit.cover,
-                ),
-                Image.network(
-                  'https://1.bp.blogspot.com/-FwixDe2oaT0/YNidS5zzGEI/AAAAAAAA7_E/roj_M-86vcEG6wZUM0pSflsFkBBH7M9iwCLcBGAsYHQ/s0/govt-of-kerala-mobile-apps.webp',
-                  fit: BoxFit.cover,
-                ),
+                // Images in the carousel
+                for (int i = 0; i < events.length; i++)
+                  Image.network(
+                    "http://10.0.2.2:8000${events[i].event_img}",
+                    fit: BoxFit.cover,
+                  ),
               ],
-            ),
+            )
           ],
         ),
       ),

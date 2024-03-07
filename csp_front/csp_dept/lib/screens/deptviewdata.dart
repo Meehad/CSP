@@ -31,7 +31,7 @@ class _DeptViewDataState extends State<DeptViewData> {
     age: 21,
     dob: "27/06/2003",
     address: "Mannarmala(PO),679325(PIN)",
-    occupation: "NULL",
+    occupation: "How was this Year Rainfall",
     aadhaarNo: "1234-5678-9012",
   );
 
@@ -40,7 +40,7 @@ class _DeptViewDataState extends State<DeptViewData> {
     age: 21,
     dob: "05/12/2003",
     address: "Vaniyambalam",
-    occupation: "NULL",
+    occupation: "How was this Year Harvest",
     aadhaarNo: "9876-5432-1098",
   );
 
@@ -49,7 +49,7 @@ class _DeptViewDataState extends State<DeptViewData> {
     age: 21,
     dob: "10/05/2003",
     address: "Chemmaniyod",
-    occupation: "NULL",
+    occupation: "How was this Year Rainfall",
     aadhaarNo: "5678-9012-3456",
   );
   Citizen citizen4 = Citizen(
@@ -57,7 +57,7 @@ class _DeptViewDataState extends State<DeptViewData> {
     age: 21,
     dob: "10/05/2003",
     address: "Pokottur",
-    occupation: "NULL",
+    occupation: "How was this Year Harvest ",
     aadhaarNo: "5678-9012-3456",
   );
 
@@ -89,9 +89,9 @@ class _DeptViewDataState extends State<DeptViewData> {
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo),
               dataTextStyle: TextStyle(fontStyle: FontStyle.normal),
               columns: <DataColumn>[
-                DataColumn(label: Text('Answer Entry ID')),
                 DataColumn(label: Text('ID Number')),
                 DataColumn(label: Text('Question')),
+                DataColumn(label: Text('Answer')),
               ],
               rows: <DataRow>[
                 DataRow(cells: <DataCell>[

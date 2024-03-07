@@ -1,4 +1,5 @@
 import 'package:csp_citizen/models/feedback_data.dart';
+import 'package:csp_citizen/models/survey_data.dart';
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/complaint.dart';
 import 'package:csp_citizen/screens/feedback.dart';
@@ -18,7 +19,10 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => EventClass(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SurveyQClass(),
+        ),
       ],
       child: const MyApp(),
     ),

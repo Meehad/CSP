@@ -270,7 +270,7 @@ class _SurveyPageState extends State<SurveyPage> {
           ),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 35, 35, 35),
+      backgroundColor: const Color(0xFFC9C5BA),
     );
   }
 }

@@ -21,13 +21,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
   String _selectedLocation = '';
   late String lat;
   late String long;
-  late String l;
+  String? _subjectError;
+  String? _descriptionError;
 
   Future<void> _pickImage() async {
     final imagePicker = ImagePicker();
     try {
-      final pickedFile =
-          await imagePicker.pickImage(source: ImageSource.gallery);
+      final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile != null) {
         setState(() {
@@ -35,15 +35,12 @@ class _ComplaintPageState extends State<ComplaintPage> {
         });
       }
     } catch (e) {
-      // ignore: avoid_print
       print('Error picking image: $e');
       // Handle the error (show a dialog, log it, etc.)
     }
   }
 
   Future<Position> _pickLocation() async {
-    // Add logic to pick location using plugins like location
-    // For simplicity, just setting a placeholder here
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled');
@@ -64,6 +61,15 @@ class _ComplaintPageState extends State<ComplaintPage> {
   }
 
   void _submitComplaint(String Id, String s, String d, String l) async {
+    if (_subjectController.text.isEmpty || _descriptionController.text.isEmpty) {
+      // Set the error messages only when submitting
+      setState(() {
+        _subjectError = _subjectController.text.isEmpty ? 'Subject is required' : null;
+        _descriptionError = _descriptionController.text.isEmpty ? 'Description is required' : null;
+      });
+      return;
+    }
+
     final request = http.MultipartRequest(
       "POST",
       complainturl,
@@ -76,11 +82,12 @@ class _ComplaintPageState extends State<ComplaintPage> {
 
     final headers = {"Content-type": "multipart/form-data"};
     request.files.add(http.MultipartFile(
-        'image',
-        _selectedImagePath!.readAsBytes().asStream(),
-        _selectedImagePath!.lengthSync(),
-        filename: _selectedImagePath!.path.split("/").last));
-    print(request);
+      'image',
+      _selectedImagePath!.readAsBytes().asStream(),
+      _selectedImagePath!.lengthSync(),
+      filename: _selectedImagePath!.path.split("/").last,
+    ));
+
     request.headers.addAll(headers);
     final response = await request.send();
     http.Response res = await http.Response.fromStream(response);
@@ -92,40 +99,42 @@ class _ComplaintPageState extends State<ComplaintPage> {
     _descriptionController.clear();
     if (res.statusCode == 201) {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.grey[300],
-              title: const Text('CSP'),
-              content: const Text('Success!'),
-              actions: [
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('ok'),
-                )
-              ],
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.grey[300],
+            title: const Text('CSP'),
+            content: const Text('Success!'),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('ok'),
+              )
+            ],
+          );
+        },
+      );
     } else {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.grey[300],
-              title: const Text('CSP'),
-              content: const Text('Failed!'),
-              actions: [
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('ok'),
-                )
-              ],
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.grey[300],
+            title: const Text('CSP'),
+            content: const Text('Failed!'),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('ok'),
+              )
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -136,13 +145,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
     postModel.getPostData();
   }
 
+  @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: const Text('Complaint Reporting',
-            style: TextStyle(color: Colors.white)),
+        backgroundColor: Color(0xFF698996),
+        title: const Text('Complaint Reporting', style: TextStyle(color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -151,21 +160,35 @@ class _ComplaintPageState extends State<ComplaintPage> {
           children: [
             TextField(
               controller: _subjectController,
-              decoration: const InputDecoration(
+              onChanged: (value) {
+                setState(() {
+                  _subjectError = null; // Clear the error message on typing
+                });
+              },
+              decoration: InputDecoration(
                 labelText: 'Subject',
+                hintText: 'Subject *', // Indicate that it's required
+                errorText: _subjectError,
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _descriptionController,
+              onChanged: (value) {
+                setState(() {
+                  _descriptionError = null; // Clear the error message on typing
+                });
+              },
               maxLines: 4,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Description',
+                hintText: 'Description *', // Indicate that it's required
+                errorText: _descriptionError,
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 5),
             _selectedImagePath == null
                 ? Container()
                 : Image.file(
@@ -174,15 +197,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 1),
             ElevatedButton.icon(
               onPressed: _pickImage,
-              icon: const Icon(Icons.attach_file,
-                  color: Color.fromARGB(255, 73, 64, 209)),
-              label: const Text('Attach Image',
-                  style: TextStyle(color: Colors.white)),
+              icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
+              label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: Color(0xFFC9C5BA),
               ),
             ),
             const SizedBox(height: 4),
@@ -200,25 +221,26 @@ class _ComplaintPageState extends State<ComplaintPage> {
                   });
                 });
               },
-              icon: const Icon(Icons.add_location,
-                  color: Color.fromARGB(255, 186, 40, 40)),
-              label: const Text('Add Location',
-                  style: TextStyle(color: Colors.white)),
+              icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
+              label: const Text('Add Location', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                primary: Color(0xFF97B1A6),
               ),
             ),
             const SizedBox(height: 4),
             ElevatedButton(
               onPressed: () {
                 _submitComplaint(
-                    postModel.post?.id_number ?? "",
-                    _subjectController.text,
-                    _descriptionController.text,
-                    _selectedLocation);
+                  postModel.post?.id_number ?? "",
+                  _subjectController.text,
+                  _descriptionController.text,
+                  _selectedLocation,
+                );
               },
-              child:
-                  const Text('Submit', style: TextStyle(color: Colors.green)),
+              child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF698996),
+              ),
             ),
           ],
         ),

@@ -140,8 +140,10 @@ class _deptdetailsState extends State<deptdetails> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).push(
+                Navigator.pushAndRemoveUntil(
+                  context,
                   MaterialPageRoute(builder: (context) => const DeptLogin()),
+                  (route) => false,
                 );
               },
               icon: const Icon(Icons.logout,

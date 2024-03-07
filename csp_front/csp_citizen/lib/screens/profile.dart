@@ -127,16 +127,15 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             const SizedBox(height: 20),
             IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                // Navigate to the login page
-                print('$img_url');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Login()),
-                );
-              },
-            ),
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  // Navigate to the login page
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                    (route) => false,
+                  );
+                }),
           ],
         ),
       ),

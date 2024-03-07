@@ -270,7 +270,7 @@ class _SurveyPageState extends State<SurveyPage> {
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFC9C5BA),
+      backgroundColor: const Color(0xFF698996),
     );
   }
 }

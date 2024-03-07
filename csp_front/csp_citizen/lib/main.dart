@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:feedback/feedback.dart';
 
 void main() {
+
   runApp(
     MultiProvider(
       providers: [
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Login(),
       routes: {
-        '/home': (context) => const MyHomePage(title: 'CSP'),
+        '/home': (context) => const MyHomePage(),
         '/profile': (context) => const ProfilePage(),
         '/complaint': (context) => const ComplaintPage(),
         '/survey': (context) => const SurveyPage(),

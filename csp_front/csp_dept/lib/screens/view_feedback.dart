@@ -17,7 +17,6 @@ class ViewFeedback extends StatefulWidget {
 
 class _ViewFeedbackState extends State<ViewFeedback> {
   Client client = http.Client();
-  // double rating = 3.0;
   List<FeedModel> feedbacks = [];
 
   @override
@@ -41,83 +40,95 @@ class _ViewFeedbackState extends State<ViewFeedback> {
       String id, String en, double r, String f, String d) {
     return Card(
       elevation: 3,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text(
-          id,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            en,
-            style: const TextStyle(fontSize: 14),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RatingBar.builder(
-            initialRating: r,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemSize: 24.0,
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: 12),
+          Text(
+            'Feedback ID: $id',
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            onRatingUpdate: (newRating) {
-              setState(() {
-                r = newRating;
-              });
-            },
-            ignoreGestures: true,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            f,
-            style: const TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(height: 8),
-        const SizedBox(
-          height: 5,
-          width: 50,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            d,
-            style: const TextStyle(fontSize: 14),
-            textAlign: TextAlign.center,
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Event Name: $en',
+              style: const TextStyle(fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-      ]),
+          const SizedBox(height: 8),
+          const Divider(thickness: 1, color: Colors.grey),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("User Rating :"),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RatingBar.builder(
+                  initialRating: r,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 24.0,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (newRating) {
+                    setState(() {
+                      r = newRating;
+                    });
+                  },
+                  ignoreGestures: true,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Feedback:   $f',
+              style: const TextStyle(fontSize: 14),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Date: $d',
+              style: const TextStyle(fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
+      ),
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: feedbacks.length,
       itemBuilder: (context, index) {
-        double rate = double.parse(feedbacks[index].rating);
+        double rating = double.parse(feedbacks[index].rating);
         return _buildFeedbackCard(
-            feedbacks[index].id_number,
-            feedbacks[index].event_name,
-            rate,
-            feedbacks[index].feed,
-            feedbacks[index].date);
+          feedbacks[index].id_number,
+          feedbacks[index].event_name,
+          rating,
+          feedbacks[index].feed,
+          feedbacks[index].date,
+        );
       },
     );
   }

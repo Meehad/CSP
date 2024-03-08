@@ -43,7 +43,7 @@ class DeptLogin extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.teal[400],
+      // backgroundColor: Colors.teal[400],
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Center(
@@ -56,7 +56,7 @@ class DeptLogin extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: Colors.teal[400],
+        // backgroundColor: Colors.teal[400],
       ),
       body: SafeArea(
         child: Center(
@@ -119,8 +119,8 @@ class DeptLogin extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 40),
-                  primary: Colors.white,
-                  onPrimary: Colors.teal[900],
+                  // primary: Colors.white,
+                  // onPrimary: Colors.teal[900],
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),

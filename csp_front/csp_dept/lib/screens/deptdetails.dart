@@ -23,7 +23,6 @@ class _deptdetailsState extends State<deptdetails> {
     final String img = postModel.post?.image ?? "";
     final String img_url = "http://10.0.2.2:8000/$img";
     return Scaffold(
-      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(right: 40.0),
@@ -34,7 +33,6 @@ class _deptdetailsState extends State<deptdetails> {
             ),
           ),
         ),
-        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Column(

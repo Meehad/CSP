@@ -145,12 +145,12 @@ import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
 import 'package:csp_dept/urls.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 
 class Depthome extends StatefulWidget {
   const Depthome({Key? key});
@@ -164,7 +164,8 @@ class _DepthomeState extends State<Depthome> {
   Client client = http.Client();
   String imagePath = "";
   int i = 0;
-  
+  int _currentIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -179,23 +180,21 @@ class _DepthomeState extends State<Depthome> {
   }
 
   _retrieveEvents() async {
-  events = [];
-  List response = jsonDecode((await client.get(showEvents)).body);
-  for (var element in response) {
-    events.add(EventModel.fromJson(element));
+    events = [];
+    List response = jsonDecode((await client.get(showEvents)).body);
+    for (var element in response) {
+      events.add(EventModel.fromJson(element));
+    }
+    setState(() {});
   }
-  setState(() {});
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Padding(
-          padding: EdgeInsets.only(left: 60.0),
+          padding: EdgeInsets.only(right: 50.0),
           child: Center(
             child: Text(
               'CSP',
@@ -203,21 +202,18 @@ class _DepthomeState extends State<Depthome> {
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => deptdetails()),
-              );
-            },
-            icon: const Icon(
-              Icons.list,
-              color: Colors.black,
-            ),
-            iconSize: 45.0,
-          )
-        ],
-        backgroundColor: Colors.teal[400],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => deptdetails()),
+            );
+          },
+          icon: const Icon(
+            Icons.list,
+            color: Colors.black,
+          ),
+          iconSize: 45.0,
+        ),
       ),
       body: Center(
         child: Column(
@@ -225,8 +221,6 @@ class _DepthomeState extends State<Depthome> {
             const SizedBox(height: 50),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -244,8 +238,6 @@ class _DepthomeState extends State<Depthome> {
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -265,8 +257,6 @@ class _DepthomeState extends State<Depthome> {
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.teal[900],
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -284,26 +274,50 @@ class _DepthomeState extends State<Depthome> {
               ),
             ),
             const SizedBox(height: 60),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 300.0,
-                enlargeCenterPage: true,
-                autoPlay: true,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                viewportFraction: 0.9,
-              ),
-              items: [
-                // Images in the carousel
-                for (int i = 0; i < events.length; i++)
-                  Image.network(
-                    "http://10.0.2.2:8000${events[i].event_img}",
-                    fit: BoxFit.cover,
-                  ),
-              ],
-            )
+            events.isNotEmpty
+                ? CarouselSlider(
+                    options: CarouselOptions(
+                      height: 300.0,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      aspectRatio: 16 / 9,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: true,
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      viewportFraction: 0.9,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                    ),
+                    items: [
+                      for (int i = 0; i < events.length; i++)
+                        Image.network(
+                          "http://10.0.2.2:8000${events[i].event_img}",
+                          fit: BoxFit.cover,
+                        ),
+                    ],
+                  )
+                : CircularProgressIndicator(),
+
+            // Dot indicator
+            events.isNotEmpty
+                ? DotsIndicator(
+                    dotsCount: events.length,
+                    position: _currentIndex.toInt(),
+                    decorator: DotsDecorator(
+                      color: Colors.black,
+                      size: const Size.square(6.0),
+                      activeColor: Colors.white,
+                      activeSize: const Size.square(8.0),
+                      activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
           ],
         ),
       ),

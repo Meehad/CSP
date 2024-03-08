@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FeedbackPage extends StatefulWidget {
-  const FeedbackPage({Key? key}) : super(key: key);
+  const FeedbackPage({super.key});
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -104,7 +104,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Image.network(
           "http://10.0.2.2:8000$imagePath",
-          height: 150, // Adjust the height as needed
+          height: 200, // Adjust the height as needed
           width: 150,
           fit: BoxFit.cover,
         ),
@@ -139,7 +139,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Text(
             description,
             style: const TextStyle(fontSize: 14),
@@ -162,7 +162,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           height: 3,
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(1.0),
           child: Text(
             formattedDate,
             style: const TextStyle(fontSize: 14),
@@ -180,9 +180,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
             _submitFeedback(ind, title, rating);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: const Color.fromARGB(255, 213, 213, 213),
+            foregroundColor: Color.fromARGB(255, 255, 255, 255),
             backgroundColor:
-                const Color.fromARGB(255, 58, 58, 58), // Text color
+                const Color(0xFF698996), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(

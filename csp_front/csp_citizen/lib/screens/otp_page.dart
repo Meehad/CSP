@@ -16,16 +16,19 @@ class OtpPage extends StatelessWidget {
         color: Color.fromARGB(255, 14, 14, 14),
       ),
       decoration: BoxDecoration(
-        color: Colors.green.shade100,
+        color: Color(0xFFC9C5BA),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.transparent),
       ),
     );
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+      //backgroundColor: const Color(0xFFC9C5BA),
+      backgroundColor: const Color(0xFF698996),
+
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        //backgroundColor:Color(0xFF698996),
+        backgroundColor:Color(0xFFC9C5BA),
         title: const Text(
           'CSP',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -51,7 +54,7 @@ class OtpPage extends StatelessWidget {
                 child: const Text(
                   'Enter the code sent to your number',
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.white,
                     fontSize: 18,
                   ),
                 ),

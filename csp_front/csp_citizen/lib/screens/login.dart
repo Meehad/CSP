@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor:Color(0xFFC9C5BA),
       body: SafeArea(
         child: Center(
             child: Column(
@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
               "CITIZEN SERVICE PORTAL",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251),
+                  color: Colors.black,
                   fontSize: 30),
             ),
             const Padding(
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
               "WELCOME",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251),
+                  color: Colors.black,
                   fontSize: 25),
             ),
             // adhaar textfeild
@@ -113,8 +113,8 @@ class _LoginState extends State<Login> {
               style: ElevatedButton.styleFrom(
                 fixedSize:
                     const Size(140, 40), //button dimentions for login button
-                primary: Colors.white, // background color
-                onPrimary: Colors.green, // text color
+                primary: Color(0xFF97B1A6), // background color
+                onPrimary: Colors.white, // text color
                 elevation: 5, // elevation
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)

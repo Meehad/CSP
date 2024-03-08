@@ -2,6 +2,7 @@ import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/complaint.dart';
 import 'package:csp_citizen/screens/feedback.dart';
+import 'package:csp_citizen/screens/forms.dart';
 import 'package:csp_citizen/screens/home.dart';
 import 'package:csp_citizen/screens/login.dart';
 import 'package:csp_citizen/screens/profile.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/survey': (context) => const SurveyPage(),
         '/feedback': (context) => const FeedbackPage(),
         '/about': (context) => AboutPage(),
+        '/forms':(context) => Formspage()
       },
     );
   }

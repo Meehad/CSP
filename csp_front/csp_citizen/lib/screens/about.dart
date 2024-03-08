@@ -29,19 +29,19 @@ class AboutPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              '1. **Surveys:** - Engage in government-initiated surveys on critical public service matters. - Share your insights and opinions, influencing decision-making processes.  - Access detailed survey analytics for informed and data-driven enhancements.',
+              '1. Surveys: - Engage in government-initiated surveys on critical public service matters. - Share your insights and opinions, influencing decision-making processes.  - Access detailed survey analytics for informed and data-driven enhancements.',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.left,
             ),
             SizedBox(height: 5),
             Text(
-              '2. **Feedback:**- Provide constructive feedback on government services and initiatives.- Foster transparent communication with service providers for continuous improvement.- Stay informed about the impact of your feedback on service enhancements.',
+              '2. Feedback:- Provide constructive feedback on government services and initiatives.- Foster transparent communication with service providers for continuous improvement.- Stay informed about the impact of your feedback on service enhancements.',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.left,
             ),
             SizedBox(height: 5),
             Text(
-              '3. **Complaints:**- Report service-related issues directly to relevant government departments - Monitor real-time status updates and resolution progress for reported complaints. - Collaborate with service providers and fellow citizens for effective issue resolution.',
+              '3. Complaints:- Report service-related issues directly to relevant government departments - Monitor real-time status updates and resolution progress for reported complaints. - Collaborate with service providers and fellow citizens for effective issue resolution.',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.left,
             ),

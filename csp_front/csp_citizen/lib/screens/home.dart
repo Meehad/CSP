@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
   backgroundColor: Color(0xFF698996),
-  title: Text('Welcome ${postModel.post?.name ?? ""}'),
+  title: Text('Welcome, ${postModel.post?.name ?? ""}'),
   leading: Builder(
     builder: (BuildContext context) {
       return IconButton(
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Image.asset(
-        'assets/logo 2.png', // Replace with the path to your logo
+        'assets/csplogonobg.png', // Replace with the path to your logo
         width: 50,
         height: 50,
       ),
@@ -119,6 +119,13 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Help'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+             ListTile(
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/Settings');
               },
             ),
             ListTile(

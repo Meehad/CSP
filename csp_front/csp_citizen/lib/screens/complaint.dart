@@ -245,7 +245,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
           ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 226, 252, 232),
+      backgroundColor: Color.fromARGB(255, 222, 222, 222),
     );
   }
 }

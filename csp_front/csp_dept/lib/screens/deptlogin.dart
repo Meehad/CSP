@@ -43,7 +43,7 @@ class DeptLogin extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.teal[400],
+      backgroundColor: Color(0xFFC9C5BA),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Center(
@@ -56,7 +56,7 @@ class DeptLogin extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: Colors.teal[400],
+        backgroundColor: Color(0xFF97B1A6),
       ),
       body: SafeArea(
         child: Center(

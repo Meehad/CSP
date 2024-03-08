@@ -61,10 +61,10 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "CITIZEN SERVICE PORTAL",
+              "CENTRAL SERVICE PORTAL",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251),
+                  color: Colors.black,
                   fontSize: 30),
             ),
             const Padding(
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
               "WELCOME",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(179, 253, 251, 251),
+                  color: Colors.black,
                   fontSize: 25),
             ),
             // adhaar textfeild

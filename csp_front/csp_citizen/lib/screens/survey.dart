@@ -95,151 +95,151 @@ class _SurveyPageState extends State<SurveyPage> {
   }
 
   Widget _buildFeedbackCard(String n, String title, String date, int ind) {
-    DateTime apiDate = DateTime.parse(date);
-    String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
-    return Card(
-      elevation: 3,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+  DateTime apiDate = DateTime.parse(date);
+  String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
+
+  return Card(
+    elevation: 5,
+    margin: const EdgeInsets.all(10),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: answerControllers[ind],
-            maxLines: 4,
-            decoration: const InputDecoration(
-              hintText: 'Enter your response here...',
-              border: OutlineInputBorder(),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: answerControllers[ind],
+              maxLines: 4,
+              style: const TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                hintText: 'Enter your response here...',
+                contentPadding: const EdgeInsets.all(12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 3,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
+          const SizedBox(height: 8),
+          Text(
             formattedDate,
             style: const TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(
-          height: 5,
-          width: 50,
-        ),
-        // ignore: unnecessary_const
-        ElevatedButton(
-          onPressed: () {
-            // Add logic to submit feedback for this card
-            _submitFeedback(n, title, answerControllers[ind].text, ind);
-          },
-          style: ElevatedButton.styleFrom(
-            // foregroundColor: const Color.fromARGB(255, 213, 213, 213),
-            // backgroundColor:
-                // const Color.fromARGB(255, 58, 58, 58), // Text color
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  2), // Adjust the border radius as needed
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () {
+              // Add logic to submit feedback for this card
+              _submitFeedback(n, title, answerControllers[ind].text, ind);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF698996), // Submit button color
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              minimumSize: const Size(double.infinity, 40), // Set button height
+            ),
+            child: const Text(
+              'Submit',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          child: const Text(
-            'Submit',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
+        ],
+      ),
+    ),
+  );
+}
+
 
   Widget _buildMultians(
-      String n, String title, String date, List<String> options, int ind) {
-    int selectedValue = -1;
-    DateTime apiDate = DateTime.parse(date);
-    String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
-    return Card(
-      elevation: 3,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    String n, String title, String date, List<String> options, int ind) {
+  int selectedValue = -1;
+  DateTime apiDate = DateTime.parse(date);
+  String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
+
+  return Card(
+    elevation: 5,
+    margin: const EdgeInsets.all(10),
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 8),
-        StatefulBuilder(
-          builder: (context, setState) {
-            return Column(
-              children: options.map((option) {
-                return RadioListTile<int>(
-                  title: Text(option),
-                  value: options.indexOf(option),
-                  groupValue: selectedValue,
-                  onChanged: (int? value) {
-                    setState(() {
-                      selectedValue = value ?? -1;
-                    });
-                  },
-                );
-              }).toList(),
-            );
-          },
-        ),
-        const SizedBox(
-          height: 3,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
+          const SizedBox(height: 12),
+          StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                children: options.map((option) {
+                  return RadioListTile<int>(
+                    title: Text(option),
+                    value: options.indexOf(option),
+                    groupValue: selectedValue,
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedValue = value ?? -1;
+                      });
+                    },
+                  );
+                }).toList(),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+          Text(
             formattedDate,
             style: const TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(
-          height: 5,
-          width: 50,
-        ),
-        // ignore: unnecessary_const
-        ElevatedButton(
-          onPressed: () {
-            // Add logic to submit feedback for this card
-            _submitFeedback(n, title, options[selectedValue], ind);
-          },
-          style: ElevatedButton.styleFrom(
-            // foregroundColor: const Color.fromARGB(255, 213, 213, 213),
-            // backgroundColor:
-            // const Color.fromARGB(255, 58, 58, 58), // Text color
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  2), // Adjust the border radius as needed
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: () {
+              // Add logic to submit feedback for this card
+              _submitFeedback(n, title, options[selectedValue], ind);
+            },
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xFF698996), // Submit button color
+              elevation: 3,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              minimumSize: const Size(double.infinity, 40), // Set button height
+            ),
+            child: const Text(
+              'Submit',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          child: const Text(
-            'Submit',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
+        ],
+      ),
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

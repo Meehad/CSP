@@ -6,6 +6,7 @@ import 'package:csp_citizen/models/survey_data.dart';
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/complaint.dart';
 import 'package:csp_citizen/screens/feed.dart';
+import 'package:csp_citizen/screens/forms.dart';
 import 'package:csp_citizen/screens/home.dart';
 import 'package:csp_citizen/screens/login.dart';
 import 'package:csp_citizen/screens/profile.dart';
@@ -69,7 +70,12 @@ class MyApp extends StatelessWidget {
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
                 foregroundColor: MaterialStatePropertyAll(
-                    Color.fromARGB(255, 213, 213, 213)))),
+                    Color.fromARGB(255, 213, 213, 213)),),),
+                    cardTheme: CardTheme(
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),),
       ),
       home: const Login(),
       routes: {
@@ -79,6 +85,7 @@ class MyApp extends StatelessWidget {
         '/survey': (context) => const SurveyPage(),
         '/feedback': (context) => const FeedbackPage(),
         '/about': (context) => AboutPage(),
+        '/forms':(context) => Formspage()
       },
     );
   }

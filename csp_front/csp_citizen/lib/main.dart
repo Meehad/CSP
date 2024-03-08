@@ -70,7 +70,12 @@ class MyApp extends StatelessWidget {
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
                 foregroundColor: MaterialStatePropertyAll(
-                    Color.fromARGB(255, 213, 213, 213)))),
+                    Color.fromARGB(255, 213, 213, 213)),),),
+                    cardTheme: CardTheme(
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),),
       ),
       home: const Login(),
       routes: {

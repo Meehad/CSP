@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 import 'package:feedback/feedback.dart';
 
 void main() {
-
   runApp(
     MultiProvider(
       providers: [
@@ -32,21 +31,22 @@ void main() {
       ],
       child: BetterFeedback(
         theme: FeedbackThemeData(
-        background: Colors.grey,
-        feedbackSheetColor: Colors.grey[50]!,
-        drawColors: [
-          Colors.red,
-          Colors.green,
-          Colors.blue,
-          Colors.yellow,
-        ],
-      ),
+          background: Colors.grey,
+          feedbackSheetColor: Colors.grey[50]!,
+          drawColors: [
+            Colors.red,
+            Colors.green,
+            Colors.blue,
+            Colors.yellow,
+          ],
+        ),
         localizationsDelegates: [
-        GlobalFeedbackLocalizationsDelegate(),
-      ],
-      localeOverride: const Locale('en'),
+          GlobalFeedbackLocalizationsDelegate(),
+        ],
+        localeOverride: const Locale('en'),
         child: const MyApp(),
-    ),),
+      ),
+    ),
   );
 }
 
@@ -60,8 +60,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'CSP',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF698996)),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+            .copyWith(background: const Color.fromARGB(255, 226, 226, 226)),
+        buttonTheme: const ButtonThemeData(buttonColor: Color(0xFF698996)),
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
+                foregroundColor: MaterialStatePropertyAll(
+                    Color.fromARGB(255, 213, 213, 213)))),
       ),
       home: const Login(),
       routes: {

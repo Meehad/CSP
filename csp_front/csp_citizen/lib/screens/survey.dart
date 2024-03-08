@@ -115,7 +115,7 @@ class _SurveyPageState extends State<SurveyPage> {
             controller: answerControllers[ind],
             maxLines: 4,
             decoration: const InputDecoration(
-              hintText: 'Enter your feedback here...',
+              hintText: 'Enter your response here...',
               border: OutlineInputBorder(),
             ),
           ),
@@ -142,9 +142,9 @@ class _SurveyPageState extends State<SurveyPage> {
             _submitFeedback(n, title, answerControllers[ind].text, ind);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: const Color.fromARGB(255, 213, 213, 213),
-            backgroundColor:
-                const Color.fromARGB(255, 58, 58, 58), // Text color
+            // foregroundColor: const Color.fromARGB(255, 213, 213, 213),
+            // backgroundColor:
+                // const Color.fromARGB(255, 58, 58, 58), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -152,7 +152,7 @@ class _SurveyPageState extends State<SurveyPage> {
             ),
           ),
           child: const Text(
-            'Submit Feedback',
+            'Submit',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -220,9 +220,9 @@ class _SurveyPageState extends State<SurveyPage> {
             _submitFeedback(n, title, options[selectedValue], ind);
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: const Color.fromARGB(255, 213, 213, 213),
-            backgroundColor:
-                const Color.fromARGB(255, 58, 58, 58), // Text color
+            // foregroundColor: const Color.fromARGB(255, 213, 213, 213),
+            // backgroundColor:
+            // const Color.fromARGB(255, 58, 58, 58), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -230,7 +230,7 @@ class _SurveyPageState extends State<SurveyPage> {
             ),
           ),
           child: const Text(
-            'Submit Feedback',
+            'Submit',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -245,7 +245,6 @@ class _SurveyPageState extends State<SurveyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: const Text('Survey'),
       ),
       body: Padding(
@@ -270,7 +269,7 @@ class _SurveyPageState extends State<SurveyPage> {
           ),
         ),
       ),
-      backgroundColor: const Color(0xFF698996),
+      // backgroundColor: const Color(0xFF698996),
     );
   }
 }

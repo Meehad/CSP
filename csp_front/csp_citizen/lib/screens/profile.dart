@@ -20,13 +20,17 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.only(left:20.0,right: 20,top: 40,bottom: 100),//card size
+          padding: const EdgeInsets.only(
+              left: 20.0, right: 20, top: 40, bottom: 100), //card size
           child: Card(
             elevation: 5,
-            color: Colors.white,
+            color: Color(0xFFC9C5BA),
             child: Padding(
-              
-              padding: const EdgeInsets.only(left:30.0,right: 20,top: 90,bottom: 70.0),//text boxes inside card size
+              padding: const EdgeInsets.only(
+                  left: 30.0,
+                  right: 20,
+                  top: 90,
+                  bottom: 70.0), //text boxes inside card size
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -35,7 +39,6 @@ class ProfilePage extends StatelessWidget {
                     backgroundImage: NetworkImage(img_url),
                   ),
                   const SizedBox(height: 16),
-                  
                   Text(
                     postModel.post?.name ?? "",
                     style: const TextStyle(
@@ -45,7 +48,9 @@ class ProfilePage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16,),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -67,7 +72,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Color(0xFFC9C5BA),
+      // backgroundColor: Color(0xFFC9C5BA),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Row(
@@ -94,7 +99,7 @@ class ProfilePage extends StatelessWidget {
       width: 300.0, // Adjust the width to modify the length of the box
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        border: Border.all(color:Color(0xFFC9C5BA)),
+        border: Border.all(color: Color(0xFFC9C5BA)),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(

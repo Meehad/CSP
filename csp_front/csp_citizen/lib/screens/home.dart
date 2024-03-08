@@ -2,15 +2,14 @@ import 'dart:convert';
 import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/feedback_model.dart';
 import 'package:csp_citizen/models/user_data.dart';
+import 'package:csp_citizen/screens/drawer.dart';
 import 'package:csp_citizen/urls.dart';
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'login.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -80,69 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ],
 ),
 
-       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF97B1A6),
-              ),
-              child: Text(
-                'Navigation',
-                style: TextStyle(fontSize: 25),
-              ),
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/profile');
-              },
-            ),
-            ListTile(
-              title: const Text('About'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/about');
-              },
-            ),
-            ListTile(
-              title: const Text('Feedback'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/submitFeeback');
-              },
-            ),
-            ListTile(
-              title: const Text('Help'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Report a bug'),
-              onTap: () {
-                BetterFeedback.of(context).show((feedback) async {});
-              },
-            ),
-            ListTile(
-              title: const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Login()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+       drawer: const NavBar(),
       body: Column(
         children: [
           const SizedBox(height: 10),

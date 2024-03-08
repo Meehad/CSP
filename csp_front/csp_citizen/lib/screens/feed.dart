@@ -117,27 +117,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RatingBar.builder(
-            initialRating: rating,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemSize: 24.0,
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            onRatingUpdate: (newRating) {
-              setState(() {
-                rating = newRating;
-              });
-            },
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
@@ -145,6 +124,33 @@ class _FeedbackPageState extends State<FeedbackPage> {
             style: const TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RatingBar.builder(
+                initialRating: rating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 24.0,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (newRating) {
+                  setState(() {
+                    rating = newRating;
+                  });
+                },
+              ),
+            ),
+            SizedBox(width: 2),
+            Text(rating.toString())
+          ],
         ),
         const SizedBox(height: 8),
         Padding(
@@ -181,8 +187,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
           },
           style: ElevatedButton.styleFrom(
             foregroundColor: const Color.fromARGB(255, 213, 213, 213),
-            backgroundColor:
-                const Color.fromARGB(255, 58, 58, 58), // Text color
+            // backgroundColor:
+            // const Color.fromARGB(255, 58, 58, 58), // Text color
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
@@ -205,9 +211,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF698996),
-        title: const Text('Feedback',
-        style: TextStyle(color:Colors.white),),
+        // backgroundColor: const Color(0xFF698996),
+        title: const Text(
+          'Feedback',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -224,7 +232,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           },
         ),
       ),
-      backgroundColor: const Color(0xFF97B1A6),
+      // backgroundColor: const Color(0xFF97B1A6),
     );
   }
 }

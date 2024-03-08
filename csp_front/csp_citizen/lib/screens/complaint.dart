@@ -150,7 +150,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
     final postModel = Provider.of<DataClass>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF698996),
+        // backgroundColor: Color(0xFF698996),
         title: const Text('Complaint Reporting', style: TextStyle(color: Colors.white)),
       ),
       body: Padding(
@@ -245,7 +245,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
           ],
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 222, 222, 222),
+      // backgroundColor: const Color.fromARGB(255, 226, 252, 232),
     );
   }
 }

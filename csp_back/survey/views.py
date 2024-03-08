@@ -3,8 +3,6 @@ from .models import Survey_Q, Survey_A
 from .serializers import SurveyqSerializer, SurveyaSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from csp_log.models import UserProfile
-
 # create views here
 
 

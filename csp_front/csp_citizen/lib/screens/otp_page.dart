@@ -16,19 +16,15 @@ class OtpPage extends StatelessWidget {
         color: Color.fromARGB(255, 14, 14, 14),
       ),
       decoration: BoxDecoration(
-        color: Color(0xFFC9C5BA),
+        color: const Color(0xFFC9C5BA),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.transparent),
       ),
     );
 
     return Scaffold(
-      //backgroundColor: const Color(0xFFC9C5BA),
-      backgroundColor: const Color(0xFF698996),
-
+      // backgroundColor: const Color.fromARGB(255, 34, 34, 34),
       appBar: AppBar(
-        //backgroundColor:Color(0xFF698996),
-        backgroundColor:Color(0xFFC9C5BA),
         title: const Text(
           'CSP',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -44,7 +40,7 @@ class OtpPage extends StatelessWidget {
               const Text(
                 'Verification',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  // color: Color.fromARGB(255, 255, 255, 255),
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),

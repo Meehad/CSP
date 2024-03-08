@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor:Color(0xFFC9C5BA),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SafeArea(
         child: Center(
             child: Column(
@@ -106,15 +106,15 @@ class _LoginState extends State<Login> {
                           color: Color.fromARGB(255, 158, 158, 158))),
                   obscureText: false,
                 )),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // buttonar
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 fixedSize:
                     const Size(140, 40), //button dimentions for login button
-                primary: Color(0xFF97B1A6), // background color
-                onPrimary: Colors.white, // text color
+                foregroundColor: const Color(0xFF698996),
+                backgroundColor: const Color.fromARGB(255, 213, 213, 213),
                 elevation: 5, // elevation
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)

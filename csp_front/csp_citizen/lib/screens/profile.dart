@@ -23,9 +23,13 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.only(left:20.0, right: 20, top: 40, bottom: 70),
           child: Card(
             elevation: 5,
-            color: Colors.white,
+            color: Color(0xFFC9C5BA),
             child: Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 20, top: 90, bottom: 70),
+              padding: const EdgeInsets.only(
+                  left: 30.0,
+                  right: 20,
+                  top: 90,
+                  bottom: 70.0), //text boxes inside card size
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -43,7 +47,9 @@ class ProfilePage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16,),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: Column(
@@ -73,7 +79,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: const Color(0xFFC9C5BA),
+      // backgroundColor: Color(0xFFC9C5BA),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: Row(

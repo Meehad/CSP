@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "CITIZEN SERVICE PORTAL",
+              "CENTRAL SERVICE PORTAL",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

@@ -130,7 +130,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               Text(
                 description,
                 style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.justify,
               ),
               SizedBox(height: 8),
               Row(
@@ -155,6 +155,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ),
                   SizedBox(width: 8),
                   Text(
+                    
                     rating.toString(),
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),

@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/feedback_model.dart';
@@ -40,13 +41,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
     setState(() {});
   }
 
-  _submitFeedback(int ind, String event_name, double rate) async {
+  _submitFeedback(int ind, String eventName, double rate) async {
     try {
       final postModel = Provider.of<DataClass>(context, listen: false);
       postModel.getPostData();
       Response res = await post(postfeed, body: {
         'id_number': postModel.post?.id_number ?? "",
-        'event_name': event_name,
+        'event_name': eventName,
         'feed': feedbackControllers[ind].text,
         'rating': rate.toString(),
       });
@@ -104,7 +105,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
           child: Image.network(
             "http://10.0.2.2:8000$imagePath",
             height: 200,
@@ -119,20 +120,20 @@ class _FeedbackPageState extends State<FeedbackPage> {
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF698996), // Adjust the color as needed
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 description,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.justify,
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -153,15 +154,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       });
                     },
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     
                     rating.toString(),
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: feedbackControllers[ind],
                 maxLines: 4,
@@ -172,13 +173,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 formattedDate,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: () {
                   _submitFeedback(ind, title, rating);
@@ -190,7 +191,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Submit Feedback',
                   style: TextStyle(
                     fontSize: 16,

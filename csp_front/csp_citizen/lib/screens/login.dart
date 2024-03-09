@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'dart:convert';
 import 'package:csp_citizen/models/user_data.dart';
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     TextEditingController adId = TextEditingController();
-    void login(String Id) async {
+    void login(Id) async {
       try {
         Response response =
             await post(loginurl, body: {'id_number': Id.toString()});

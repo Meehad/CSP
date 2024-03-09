@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatelessWidget {
-  const OtpPage({Key? key, required this.otp}) : super(key: key);
+  const OtpPage({super.key, required this.otp});
 
   final String otp;
 

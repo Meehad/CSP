@@ -14,7 +14,7 @@ class Formspage extends StatefulWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF698996),
+        backgroundColor: const Color(0xFF698996),
         title: const Text('Forms'),
       ),
       body: ListView.builder(

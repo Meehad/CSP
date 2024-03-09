@@ -17,24 +17,23 @@ class SurveyPage extends StatefulWidget {
 }
 
 class _SurveyPageState extends State<SurveyPage> {
-  double rating = 3.0; // Default rating value
   Client client = http.Client();
-  List<SurveyQModel> events = [];
+  List<SurveyQModel> questions = [];
   List<TextEditingController> answerControllers = [];
 
   @override
   void initState() {
-    _retrieveEvents();
+    _retrieveQ();
     super.initState();
-    final postEvent = Provider.of<SurveyQClass>(context, listen: false);
-    postEvent.getPostData();
+    final postQ = Provider.of<SurveyQClass>(context, listen: false);
+    postQ.getPostData();
   }
 
-  _retrieveEvents() async {
-    events = [];
+  _retrieveQ() async {
+    questions = [];
     List response = jsonDecode((await client.get(showQ)).body);
     for (var element in response) {
-      events.add(SurveyQModel.fromJson(element));
+      questions.add(SurveyQModel.fromJson(element));
     }
     setState(() {});
   }
@@ -56,13 +55,13 @@ class _SurveyPageState extends State<SurveyPage> {
               return AlertDialog(
                 backgroundColor: Colors.grey[300],
                 title: const Text('CSP'),
-                content: const Text('Success!'),
+                content: const Text('Your feedback has been submitted successfully!'),
                 actions: [
                   MaterialButton(
                     onPressed: () {
                       Navigator.pop(context);
                       setState(() {
-                        events.removeAt(ind);
+                        questions.removeAt(ind);
                       });
                     },
                     child: const Text('ok'),
@@ -77,7 +76,7 @@ class _SurveyPageState extends State<SurveyPage> {
               return AlertDialog(
                 backgroundColor: Colors.grey[300],
                 title: const Text('CSP'),
-                content: const Text('Failed!'),
+                content: const Text('Failed to submit feedback. Please try again.'),
                 actions: [
                   MaterialButton(
                     onPressed: () {
@@ -219,7 +218,7 @@ class _SurveyPageState extends State<SurveyPage> {
               _submitFeedback(n, title, options[selectedValue], ind);
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF698996), // Submit button color
+              backgroundColor: const Color(0xFF698996), // Submit button color
               elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -249,27 +248,24 @@ class _SurveyPageState extends State<SurveyPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Container(
-          child: ListView.builder(
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              answerControllers.add(TextEditingController());
-              if (events[index].is_options) {
-                return _buildMultians(
-                    events[index].name,
-                    events[index].question,
-                    events[index].time,
-                    events[index].options,
-                    index);
-              } else {
-                return _buildFeedbackCard(events[index].name,
-                    events[index].question, events[index].time, index);
-              }
-            },
-          ),
+        child: ListView.builder(
+          itemCount: questions.length,
+          itemBuilder: (context, index) {
+            answerControllers.add(TextEditingController());
+            if (questions[index].is_options) {
+              return _buildMultians(
+                  questions[index].name,
+                  questions[index].question,
+                  questions[index].time,
+                  questions[index].options,
+                  index);
+            } else {
+              return _buildFeedbackCard(questions[index].name,
+                  questions[index].question, questions[index].time, index);
+            }
+          },
         ),
       ),
-      // backgroundColor: const Color(0xFF698996),
     );
   }
 }

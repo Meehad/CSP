@@ -71,22 +71,22 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Central Service Portal',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
-              Text(
+              const SizedBox(height: 12),
+              const Text(
                 'Version: 1.0.0',
                 style: TextStyle(fontSize: 18),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Welcome to Central Service Portal, your digital gateway to an empowered and engaged civic experience. This mobile application serves as the centralized hub for effective communication between citizens and various government service departments. Explore the key features and benefits that make Central Service Portal a transformative force in shaping the future of public services.',
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.justify,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _buildFeatureText(
                 '1. Surveys:',
                 '   - Engage in government-initiated surveys on critical public service matters.',
@@ -105,8 +105,8 @@ class AboutPage extends StatelessWidget {
                 '   - Monitor real-time status updates and resolution progress for reported complaints.',
                 '   - Collaborate with service providers and fellow citizens for effective issue resolution.',
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 '© 2024 CSP',
                 style: TextStyle(fontSize: 14),
               ),
@@ -121,27 +121,27 @@ class AboutPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           point1,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
           textAlign: TextAlign.left,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           point2,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
           textAlign: TextAlign.left,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           point3,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
           textAlign: TextAlign.left,
         ),
       ],

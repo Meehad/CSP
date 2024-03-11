@@ -172,6 +172,7 @@ class _SurveyPageState extends State<SurveyPage> {
   String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
 
   return Card(
+    
     elevation: 5,
     margin: const EdgeInsets.all(10),
     child: Padding(

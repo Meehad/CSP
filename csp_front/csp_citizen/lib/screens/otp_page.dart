@@ -50,7 +50,7 @@ class OtpPage extends StatelessWidget {
                 child: const Text(
                   'Enter the code sent to your number',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF698996),
                     fontSize: 18,
                   ),
                 ),

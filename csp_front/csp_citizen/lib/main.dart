@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/survey_data.dart';
 import 'package:csp_citizen/models/user_data.dart';
+import 'package:csp_citizen/screens/Onboarding.dart';
 import 'package:csp_citizen/screens/complaint.dart';
 import 'package:csp_citizen/screens/feed.dart';
 import 'package:csp_citizen/screens/forms.dart';
@@ -12,12 +13,15 @@ import 'package:csp_citizen/screens/login.dart';
 import 'package:csp_citizen/screens/profile.dart';
 import 'package:csp_citizen/screens/survey.dart';
 import 'package:csp_citizen/screens/about.dart';
+import 'package:csp_citizen/urls.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:feedback/feedback.dart';
 
 void main() {
   runApp(
+    
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -77,7 +81,7 @@ class MyApp extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
     ),),
       ),
-      home: const Login(),
+      home: const OnboardingScreen(),
       routes: {
         '/home': (context) => const MyHomePage(),
         '/profile': (context) => const ProfilePage(),
@@ -85,8 +89,16 @@ class MyApp extends StatelessWidget {
         '/survey': (context) => const SurveyPage(),
         '/feedback': (context) => const FeedbackPage(),
         '/about': (context) => AboutPage(),
-        '/forms':(context) => Formspage()
+        '/forms':(context) => const Formspage(),
+        
+        
+
       },
     );
   }
 }
+
+
+
+
+

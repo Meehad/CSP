@@ -71,9 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Image.asset(
-        'assets/csplogonobg.png', // Replace with the path to your logo
-        width: 50,
-        height: 50,
+        'assets/CSP_logo.png', // Replace with the path to your logo
+        width: 70,
+        height: 70,
       ),
     ),
   ],
@@ -252,17 +252,17 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Survey',
+             'Dashboard',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
-            ),
+           ),
             const SizedBox(height: 8),
 
                       // Display the count of unanswered survey questions
                       Text(
-                        'Number of Unanswered Questions: $unansweredQuestionsCount',
+                        'Remaining Questions: $unansweredQuestionsCount',
                         style: const TextStyle(fontSize: 16),
                       ),
 
@@ -308,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () {
                     // Handle button press for help
-                    Navigator.pushNamed(context, '/help'); // Replace '/help' with your actual route
+                    Navigator.pushNamed(context, '/Help'); // Replace '/help' with your actual route
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF698996), // Choose your preferred color for the "Help" button
@@ -347,6 +347,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 226, 226, 226),
+
+      
     );
   }
 }

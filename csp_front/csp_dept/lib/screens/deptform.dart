@@ -64,6 +64,9 @@ class _SurveyAppState extends State<SurveyApp> {
         },
         isMultipleChoice: isMultipleChoice,
         numberOfChoices: numberOfChoices,
+        onSubmit: () {
+          _deleteSurveyCard(surveyCards.length - 1);
+        },
       ));
     });
   }
@@ -149,12 +152,14 @@ class _SurveyAppState extends State<SurveyApp> {
 
 class SurveyCard extends StatefulWidget {
   final VoidCallback onDelete;
+  final VoidCallback onSubmit;
   final bool isMultipleChoice;
   final int numberOfChoices;
 
   const SurveyCard({
     super.key,
     required this.onDelete,
+    required this.onSubmit,
     required this.isMultipleChoice,
     required this.numberOfChoices,
   });
@@ -305,11 +310,6 @@ class _SurveyCardState extends State<SurveyCard> {
                       ),
                     ],
                   ),
-                  // leading: Radio(
-                  //   value: i,
-                  //   groupValue: null,
-                  //   onChanged: (value) {},
-                  // ),
                 ),
             if (!widget.isMultipleChoice)
               ListTile(
@@ -344,12 +344,7 @@ class _SurveyCardState extends State<SurveyCard> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Handle survey submission
-                      _submitSurveyQ(
-                        questionController.text,
-                        widget.isMultipleChoice,
-                        options,
-                      );
+                      widget.onSubmit(); // Call the new function on submit
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 16, 185, 185),
@@ -364,12 +359,7 @@ class _SurveyCardState extends State<SurveyCard> {
             if (!widget.isMultipleChoice)
               ElevatedButton(
                 onPressed: () {
-                  // Handle survey submission for short answer
-                  _submitSurveyQ(
-                    questionController.text,
-                    widget.isMultipleChoice,
-                    [/* Handle short answer value */],
-                  );
+                  widget.onSubmit(); // Call the new function on submit
                 },
                 child: const Text(
                   'Submit',

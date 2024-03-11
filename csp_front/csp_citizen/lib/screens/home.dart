@@ -81,31 +81,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-  backgroundColor: Color(0xFF698996),
-  title: Text('Welcome, ${postModel.post?.name ?? ""}'),
-  leading: Builder(
-    builder: (BuildContext context) {
-      return IconButton(
-        icon: const Icon(Icons.menu),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-      );
-    },
-  ),
-  actions: [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Image.asset(
-        'assets/CSP_logo.png', // Replace with the path to your logo
-        width: 70,
-        height: 70,
+        backgroundColor: Color(0xFF698996),
+        title: Text('Welcome, ${postModel.post?.name ?? ""}'),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Image.asset(
+              'assets/CSP_logo.png', // Replace with the path to your logo
+              width: 70,
+              height: 70,
+            ),
+          ),
+        ],
       ),
-    ),
-  ],
-),
-
-       drawer: const NavBar(),
+      drawer: const NavBar(),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -272,35 +271,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
           // Scrollable card at the bottom with unanswered survey questions
           Padding(
-  padding: const EdgeInsets.only(top: 20),
-  child: SingleChildScrollView(
-    child: Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-             'Dashboard',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-           ),
-            const SizedBox(height: 8),
+            padding: const EdgeInsets.only(top: 20),
+            child: SingleChildScrollView(
+              child: Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Dashboard',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
 
                       // Display the count of unanswered survey questions
                       Consumer<Qlist>(
-                        builder: (BuildContext context, Qlist Qlist,
-                                Widget? child) =>
-                            Qlist.qlist.isNotEmpty
-                                ? Text(
-                                    'Number of Unanswered Questions: ${Qlist.qlist.length}',
-                                    style: const TextStyle(fontSize: 16),
-                                  )
-                                : const CircularProgressIndicator(),
-                      ),
+                          builder: (BuildContext context, Qlist Qlist,
+                                  Widget? child) =>
+                              Qlist.qlist.isNotEmpty
+                                  ? Text(
+                                      'Number of Unanswered Questions: ${Qlist.qlist.length}',
+                                      style: const TextStyle(fontSize: 16),
+                                    )
+                                  : const Text(
+                                      'Give your survey responsibly',
+                                      style: TextStyle(fontSize: 16),
+                                    )),
 
                       // Add designed buttons for forms and help
                       const SizedBox(height: 16),
@@ -384,8 +385,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 226, 226, 226),
-
-      
     );
   }
 }

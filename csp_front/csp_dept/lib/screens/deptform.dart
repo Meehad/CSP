@@ -1,6 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
+import 'dart:convert';
+import 'package:csp_dept/models/dept_data.dart';
+import 'package:csp_dept/models/survey_data.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class SurveyApp extends StatefulWidget {
   const SurveyApp({super.key});
@@ -146,7 +152,8 @@ class SurveyCard extends StatefulWidget {
   final bool isMultipleChoice;
   final int numberOfChoices;
 
-  const SurveyCard({super.key, 
+  const SurveyCard({
+    super.key,
     required this.onDelete,
     required this.isMultipleChoice,
     required this.numberOfChoices,
@@ -165,6 +172,76 @@ class _SurveyCardState extends State<SurveyCard> {
     super.initState();
     for (int i = 0; i < widget.numberOfChoices; i++) {
       options.add('Option ${i + 1}');
+    }
+  }
+
+  void _submitSurveyQ(String q, bool iso, List<String?> l) async {
+    try {
+      final postModel = Provider.of<DeptDataClass>(context);
+      postModel.getPostData();
+      final postSurvey = Provider.of<SurveyClass>(context);
+      postSurvey.getPostData(postModel.post?.name ?? "");
+
+      // Send survey data to the DRF API
+      final response = await http.post(
+        survey_create, // Replace with your DRF API endpoint
+        body: jsonEncode({
+          'name': postModel.post?.name ?? "",
+          'question': q,
+          'isMultipleChoice': iso,
+          'options': l,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 201) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text('Success!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text('Failed!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    //   setState(() {
+                    //   // SurveyCards.removeLast();
+                    // });
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+
+      FocusScope.of(context).unfocus();
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -258,7 +335,8 @@ class _SurveyCardState extends State<SurveyCard> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 16, 185, 185)),
+                        backgroundColor:
+                            const Color.fromARGB(255, 16, 185, 185)),
                     child: const Text(
                       'Add Option',
                       style: TextStyle(color: Colors.white),
@@ -267,6 +345,11 @@ class _SurveyCardState extends State<SurveyCard> {
                   ElevatedButton(
                     onPressed: () {
                       // Handle survey submission
+                      _submitSurveyQ(
+                        questionController.text,
+                        widget.isMultipleChoice,
+                        options,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 16, 185, 185),
@@ -282,6 +365,11 @@ class _SurveyCardState extends State<SurveyCard> {
               ElevatedButton(
                 onPressed: () {
                   // Handle survey submission for short answer
+                  _submitSurveyQ(
+                    questionController.text,
+                    widget.isMultipleChoice,
+                    [/* Handle short answer value */],
+                  );
                 },
                 child: const Text(
                   'Submit',

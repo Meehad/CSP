@@ -77,15 +77,16 @@ class NavBar extends StatelessWidget {
             title: const Text('Help'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/help');
             },
           ),
-          ListTile(
-            leading: Icon(Icons.app_settings_alt),
-            title: const Text('Preferences'),
-            onTap: () {
-              // Implement preferences functionality
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.app_settings_alt),
+          //   title: const Text('Preferences'),
+          //   onTap: () {
+          //     // Implement preferences functionality
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.bug_report),
             title: const Text('Report a bug'),

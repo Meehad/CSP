@@ -8,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
 
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -55,7 +55,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 213, 214, 214), // Change this to your desired background color
+      backgroundColor: const Color.fromARGB(255, 213, 214, 214), // Change this to your desired background color
       body: Stack(
         children: [
           PageView.builder(
@@ -83,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
                           },
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(const Size(350.0, 48.0)),
@@ -129,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             } else {
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -156,7 +156,7 @@ class OnboardingPage extends StatelessWidget {
   final String text;
   final String image;
 
-  const OnboardingPage({Key? key, required this.text, required this.image}) : super(key: key);
+  const OnboardingPage({super.key, required this.text, required this.image});
 
   @override
   Widget build(BuildContext context) {

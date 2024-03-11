@@ -17,10 +17,10 @@ class _CardsState extends State<Cards> {
           TextField(
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
+                borderSide: const BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),
               fillColor: Colors.white,
@@ -48,12 +48,12 @@ class _CardsState extends State<Cards> {
                       selectedValue = newValue!;
                     });
                   }),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               IconButton(
                   onPressed: () {
-                    Cards();
+                    const Cards();
                   },
-                  icon: Icon(Icons.add))
+                  icon: const Icon(Icons.add))
             ],
           )
         ]));

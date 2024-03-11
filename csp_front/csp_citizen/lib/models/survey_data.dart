@@ -6,34 +6,47 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-class SurveyQClass extends ChangeNotifier {
-  SurveyQModel? post;
+class Qlist extends ChangeNotifier {
+  List<SurveyQModel> qlist = [];
   bool loading = false;
 
-  Future<SurveyQModel?> getSinglePostData() async {
-    SurveyQModel? eventList;
+  Future<void> getSinglePostData(String id) async {
     try {
-      final response = await http.get(showfeeds, headers: {
+      final response = await http.get(showRQ(id), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
-      notifyListeners();
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
-        eventList = SurveyQModel.fromJson(item);
+        qlist = (item as List).map((e) => SurveyQModel.fromJson(e)).toList();
+        notifyListeners();
       } else {
         print('error');
       }
     } catch (e) {
       log(e.toString());
     }
-    return eventList;
   }
 
-  getPostData() async {
+  Future<void> getPostData(String id) async {
     loading = true;
-    post = (await getSinglePostData())!;
+    notifyListeners();
+    await getSinglePostData(id);
     loading = false;
+    notifyListeners();
+  }
 
+  void addData(SurveyQModel data) {
+    loading = true;
+    qlist.add(data);
+    loading = false;
+    notifyListeners();
+  }
+
+  void removeData(int index) {
+    loading = true;
+    notifyListeners();
+    qlist.removeAt(index);
+    loading = false;
     notifyListeners();
   }
 }

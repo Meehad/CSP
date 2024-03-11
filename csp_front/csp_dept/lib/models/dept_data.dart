@@ -8,19 +8,19 @@ import 'package:http/http.dart' as http;
 class DeptDataClass extends ChangeNotifier {
   DeptModel? post;
   bool loading = false;
-  String id_num;
+  String dept_id;
 
-  DeptDataClass({this.id_num = ""});
+  DeptDataClass({this.dept_id = ""});
 
   void changeId({required String new_id_num}) async {
-    id_num = new_id_num;
+    dept_id = new_id_num;
   }
 
-  Future<DeptModel?> getSinglePostData({required String id_num}) async {
+  Future<DeptModel?> getSinglePostData({required String dept_id}) async {
     DeptModel? result;
     try {
       final response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showdeptprofile/"),
+          Uri.parse("http://10.0.2.2:8000/csp_log/$dept_id/showdeptprofile/"),
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           });
@@ -39,7 +39,7 @@ class DeptDataClass extends ChangeNotifier {
 
   getPostData() async {
     loading = true;
-    post = (await getSinglePostData(id_num: id_num))!;
+    post = (await getSinglePostData(dept_id: dept_id))!;
     loading = false;
 
     notifyListeners();

@@ -24,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<EventModel> events = [];
   Client client = http.Client();
   int _currentIndex = 0;
-  List<SurveyQModel> questions = [];
 
   @override
   void initState() {
@@ -36,31 +35,45 @@ class _MyHomePageState extends State<MyHomePage> {
     postModel.getPostData();
     final postEvent = Provider.of<EventClass>(context, listen: false);
     postEvent.getPostData();
-    final postQ = Provider.of<SurveyQClass>(context, listen: false);
-    postQ.getPostData();
+    final postQ = Provider.of<Qlist>(context, listen: false);
+    postQ.getPostData(postModel.post?.id_number ?? "");
   }
 
-  _retrieveQ() async {
-    questions = [];
-    List response = jsonDecode((await client.get(showQ)).body);
-    for (var element in response) {
-      questions.add(SurveyQModel.fromJson(element));
+  Future<void> _retrieveQ() async {
+    final postModel = Provider.of<DataClass>(context, listen: false);
+    postModel.getPostData();
+
+    try {
+      final response =
+          await client.get(showRQ(postModel.post?.id_number ?? ""));
+      final List<dynamic> responseData = jsonDecode(response.body);
+      final dataList = responseData
+          .map<SurveyQModel>((element) => SurveyQModel.fromJson(element))
+          .toList();
+
+      // Use the Qlist provider to update the data
+      final qListProvider = Provider.of<Qlist>(context, listen: false);
+      qListProvider.qlist = dataList;
+
+      setState(() {});
+    } catch (e) {
+      print("Error: $e");
     }
-    setState(() {});
   }
 
-  _retrieveEvents() async {
+  Future<void> _retrieveEvents() async {
     events = [];
-    List response = jsonDecode((await client.get(showEvents)).body);
-    for (var element in response) {
-      events.add(EventModel.fromJson(element));
+    try {
+      List response = jsonDecode((await client.get(showEvents)).body);
+      for (var element in response) {
+        setState(() {
+          events.add(EventModel.fromJson(element));
+        });
+      }
+    } catch (e) {
+      print("Error retrieving events: $e");
     }
-    setState(() {});
   }
-
-  // Dummy list of unanswered survey questions
-  // Dummy count of unanswered survey questions
-  int unansweredQuestionsCount = 3; // Replace with the actual count
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Image.asset(
-              'assets/csplogonobg.png', // Replace with the path to your logo
+              'assets/csplogonobg.png',
               width: 50,
               height: 50,
             ),
@@ -276,9 +289,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
 
                       // Display the count of unanswered survey questions
-                      Text(
-                        'Number of Unanswered Questions: ${questions.length}',
-                        style: const TextStyle(fontSize: 16),
+                      Consumer<Qlist>(
+                        builder: (BuildContext context, Qlist Qlist,
+                                Widget? child) =>
+                            Qlist.qlist.isNotEmpty
+                                ? Text(
+                                    'Number of Unanswered Questions: ${Qlist.qlist.length}',
+                                    style: const TextStyle(fontSize: 16),
+                                  )
+                                : const CircularProgressIndicator(),
                       ),
 
                       // Add designed buttons for forms and help

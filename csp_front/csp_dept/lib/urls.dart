@@ -16,4 +16,7 @@ Uri showEvents = Uri.parse("http://10.0.2.2:8000/feedback/events_view/");
 
 Uri showQ = Uri.parse("http://10.0.2.2:8000/questions/");
 
-Uri showans = Uri.parse("http://10.0.2.2:8000/answers/");
+Uri showans(String id) {
+  Uri u = Uri.parse("http://10.0.2.2:8000/answer/$id/");
+  return u;
+}

@@ -7,6 +7,17 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
     id_number = models.CharField(max_length=10, unique=True)
+    MALE = 'Male'
+    FEMALE = 'Female'
+    OTHER = 'Other'
+
+    GENDER_CHOICES = [
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+        (OTHER, 'Other'),
+    ]
+    gender = models.CharField(
+        max_length=10, choices=GENDER_CHOICES, default='Male')
     address = models.TextField()
     # Assuming a simple phone number format
     phone_number = models.CharField(max_length=10)
@@ -27,11 +38,12 @@ class DeptProfile(models.Model):
     dpassword = models.CharField(max_length=10)
 
     def __str__(self):
-        return f"{self.dept_id},{self.name}"
+        return self.name
 
 
 class CitizenLogin(models.Model):
     id_number = models.CharField(max_length=10)
+
     def __str__(self):
         return self.id_number
 
@@ -39,5 +51,6 @@ class CitizenLogin(models.Model):
 class DeptLogin(models.Model):
     dept_id = models.CharField(max_length=10)
     dpassword = models.CharField(max_length=10)
+
     def __str__(self):
         return self.dept_id

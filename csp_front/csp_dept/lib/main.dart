@@ -6,6 +6,8 @@ import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptform.dart';
 import 'package:csp_dept/screens/depthome.dart';
+import 'package:csp_dept/screens/deptviewdata.dart';
+import 'package:csp_dept/screens/survey_table.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/deptlogin.dart';
@@ -19,7 +21,7 @@ void main() {
         ),
         ChangeNotifierProvider(create: (context) => FeedClass()),
         ChangeNotifierProvider(create: (context) => EventClass()),
-        ChangeNotifierProvider(create: (context) => SurveyClass())
+        ChangeNotifierProvider(create: (context) => SurveyClass()),
       ],
       child: const MyApp(),
     ),
@@ -50,8 +52,10 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => const Depthome(),
           '/dept_details': (context) => const deptdetails(),
-          '/event': (context) => const deptevent(),
-          '/survey': (context) => SurveyApp(),
+          '/event': (context) => const DeptEvent(),
+          '/survey': (context) => const SurveyApp(),
+          '/dataview': (context) => const Deptview(),
+          '/surveytable': (context) => const SurveyTable(),
         });
   }
 }

@@ -1,6 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 class SurveyApp extends StatefulWidget {
+  const SurveyApp({super.key});
+
   @override
   _SurveyAppState createState() => _SurveyAppState();
 }
@@ -12,9 +16,9 @@ class _SurveyAppState extends State<SurveyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 40),
-          child: const Text('SURVEY SECTION'),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 40),
+          child: Text('SURVEY SECTION'),
         ),
         actions: [
           IconButton(
@@ -77,7 +81,7 @@ class _SurveyAppState extends State<SurveyApp> {
                 onPressed: () {
                   Navigator.of(context).pop(true); // Multiple Choice
                 },
-                style: ElevatedButton.styleFrom(primary: Colors.blue),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 child: const Text(
                   'Multiple Choice',
                   style: TextStyle(color: Colors.white),
@@ -87,7 +91,7 @@ class _SurveyAppState extends State<SurveyApp> {
                 onPressed: () {
                   Navigator.of(context).pop(false); // Short Answer
                 },
-                style: ElevatedButton.styleFrom(primary: Colors.green),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 child: const Text(
                   'Short Answer',
                   style: TextStyle(color: Colors.white),
@@ -142,7 +146,7 @@ class SurveyCard extends StatefulWidget {
   final bool isMultipleChoice;
   final int numberOfChoices;
 
-  const SurveyCard({
+  const SurveyCard({super.key, 
     required this.onDelete,
     required this.isMultipleChoice,
     required this.numberOfChoices,
@@ -254,7 +258,7 @@ class _SurveyCardState extends State<SurveyCard> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 16, 185, 185)),
+                        backgroundColor: const Color.fromARGB(255, 16, 185, 185)),
                     child: const Text(
                       'Add Option',
                       style: TextStyle(color: Colors.white),
@@ -265,7 +269,7 @@ class _SurveyCardState extends State<SurveyCard> {
                       // Handle survey submission
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 16, 185, 185),
+                      backgroundColor: const Color.fromARGB(255, 16, 185, 185),
                     ),
                     child: const Text(
                       'Submit',

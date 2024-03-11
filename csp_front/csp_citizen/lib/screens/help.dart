@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+class HelpPage extends StatelessWidget {
+  const HelpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,8 @@ class AboutPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureText(String title, String point1, String point2, String point3) {
+  Widget _buildFeatureText(
+      String title, String point1, String point2, String point3) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

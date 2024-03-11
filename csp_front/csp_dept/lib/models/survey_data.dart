@@ -10,28 +10,30 @@ class SurveyClass extends ChangeNotifier {
   SurveyModel? post;
   bool loading = false;
 
-  Future<SurveyModel?> getSinglePostData() async {
-    SurveyModel? eventList;
+  Future<SurveyModel?> getSinglePostData(String id) async {
     try {
-      final response = await http.get(showans, headers: {
+      final response = await http.get(showans(id), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
-      notifyListeners();
+
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
-        eventList = SurveyModel.fromJson(item);
+        return SurveyModel.fromJson(item);
       } else {
-        print('error');
+        log('Error: ${response.statusCode}');
+        // Handle error cases more explicitly if needed
+        return null;
       }
     } catch (e) {
       log(e.toString());
+      // Handle network or other errors more explicitly if needed
+      return null;
     }
-    return eventList;
   }
 
-  getPostData() async {
+  Future<void> getPostData(String id) async {
     loading = true;
-    post = (await getSinglePostData())!;
+    post = await getSinglePostData(id);
     loading = false;
 
     notifyListeners();

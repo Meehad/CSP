@@ -27,3 +27,8 @@ class feedback(models.Model):
 
     def __str__(self):
         return f"Feedback from {self.id_number} for the event {self.event_name}"
+
+class report_bug(models.Model):
+    id_number = models.ForeignKey(
+        UserProfile, to_field='id_number', on_delete=models.CASCADE)
+    

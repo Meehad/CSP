@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/urls.dart';
@@ -8,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ComplaintPage extends StatefulWidget {
-  const ComplaintPage({Key? key}) : super(key: key);
+  const ComplaintPage({super.key});
 
   @override
   State<ComplaintPage> createState() => _ComplaintPageState();
@@ -60,7 +62,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
     return await Geolocator.getCurrentPosition();
   }
 
-  void _submitComplaint(String Id, String s, String d, String l) async {
+  void _submitComplaint(Id, String s, String d, String l) async {
     if (_subjectController.text.isEmpty || _descriptionController.text.isEmpty) {
       // Set the error messages only when submitting
       setState(() {
@@ -169,7 +171,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 labelText: 'Subject',
                 hintText: 'Subject *', // Indicate that it's required
                 errorText: _subjectError,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
@@ -185,7 +187,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 labelText: 'Description',
                 hintText: 'Description *', // Indicate that it's required
                 errorText: _descriptionError,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 5),
@@ -203,7 +205,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
               icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
               label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFC9C5BA),
+                backgroundColor: const Color(0xFFC9C5BA),
               ),
             ),
             const SizedBox(height: 4),
@@ -224,7 +226,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
               icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
               label: const Text('Add Location', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF97B1A6),
+                backgroundColor: const Color(0xFF97B1A6),
               ),
             ),
             const SizedBox(height: 4),
@@ -237,10 +239,10 @@ class _ComplaintPageState extends State<ComplaintPage> {
                   _selectedLocation,
                 );
               },
-              child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF698996),
+                backgroundColor: const Color(0xFF698996),
               ),
+              child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
             ),
           ],
         ),

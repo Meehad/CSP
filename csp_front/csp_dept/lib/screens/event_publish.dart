@@ -15,8 +15,8 @@ class Event_publish extends StatefulWidget {
 
 class _Event_publishState extends State<Event_publish> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _eventNameController = TextEditingController();
-  TextEditingController _eventDescController = TextEditingController();
+  final TextEditingController _eventNameController = TextEditingController();
+  final TextEditingController _eventDescController = TextEditingController();
   File? _selectedImage;
 
   Future<void> _pickImage() async {
@@ -106,6 +106,7 @@ class _Event_publishState extends State<Event_publish> {
     postModel.getPostData();
   }
 
+  @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<DeptDataClass>(context);
     return Form(
@@ -164,8 +165,8 @@ class _Event_publishState extends State<Event_publish> {
             const SizedBox(height: 8),
             IconButton(
               onPressed: _pickImage,
-              icon: Center(
-                child: const Icon(Icons.add_a_photo,
+              icon: const Center(
+                child: Icon(Icons.add_a_photo,
                     color: Colors.black, size: 36.0),
               ),
             ),

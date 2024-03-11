@@ -1,16 +1,15 @@
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'login.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key});
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
     final String img = postModel.post?.image ?? "";
-    final String img_url = "http://10.0.2.2:8000$img";
+    final String imgUrl = "http://10.0.2.2:8000$img";
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +22,7 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.only(left:20.0, right: 20, top: 40, bottom: 70),
           child: Card(
             elevation: 5,
-            color: Color(0xFFC9C5BA),
+            color: const Color(0xFFC9C5BA),
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 30.0,
@@ -35,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 70.0,
-                    backgroundImage: NetworkImage(img_url),
+                    backgroundImage: NetworkImage(imgUrl),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -80,8 +79,8 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       // backgroundColor: Color(0xFFC9C5BA),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.only(bottom: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           

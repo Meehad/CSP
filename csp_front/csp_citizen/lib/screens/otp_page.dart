@@ -1,8 +1,9 @@
+import 'package:csp_citizen/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatelessWidget {
-  const OtpPage({Key? key, required this.otp}) : super(key: key);
+  const OtpPage({super.key, required this.otp});
 
   final String otp;
 
@@ -64,7 +65,14 @@ class OtpPage extends StatelessWidget {
                 ),
                 onCompleted: (pin) => {
                   if (pin == otp)
-                    {Navigator.pushNamed(context, '/home')}
+                    {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyHomePage()),
+                        (route) => false,
+                      )
+                    }
                   else
                     {
                       showDialog(

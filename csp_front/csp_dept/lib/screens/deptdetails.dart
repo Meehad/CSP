@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/screens/deptlogin.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +20,11 @@ class _deptdetailsState extends State<deptdetails> {
     postModel.getPostData();
   }
 
+  @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<DeptDataClass>(context);
     final String img = postModel.post?.image ?? "";
-    final String img_url = "http://10.0.2.2:8000/$img";
+    final String imgUrl = "http://10.0.2.2:8000/$img";
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
@@ -61,7 +64,7 @@ class _deptdetailsState extends State<deptdetails> {
                     CircleAvatar(
                       radius: 70.0,
                       backgroundImage: NetworkImage(
-                          img_url), //NetworkImage("http://10.0.2.2:8000" +img_url),
+                          imgUrl), //NetworkImage("http://10.0.2.2:8000" +img_url),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -130,8 +133,8 @@ class _deptdetailsState extends State<deptdetails> {
             const SizedBox(height: 160),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.lightBlueAccent,
+                foregroundColor: Colors.lightBlueAccent,
+                backgroundColor: Colors.white,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

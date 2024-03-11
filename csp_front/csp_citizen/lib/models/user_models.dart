@@ -1,28 +1,4 @@
-// class User {
-//   final int id;
-//   final String name;
-//   final String imageUrl;
-//   final int phoneNumber;
-//   final String dob;
-
-//   User(
-//       {required this.id,
-//       required this.name,
-//       required this.imageUrl,
-//       required this.phoneNumber,
-//       required this.dob});
-// }
-
-// final User currentUser = User(
-//     id: 2012022023,
-//     name: 'Tyler Durden',
-//     imageUrl: 'assets/profile1.jpg',
-//     phoneNumber: 9128329110,
-//     dob: '21/05/1995');
-
-// List<User> profiles = [
-//   currentUser,
-// ];
+// ignore_for_file: non_constant_identifier_names
 
 class UserModel {
   final String name;

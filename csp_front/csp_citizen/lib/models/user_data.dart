@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:csp_citizen/models/user_models.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';

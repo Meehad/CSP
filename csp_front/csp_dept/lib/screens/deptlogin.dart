@@ -1,5 +1,4 @@
 import 'package:csp_dept/models/dept_data.dart';
-import 'package:csp_dept/screens/depthome.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -77,10 +76,10 @@ class DeptLogin extends StatelessWidget {
                   controller: dpId,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
                     fillColor: Colors.white,
@@ -99,10 +98,10 @@ class DeptLogin extends StatelessWidget {
                   controller: dppwd,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
                     fillColor: Colors.white,

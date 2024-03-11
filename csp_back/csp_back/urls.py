@@ -9,6 +9,7 @@ urlpatterns = [
     path("feedback/", include('feedback.urls')),
     path("complaint/", include('complaint.urls')),
     path("", include('survey.urls')),
+    path("pdf/", include("gov_pdf.urls"))
 ]
 
 if settings.DEBUG:

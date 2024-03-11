@@ -5,12 +5,14 @@ from .models import Survey_Q, Survey_A
 
 
 class SurveyqSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='id_str', read_only=True)
+
     class Meta:
         model = Survey_Q
-        fields = ['name', 'question', 'is_options', 'options', 'time']
+        fields = ['id', 'name', 'question', 'is_options', 'options', 'time']
 
 
 class SurveyaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey_A
-        fields = ['id_number','question','answer','time_sub']
+        fields = '__all__'

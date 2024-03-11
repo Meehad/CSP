@@ -1,9 +1,21 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:csp_citizen/screens/login.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:path_provider/path_provider.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key});
+  const NavBar({super.key});
+
+  Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
+    final Directory output = await getTemporaryDirectory();
+    final String screenshotFilePath = '${output.path}/feedback.png';
+    final File screenshotFile = File(screenshotFilePath);
+    await screenshotFile.writeAsBytes(feedbackScreenshot);
+    return screenshotFilePath;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,20 +77,33 @@ class NavBar extends StatelessWidget {
             title: const Text('Help'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/help');
             },
           ),
-          ListTile(
-            leading: Icon(Icons.app_settings_alt),
-            title: const Text('Preferences'),
-            onTap: () {
-              // Implement preferences functionality
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.app_settings_alt),
+          //   title: const Text('Preferences'),
+          //   onTap: () {
+          //     // Implement preferences functionality
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.bug_report),
             title: const Text('Report a bug'),
             onTap: () {
-              BetterFeedback.of(context).show((feedback) async {});
+              BetterFeedback.of(context).show((feedback) async {
+                final screenshotFilePath =
+                    await writeImageToStorage(feedback.screenshot);
+
+                final Email email = Email(
+                  body: feedback.text,
+                  subject: "Report a bug",
+                  recipients: ['mohammedmihad2@gmail.com'],
+                  attachmentPaths: [screenshotFilePath],
+                  isHTML: false,
+                );
+                await FlutterEmailSender.send(email);
+              });
             },
           ),
           ListTile(

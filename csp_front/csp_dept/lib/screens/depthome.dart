@@ -138,7 +138,6 @@
 //   }
 // }
 import 'dart:convert';
-
 import 'package:csp_dept/models/event_data.dart';
 import 'package:csp_dept/models/event_models.dart';
 import 'package:csp_dept/screens/deptdetails.dart';
@@ -153,7 +152,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class Depthome extends StatefulWidget {
-  const Depthome({Key? key});
+  const Depthome({super.key});
 
   @override
   State<Depthome> createState() => _DepthomeState();
@@ -205,7 +204,7 @@ class _DepthomeState extends State<Depthome> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => deptdetails()),
+              MaterialPageRoute(builder: (context) => const deptdetails()),
             );
           },
           icon: const Icon(
@@ -245,7 +244,7 @@ class _DepthomeState extends State<Depthome> {
               ),
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const deptevent()),
+                  MaterialPageRoute(builder: (context) => const DeptEvent()),
                 );
               },
               child: const Padding(
@@ -264,7 +263,7 @@ class _DepthomeState extends State<Depthome> {
               ),
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const DeptViewData()),
+                  MaterialPageRoute(builder: (context) => const Deptview()),
                 );
               },
               child: const Padding(
@@ -300,7 +299,7 @@ class _DepthomeState extends State<Depthome> {
                         ),
                     ],
                   )
-                : CircularProgressIndicator(),
+                : const CircularProgressIndicator(),
 
             // Dot indicator
             events.isNotEmpty
@@ -317,7 +316,7 @@ class _DepthomeState extends State<Depthome> {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),

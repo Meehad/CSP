@@ -26,12 +26,14 @@ SECRET_KEY = "django-insecure-10w6a_0y!2a51gjp9&&pwbf3u37n#8nis31fl7-kktjqh%cy+i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.3", "10.0.2.2",
-                 "127.0.0.1", '0.0.0.0', '192.168.1.25', '192.168.99.231','172.24.144.1']
+ALLOWED_HOSTS = ["192.168.1.3", "10.0.2.2","192.168.8.97","192.168.88.231",
+                 "127.0.0.1", '0.0.0.0', '192.168.1.25', '192.168.99.231','192.168.1.4','192.168.1.49']
 
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_interface",
+    "colorfield",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,10 +43,12 @@ INSTALLED_APPS = [
     "rest_framework",
     'rest_framework.authtoken',
     'corsheaders',
+    'django_cleanup.apps.CleanupConfig',
     'csp_log',
     'feedback',
     'complaint',
     'survey',
+    'gov_pdf',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = "csp_back.urls"

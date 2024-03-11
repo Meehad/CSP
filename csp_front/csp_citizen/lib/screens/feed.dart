@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
 import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/feedback_model.dart';
@@ -18,9 +19,9 @@ class FeedbackPage extends StatefulWidget {
 }
 
 class _FeedbackPageState extends State<FeedbackPage> {
-  double rating = 3.0; // Default rating value
   Client client = http.Client();
   List<EventModel> events = [];
+  List<double> ratingControllers = [];
   List<TextEditingController> feedbackControllers = [];
 
   @override
@@ -40,13 +41,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
     setState(() {});
   }
 
-  _submitFeedback(int ind, String event_name, double rate) async {
+  _submitFeedback(int ind, String eventName, double rate) async {
     try {
       final postModel = Provider.of<DataClass>(context, listen: false);
       postModel.getPostData();
       Response res = await post(postfeed, body: {
         'id_number': postModel.post?.id_number ?? "",
-        'event_name': event_name,
+        'event_name': eventName,
         'feed': feedbackControllers[ind].text,
         'rating': rate.toString(),
       });
@@ -96,116 +97,116 @@ class _FeedbackPageState extends State<FeedbackPage> {
     }
   }
 
-  Widget _buildFeedbackCard(String imagePath, String title, String description, String date, int ind) {
-  DateTime apiDate = DateTime.parse(date);
-  String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
-  return Card(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-          child: Image.network(
-            "http://10.0.2.2:8000$imagePath",
-            height: 200,
-            width: double.infinity, // Adjust the width to fill the card
-            fit: BoxFit.cover,
+  Widget _buildFeedbackCard(String imagePath, String title, String description,
+      String date, int ind) {
+    DateTime apiDate = DateTime.parse(date);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(apiDate);
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+            child: Image.network(
+              "http://10.0.2.2:8000$imagePath",
+              height: 200,
+              width: double.infinity, // Adjust the width to fill the card
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF698996), // Adjust the color as needed
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 8),
-              Text(
-                description,
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.justify,
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RatingBar.builder(
-                    initialRating: rating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 24.0,
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (newRating) {
-                      setState(() {
-                        rating = newRating;
-                      });
-                    },
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    
-                    rating.toString(),
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              TextField(
-                controller: feedbackControllers[ind],
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: 'Enter your feedback here...',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                formattedDate,
-                style: TextStyle(fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {
-                  _submitFeedback(ind, title, rating);
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'Submit Feedback',
-                  style: TextStyle(
-                    fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF698996), // Adjust the color as needed
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  description,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RatingBar.builder(
+                      initialRating: ratingControllers[ind],
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 24.0,
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (newRating) {
+                        setState(() {
+                          ratingControllers[ind] = newRating;
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      ratingControllers[ind].toString(),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: feedbackControllers[ind],
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your feedback here...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Text(
+                  formattedDate,
+                  style: const TextStyle(fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: () {
+                    _submitFeedback(ind, title, ratingControllers[ind]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Submit Feedback',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +224,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           itemCount: events.length,
           itemBuilder: (context, index) {
             feedbackControllers.add(TextEditingController());
+            ratingControllers.add(3.0);
             return _buildFeedbackCard(
                 events[index].event_img,
                 events[index].event_name,

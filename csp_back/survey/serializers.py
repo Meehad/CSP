@@ -13,4 +13,4 @@ class SurveyqSerializer(serializers.ModelSerializer):
 class SurveyaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survey_A
-        fields = '__all__'
+        fields = ['id_number','question','answer','time_sub']

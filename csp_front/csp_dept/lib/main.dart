@@ -33,6 +33,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF698996)),
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+                  seedColor: const Color.fromARGB(255, 226, 226, 226))
+              .copyWith(background: const Color.fromARGB(255, 226, 226, 226)),
+          buttonTheme: const ButtonThemeData(buttonColor: Color(0xFF698996)),
+          elevatedButtonTheme: const ElevatedButtonThemeData(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
+                  foregroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(255, 213, 213, 213)))),
+        ),
         home: const DeptLogin(),
         routes: {
           '/home': (context) => const Depthome(),

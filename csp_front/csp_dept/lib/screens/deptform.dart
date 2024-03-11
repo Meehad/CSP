@@ -11,7 +11,6 @@ class _SurveyAppState extends State<SurveyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 16, 185, 185),
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 40),
@@ -280,9 +279,6 @@ class _SurveyCardState extends State<SurveyCard> {
                 onPressed: () {
                   // Handle survey submission for short answer
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 16, 185, 185),
-                ),
                 child: const Text(
                   'Submit',
                   style: TextStyle(color: Colors.white),

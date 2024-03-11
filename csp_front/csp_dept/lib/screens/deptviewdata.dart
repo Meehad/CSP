@@ -32,17 +32,10 @@ class _DeptViewDataState extends State<DeptViewData> {
   }
 
   _retrieveSurvey() async {
-    final postModel = Provider.of<DeptDataClass>(context);
-    String name = postModel.post?.name ?? "";
     responses = [];
     List response = jsonDecode((await client.get(showans)).body);
     for (var element in response) {
-      String q = element['question'];
-      var surveyQ = await client.get('$showQ?question=$q' as Uri);
-      var surveyQData = jsonDecode(surveyQ.body);
-      if (element['name'] == 'KSEB,kseb123') {
-        responses.add(SurveyModel.fromJson(element));
-      }
+      responses.add(SurveyModel.fromJson(element));
     }
     setState(() {});
   }
@@ -50,7 +43,6 @@ class _DeptViewDataState extends State<DeptViewData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[400],
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(right: 50.0),
@@ -61,7 +53,6 @@ class _DeptViewDataState extends State<DeptViewData> {
             ),
           ),
         ),
-        backgroundColor: Colors.white,
       ),
       body: Card(
         elevation: 8.0,

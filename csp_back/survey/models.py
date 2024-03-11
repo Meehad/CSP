@@ -14,10 +14,13 @@ class Survey_Q(models.Model):
     def __str__(self):
         return f"{self.question}"
 
-
 class Survey_A(models.Model):
     id_number = models.ForeignKey(
         UserProfile, to_field='id_number', on_delete=models.CASCADE)
     question = models.ForeignKey(Survey_Q,to_field='question', on_delete=models.CASCADE)
     answer = models.TextField(max_length=255)
     time_sub = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def name(self):
+        return self.question.name

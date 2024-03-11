@@ -19,7 +19,10 @@ class deptevent extends StatelessWidget {
             ),
             bottom: TabBar(
               isScrollable: true,
-              indicatorColor: Colors.white,
+              indicatorColor: Color.fromARGB(255, 226, 226,
+                  226), // Color of the indicator for the active tab
+              unselectedLabelStyle: TextStyle(color: Color(0xFFC9C5BA)),
+              labelColor: Color.fromARGB(255, 226, 226, 226),
               indicatorSize: TabBarIndicatorSize.tab,
               controller: _controller,
               tabs: [
@@ -33,13 +36,11 @@ class deptevent extends StatelessWidget {
                 ),
               ],
             ),
-            backgroundColor: Colors.white,
           ),
           body: TabBarView(controller: _controller, children: const [
             Event_publish(),
             ViewFeedback(),
           ]),
-          backgroundColor: Colors.teal[400],
         ));
   }
 }

@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF698996),
+        backgroundColor: const Color(0xFF698996),
         title: Text('Welcome, ${postModel.post?.name ?? ""}'),
         leading: Builder(
           builder: (BuildContext context) {

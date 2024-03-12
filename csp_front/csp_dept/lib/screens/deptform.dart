@@ -1,12 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
-import 'dart:convert';
 import 'package:csp_dept/models/dept_data.dart';
-import 'package:csp_dept/models/survey_data.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class SurveyApp extends StatefulWidget {
   const SurveyApp({super.key});
@@ -180,42 +178,39 @@ class _SurveyCardState extends State<SurveyCard> {
     }
   }
 
-  void _submitSurveyQ(String q, bool iso, List<String?> l) async {
+  _submitSurvey(String q, bool t, List<String>? op) async {
     try {
-      final postModel = Provider.of<DeptDataClass>(context);
+      final postModel = Provider.of<DeptDataClass>(context, listen: false);
       postModel.getPostData();
-      final postSurvey = Provider.of<SurveyClass>(context);
-      postSurvey.getPostData(postModel.post?.name ?? "");
 
-      // Send survey data to the DRF API
-      final response = await http.post(
-        survey_create, // Replace with your DRF API endpoint
-        body: jsonEncode({
-          'name': postModel.post?.name ?? "",
-          'question': q,
-          'isMultipleChoice': iso,
-          'options': l,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 201) {
+      Response res = await post(survey_create, body: {
+        'name': postModel.post?.name ?? "",
+        'question': q,
+        'is_options': t.toString(),
+        'options': op.toString(),
+      });
+      if (res.statusCode == 201) {
         showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
-              content: const Text('Success!'),
+              content: const Text(
+                  'Your Questions for survey has been submitted successfully!'),
               actions: [
                 MaterialButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    // Use Future.delayed to call setState after the build phase is complete
+                    Future.delayed(Duration.zero, () {
+                      setState(() {
+                        widget.onSubmit(); // Call the new function on submit
+                      });
+                    });
                   },
-                  child: const Text('OK'),
-                ),
+                  child: const Text('ok'),
+                )
               ],
             );
           },
@@ -227,26 +222,26 @@ class _SurveyCardState extends State<SurveyCard> {
             return AlertDialog(
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
-              content: const Text('Failed!'),
+              content: const Text(
+                  'Failed to submit questions for Survey. Please try again.'),
               actions: [
                 MaterialButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    //   setState(() {
-                    //   // SurveyCards.removeLast();
-                    // });
                   },
-                  child: const Text('OK'),
-                ),
+                  child: const Text('ok'),
+                )
               ],
             );
           },
         );
       }
-
-      FocusScope.of(context).unfocus();
     } catch (e) {
-      print(e.toString());
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -300,27 +295,14 @@ class _SurveyCardState extends State<SurveyCard> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            options.removeAt(i);
-                          });
-                        },
-                      ),
                     ],
                   ),
                 ),
             if (!widget.isMultipleChoice)
-              ListTile(
-                title: TextFormField(
-                  onChanged: (value) {
-                    // Handle short answer
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Short Answer',
-                    labelStyle: TextStyle(color: Colors.blue),
-                  ),
+              const ListTile(
+                title: Text(
+                  'Short Answer',
+                  style: TextStyle(color: Colors.blue),
                 ),
               ),
             const SizedBox(height: 16),
@@ -328,30 +310,47 @@ class _SurveyCardState extends State<SurveyCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+                  IconButton(
+                    icon: const Icon(Icons.remove),
                     onPressed: () {
                       setState(() {
-                        options.add('Option ${options.length + 1}');
+                        options.removeAt(options.length - 1);
                       });
                     },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 16, 185, 185)),
-                    child: const Text(
-                      'Add Option',
-                      style: TextStyle(color: Colors.white),
+                    style: IconButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 16, 185, 185),
+                      foregroundColor: Colors.white,
                     ),
                   ),
-                  ElevatedButton(
+                  IconButton(
+                    icon: const Icon(Icons.add),
                     onPressed: () {
-                      widget.onSubmit(); // Call the new function on submit
+                      setState(() {
+                        setState(() {
+                          options.add('Option ${options.length + 1}');
+                        });
+                      });
                     },
-                    style: ElevatedButton.styleFrom(
+                    style: IconButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 16, 185, 185),
+                      foregroundColor: Colors.white,
                     ),
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(width: 50),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _submitSurvey(questionController.text,
+                            widget.isMultipleChoice, options);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 16, 185, 185),
+                      ),
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
@@ -359,7 +358,8 @@ class _SurveyCardState extends State<SurveyCard> {
             if (!widget.isMultipleChoice)
               ElevatedButton(
                 onPressed: () {
-                  widget.onSubmit(); // Call the new function on submit
+                  _submitSurvey(
+                      questionController.text, widget.isMultipleChoice, null);
                 },
                 child: const Text(
                   'Submit',

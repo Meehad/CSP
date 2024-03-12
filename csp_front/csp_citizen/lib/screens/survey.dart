@@ -80,7 +80,7 @@ class _SurveyPageState extends State<SurveyPage> {
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
               content:
-                  const Text('Failed to submit feedback. Please try again.'),
+                  const Text('Failed to submit Survey. Please try again.'),
               actions: [
                 MaterialButton(
                   onPressed: () {

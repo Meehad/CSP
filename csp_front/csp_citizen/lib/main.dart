@@ -11,8 +11,6 @@ import 'package:csp_citizen/screens/home.dart';
 import 'package:csp_citizen/screens/profile.dart';
 import 'package:csp_citizen/screens/survey.dart';
 import 'package:csp_citizen/screens/about.dart';
-import 'package:csp_citizen/urls.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:feedback/feedback.dart';

@@ -27,9 +27,13 @@ class NavBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color(0xFF97B1A6),
             ),
-            child: Text(
-              'Navigation',
-              style: TextStyle(fontSize: 25),
+            child: Column(
+              children: [
+                Text(
+                  'Drawer',
+                  style: TextStyle(fontSize: 25),
+                ),
+              ],
             ),
           ),
           ListTile(

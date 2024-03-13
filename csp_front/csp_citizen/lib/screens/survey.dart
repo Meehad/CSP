@@ -4,13 +4,14 @@ import 'package:csp_citizen/models/survey_data.dart';
 import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SurveyPage extends StatefulWidget {
-  const SurveyPage({super.key});
+  const SurveyPage({Key? key}) : super(key: key);
 
   @override
   State<SurveyPage> createState() => _SurveyPageState();
@@ -18,19 +19,28 @@ class SurveyPage extends StatefulWidget {
 
 class _SurveyPageState extends State<SurveyPage> {
   Client client = http.Client();
-  List<TextEditingController> answerControllers = [];
-
-  void _initializeData() {
-    final postQ = Provider.of<Qlist>(context, listen: false);
-    final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
-    postQ.getPostData(postModel.post?.id_number ?? "");
-  }
+  late List<TextEditingController> answerControllers;
 
   @override
   void initState() {
     super.initState();
+    answerControllers = []; // Initialize the list here
     _initializeData();
+  }
+
+  void _initializeData() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final postQ = Provider.of<Qlist>(context, listen: false);
+      final postModel = Provider.of<DataClass>(context, listen: false);
+      postModel.getPostData();
+      postQ.getPostData(postModel.post?.id_number ?? "");
+      setState(() {
+        answerControllers
+          ..clear()
+          ..addAll(List.generate(
+              postQ.qlist.length, (index) => TextEditingController()));
+      });
+    });
   }
 
   _submitSurvey(String n, String q, String t, int ind) async {
@@ -61,8 +71,10 @@ class _SurveyPageState extends State<SurveyPage> {
 
                     // Use Future.delayed to call setState after the build phase is complete
                     Future.delayed(Duration.zero, () {
-                      setState(() {
-                        postQ.removeData(ind);
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        setState(() {
+                          postQ.removeData(ind);
+                        });
                       });
                     });
                   },
@@ -79,8 +91,7 @@ class _SurveyPageState extends State<SurveyPage> {
             return AlertDialog(
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
-              content:
-                  const Text('Failed to submit Survey. Please try again.'),
+              content: const Text('Failed to submit Survey. Please try again.'),
               actions: [
                 MaterialButton(
                   onPressed: () {
@@ -94,7 +105,11 @@ class _SurveyPageState extends State<SurveyPage> {
         );
       }
     } catch (e) {
-      print(e.toString());
+      Fluttertoast.showToast(
+        msg: "Error retrieving events: $e",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -258,7 +273,9 @@ class _SurveyPageState extends State<SurveyPage> {
             return ListView.builder(
               itemCount: Qlist.qlist.length,
               itemBuilder: (context, index) {
-                answerControllers.add(TextEditingController());
+                if (index >= answerControllers.length) {
+                  answerControllers.add(TextEditingController());
+                }
                 if (Qlist.qlist[index].is_options) {
                   return _buildMultians(
                     Qlist.qlist[index].name,

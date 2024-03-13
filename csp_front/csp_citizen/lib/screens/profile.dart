@@ -19,7 +19,8 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.only(left:20.0, right: 20, top: 40, bottom: 70),
+          padding:
+              const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 15),
           child: Card(
             elevation: 5,
             color: const Color(0xFFC9C5BA),
@@ -55,7 +56,7 @@ class ProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildInfoBox(
-                          'Phone No:. ${postModel.post?.phone_number ?? ""}', 
+                          'Phone No:. ${postModel.post?.phone_number ?? ""}',
                         ),
                         const SizedBox(height: 16),
                         _buildInfoBox(
@@ -83,7 +84,6 @@ class ProfilePage extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          
         ),
       ),
     );
@@ -109,14 +109,11 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: text.split(".")[1],  // Extracting text after ":"
+              text: text.split(".")[1], // Extracting text after ":"
               style: const TextStyle(
                 fontSize: 16,
                 color: Color.fromARGB(255, 43, 43, 43),
-                
-              
               ),
-              
             ),
           ],
         ),

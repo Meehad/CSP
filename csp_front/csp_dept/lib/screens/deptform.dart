@@ -178,7 +178,7 @@ class _SurveyCardState extends State<SurveyCard> {
     }
   }
 
-  _submitSurvey(String q, bool t, List<String>? op) async {
+  _submitOptionSurvey(String q, bool t, List<String> op) async {
     try {
       final postModel = Provider.of<DeptDataClass>(context, listen: false);
       postModel.getPostData();
@@ -187,7 +187,74 @@ class _SurveyCardState extends State<SurveyCard> {
         'name': postModel.post?.name ?? "",
         'question': q,
         'is_options': t.toString(),
-        'options': op.toString(),
+        for (int i = 0; i < op.length; i += 1) 'options[$i]': op[i]
+      });
+
+      if (res.statusCode == 201) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text(
+                  'Your Questions for survey has been submitted successfully!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Use Future.delayed to call setState after the build phase is complete
+                    Future.delayed(Duration.zero, () {
+                      setState(() {
+                        widget.onSubmit(); // Call the new function on submit
+                      });
+                    });
+                  },
+                  child: const Text('ok'),
+                )
+              ],
+            );
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text(
+                  'Failed to submit questions for Survey. Please try again.'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('ok'),
+                )
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+  }
+
+  _submitSurvey(String q, bool t) async {
+    try {
+      final postModel = Provider.of<DeptDataClass>(context, listen: false);
+      postModel.getPostData();
+
+      Response res = await post(survey_create, body: {
+        'name': postModel.post?.name ?? "",
+        'question': q,
+        'is_options': t.toString(),
       });
       if (res.statusCode == 201) {
         showDialog(
@@ -340,7 +407,7 @@ class _SurveyCardState extends State<SurveyCard> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        _submitSurvey(questionController.text,
+                        _submitOptionSurvey(questionController.text,
                             widget.isMultipleChoice, options);
                       },
                       style: ElevatedButton.styleFrom(
@@ -359,7 +426,7 @@ class _SurveyCardState extends State<SurveyCard> {
               ElevatedButton(
                 onPressed: () {
                   _submitSurvey(
-                      questionController.text, widget.isMultipleChoice, null);
+                      questionController.text, widget.isMultipleChoice);
                 },
                 child: const Text(
                   'Submit',

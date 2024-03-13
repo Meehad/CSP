@@ -8,6 +8,7 @@ import 'package:csp_citizen/screens/drawer.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   List<EventModel> events = [];
   Client client = http.Client();
   int _currentIndex = 0;
@@ -30,20 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _retrieveEvents();
     _retrieveQ();
-
-    final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
-    final postEvent = Provider.of<EventClass>(context, listen: false);
-    postEvent.getPostData();
-    final postQ = Provider.of<Qlist>(context, listen: false);
-    postQ.getPostData(postModel.post?.id_number ?? "");
   }
 
   Future<void> _retrieveQ() async {
     final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
 
     try {
+      await postModel.getPostData(); // Wait for getPostData to complete
       final response =
           await client.get(showRQ(postModel.post?.id_number ?? ""));
       final List<dynamic> responseData = jsonDecode(response.body);
@@ -51,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
           .map<SurveyQModel>((element) => SurveyQModel.fromJson(element))
           .toList();
 
-      // Use the Qlist provider to update the data
       final qListProvider = Provider.of<Qlist>(context, listen: false);
       qListProvider.qlist = dataList;
 
@@ -71,7 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       }
     } catch (e) {
-      print("Error retrieving events: $e");
+      Fluttertoast.showToast(
+        msg: "Error retrieving events: $e",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -155,118 +152,120 @@ class _MyHomePageState extends State<MyHomePage> {
               : const SizedBox(),
 
           // Animated buttons at the bottom
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/complaint');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF698996),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/complaint');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF698996),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          100, 150), // Set the desired height and width
                     ),
-                    minimumSize: const Size(
-                        100, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/complaint.png', // Replace with the path to your image
-                        width: 70,
-                        height: 70,
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Complaint',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/complaint.png', // Replace with the path to your image
+                          width: 70,
+                          height: 70,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Complaint',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/survey');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF97B1A6),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/survey');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF97B1A6),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          120, 150), // Set the desired height and width
                     ),
-                    minimumSize: const Size(
-                        120, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Image.asset(
-                          'assets/form.png', // Replace with the path to your image
-                          width: 65,
-                          height: 65,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            'assets/form.png', // Replace with the path to your image
+                            width: 65,
+                            height: 65,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Survey',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Survey',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 7),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/feedback');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC9C5BA),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Padding(
+                  padding: const EdgeInsets.only(right: 7),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/feedback');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFC9C5BA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          100, 150), // Set the desired height and width
                     ),
-                    minimumSize: const Size(
-                        100, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/feedback.png', // Replace with the path to your image
-                        width: 70,
-                        height: 70,
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Feedback',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/feedback.png', // Replace with the path to your image
+                          width: 70,
+                          height: 70,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Feedback',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
           // Scrollable card at the bottom with unanswered survey questions
@@ -345,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: () {
                               // Handle button press for help
                               Navigator.pushNamed(context,
-                                  '/Help'); // Replace '/help' with your actual route
+                                  '/help'); // Replace '/help' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(

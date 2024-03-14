@@ -344,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: () {
                               // Handle button press for help
                               Navigator.pushNamed(context,
-                                  '/Help'); // Replace '/help' with your actual route
+                                  '/help'); // Replace '/help' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).colorScheme.primary, // Choose your preferred color for the "Help" button

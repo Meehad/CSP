@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 class Event_publish extends StatefulWidget {
-  const Event_publish({Key? key}) : super(key: key);
+  const Event_publish({super.key});
 
   @override
   State<Event_publish> createState() => _Event_publishState();

@@ -8,6 +8,7 @@ import 'package:csp_citizen/screens/drawer.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -30,20 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _retrieveEvents();
     _retrieveQ();
-
-    final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
-    final postEvent = Provider.of<EventClass>(context, listen: false);
-    postEvent.getPostData();
-    final postQ = Provider.of<Qlist>(context, listen: false);
-    postQ.getPostData(postModel.post?.id_number ?? "");
   }
 
   Future<void> _retrieveQ() async {
     final postModel = Provider.of<DataClass>(context, listen: false);
-    postModel.getPostData();
 
     try {
+      await postModel.getPostData(); // Wait for getPostData to complete
       final response =
           await client.get(showRQ(postModel.post?.id_number ?? ""));
       final List<dynamic> responseData = jsonDecode(response.body);
@@ -51,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
           .map<SurveyQModel>((element) => SurveyQModel.fromJson(element))
           .toList();
 
-      // Use the Qlist provider to update the data
       final qListProvider = Provider.of<Qlist>(context, listen: false);
       qListProvider.qlist = dataList;
 
@@ -71,7 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       }
     } catch (e) {
-      print("Error retrieving events: $e");
+      Fluttertoast.showToast(
+        msg: "Error retrieving events: $e",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 

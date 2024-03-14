@@ -28,13 +28,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
   void initState() {
     _retrieveEvents();
     super.initState();
+    final postModel = Provider.of<DataClass>(context, listen: false);
+    postModel.getPostData();
     final postEvent = Provider.of<EventClass>(context, listen: false);
-    postEvent.getPostData();
+    postEvent.getPostData(postModel.post?.id_number ?? "");
   }
 
   _retrieveEvents() async {
+    final postModel = Provider.of<DataClass>(context, listen: false);
+    postModel.getPostData();
     events = [];
-    List response = jsonDecode((await client.get(showEvents)).body);
+    List response = jsonDecode((await client.get(showunfeeded(postModel.post?.id_number ?? ""))).body);
     for (var element in response) {
       events.add(EventModel.fromJson(element));
     }

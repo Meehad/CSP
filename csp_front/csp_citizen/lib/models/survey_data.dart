@@ -1,6 +1,7 @@
 import 'package:csp_citizen/models/survey_model.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -20,7 +21,11 @@ class Qlist extends ChangeNotifier {
         qlist = (item as List).map((e) => SurveyQModel.fromJson(e)).toList();
         notifyListeners();
       } else {
-        print('error');
+        Fluttertoast.showToast(
+        msg: "Error",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       }
     } catch (e) {
       log(e.toString());

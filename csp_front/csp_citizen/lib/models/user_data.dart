@@ -14,36 +14,41 @@ class DataClass extends ChangeNotifier {
 
   DataClass({this.id_num = ""});
 
-  void changeId({required String new_id_num}) async {
+  void changeId({required String new_id_num}) {
     id_num = new_id_num;
   }
 
   Future<UserModel?> getSinglePostData({required String id_num}) async {
-    UserModel? result;
     try {
       final response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showprofile/"),
-          headers: {
-            HttpHeaders.contentTypeHeader: "application/json",
-          });
-      notifyListeners();
+        Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showprofile/"),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+      );
+
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
-        result = UserModel.fromJson(item);
+        return UserModel.fromJson(item);
       } else {
-        print('error');
+        print('Error fetching user data. Status code: ${response.statusCode}');
+        return null;
       }
     } catch (e) {
-      log(e.toString());
+      log('Error fetching user data: $e');
+      return null;
     }
-    return result;
   }
 
-  getPostData() async {
+  Future<void> getPostData() async {
     loading = true;
-    post = (await getSinglePostData(id_num: id_num))!;
-    loading = false;
-
-    notifyListeners();
+    try {
+      post = await getSinglePostData(id_num: id_num);
+      loading = false;
+      notifyListeners();  // Move the notifyListeners outside of the asynchronous block
+    } catch (e) {
+      loading = false;
+      log(e.toString());
+    }
   }
 }

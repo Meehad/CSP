@@ -13,7 +13,10 @@ class event(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Event from {self.name}"
+        return f"{self.event_name}"
+    
+    def id_str(self):
+        return str(self.id)
 
 
 class feedback(models.Model):
@@ -26,9 +29,4 @@ class feedback(models.Model):
     date_marked = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Feedback from {self.id_number} for the event {self.event_name}"
-
-class report_bug(models.Model):
-    id_number = models.ForeignKey(
-        UserProfile, to_field='id_number', on_delete=models.CASCADE)
-    
+        return self.feed

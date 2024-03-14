@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class DeptLogin extends StatelessWidget {
-  const DeptLogin({Key? key}) : super(key: key);
+  const DeptLogin({super.key});
 
   @override
   Widget build(BuildContext context) {

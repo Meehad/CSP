@@ -54,7 +54,8 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: const Color(0xFF698996),
+      
       body: SafeArea(
         child: Center(
             child: Column(
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
               "CENTRAL SERVICE PORTAL",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 30),
             ),
             const Padding(
@@ -81,7 +82,7 @@ class _LoginState extends State<Login> {
               "WELCOME",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 25),
             ),
             // adhaar textfeild
@@ -93,12 +94,13 @@ class _LoginState extends State<Login> {
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
                   ],
+                  style: const TextStyle(color: Color(0xFF698996)),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20.0)),
                       focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
+                          borderSide: BorderSide(color: Colors.black)),
                       fillColor: const Color.fromRGBO(255, 255, 255, 1),
                       filled: true,
                       hintText: "AADHAAR NO",
@@ -114,7 +116,7 @@ class _LoginState extends State<Login> {
                 fixedSize:
                     const Size(140, 40), //button dimentions for login button
                 foregroundColor: const Color(0xFF698996),
-                backgroundColor: const Color.fromARGB(255, 213, 213, 213),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 elevation: 5, // elevation
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)

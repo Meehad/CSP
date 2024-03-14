@@ -205,7 +205,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
               icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
               label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFC9C5BA),
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
             ),
             const SizedBox(height: 4),
@@ -226,7 +226,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
               icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
               label: const Text('Add Location', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF97B1A6),
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
               ),
             ),
             const SizedBox(height: 4),
@@ -240,7 +240,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF698996),
+                backgroundColor: Theme.of(context).colorScheme.primary,
               ),
               child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
             ),

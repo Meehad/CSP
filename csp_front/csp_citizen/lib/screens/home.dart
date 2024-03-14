@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF698996),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text('Welcome, ${postModel.post?.name ?? ""}'),
         leading: Builder(
           builder: (BuildContext context) {
@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/complaint');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF698996),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/survey');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF97B1A6),
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -238,7 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.pushNamed(context, '/feedback');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC9C5BA),
+                    backgroundColor:Theme.of(context).colorScheme.secondary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -315,8 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   '/forms'); // Replace '/forms' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF97B1A6), // Choose your preferred color
+                              backgroundColor: Theme.of(context).colorScheme.tertiary, // Choose your preferred color
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -348,8 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   '/Help'); // Replace '/help' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF698996), // Choose your preferred color for the "Help" button
+                              backgroundColor: Theme.of(context).colorScheme.primary, // Choose your preferred color for the "Help" button
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -384,7 +382,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      backgroundColor: const Color.fromARGB(255, 226, 226, 226),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

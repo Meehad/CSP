@@ -23,17 +23,17 @@ class NavBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
+           DrawerHeader(
             decoration: BoxDecoration(
-              color: Color(0xFF97B1A6),
+              color: Theme.of(context).drawerTheme.backgroundColor ,
             ),
-            child: Text(
+            child: const Text(
               'Navigation',
               style: TextStyle(fontSize: 25),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
+            leading: const Icon(Icons.person),
             title: const Text('Profile'),
             onTap: () {
               Navigator.pop(context);
@@ -41,7 +41,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.info),
+            leading: const Icon(Icons.info),
             title: const Text('About'),
             onTap: () {
               Navigator.pop(context);
@@ -49,7 +49,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.assignment),
+            leading: const Icon(Icons.assignment),
             title: const Text('Survey'),
             onTap: () {
               Navigator.pop(context);
@@ -57,7 +57,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.feedback),
+            leading: const Icon(Icons.feedback),
             title: const Text('Feedback'),
             onTap: () {
               Navigator.pop(context);
@@ -65,7 +65,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.report),
+            leading: const Icon(Icons.report),
             title: const Text('Report a complaint'),
             onTap: () {
               Navigator.pop(context);
@@ -73,7 +73,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.help),
+            leading: const Icon(Icons.help),
             title: const Text('Help'),
             onTap: () {
               Navigator.pop(context);
@@ -88,8 +88,8 @@ class NavBar extends StatelessWidget {
           //   },
           // ),
           ListTile(
-            leading: Icon(Icons.bug_report),
-            title: const Text('Report a bug'),
+            leading: const Icon(Icons.bug_report, color: Colors.red,),
+            title: const Text('Report a bug',style: TextStyle(color: Colors.red),),
             onTap: () {
               BetterFeedback.of(context).show((feedback) async {
                 final screenshotFilePath =
@@ -98,7 +98,7 @@ class NavBar extends StatelessWidget {
                 final Email email = Email(
                   body: feedback.text,
                   subject: "Report a bug",
-                  recipients: ['mohammedmihad2@gmail.com'],
+                  recipients: ['centralserviceportal.com'],
                   attachmentPaths: [screenshotFilePath],
                   isHTML: false,
                 );
@@ -107,7 +107,7 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.logout,
               color: Colors.red,
             ),

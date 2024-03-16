@@ -147,6 +147,7 @@ import 'package:csp_dept/urls.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -233,7 +234,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
                 child: Text('CREATE FORM', style: TextStyle(fontSize: 20)),
               ),
-            ),
+            ).animate().fadeIn(delay: 1500.ms).scaleY(),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -252,7 +253,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 65, right: 65, top: 15, bottom: 15),
                 child: Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 20)),
               ),
-            ),
+            ).animate().fadeIn(delay: 1500.ms).scaleY(),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -271,7 +272,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 105, right: 105, top: 15, bottom: 15),
                 child: Text('VIEW DATA', style: TextStyle(fontSize: 20)),
               ),
-            ),
+            ).animate().fadeIn(delay: 1500.ms).scaleY(),
             const SizedBox(height: 60),
             events.isNotEmpty
                 ? CarouselSlider(

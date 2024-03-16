@@ -1,6 +1,7 @@
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,7 @@ class DeptLogin extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
+        ).animate().fadeIn(delay: 500.ms).scaleY(),
         // backgroundColor: Colors.teal[400],
       ),
       body: SafeArea(
@@ -67,7 +68,7 @@ class DeptLogin extends StatelessWidget {
                 child: Image.asset(
                   'assets/logo.png',
                   height: 165,
-                ),
+                ).animate().fadeIn(delay: 1000.ms).scaleY(),
               ),
               const SizedBox(height: 5),
               Padding(
@@ -89,7 +90,7 @@ class DeptLogin extends StatelessWidget {
                       color: Colors.grey[600],
                     ),
                   ),
-                ),
+                ).animate().fadeIn(delay: 1500.ms).scaleY(),
               ),
               const SizedBox(height: 5),
               Padding(
@@ -112,7 +113,7 @@ class DeptLogin extends StatelessWidget {
                     ),
                   ),
                   obscureText: true,
-                ),
+                ).animate().fadeIn(delay: 2000.ms).scaleY(),
               ),
               const SizedBox(height: 7),
               ElevatedButton(
@@ -133,7 +134,7 @@ class DeptLogin extends StatelessWidget {
                   'LOGIN',
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
+              ).animate().fadeIn(delay: 2500.ms).scaleY(),
             ],
           ),
         ),

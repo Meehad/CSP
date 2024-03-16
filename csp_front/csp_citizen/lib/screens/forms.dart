@@ -120,7 +120,7 @@ class _FormsPageState extends State<Formspage> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            PdfPreviewScreen(pdfUrl: 'http://10.0.2.2:8000${pdf.pdf_file}'),
+            PdfPreviewScreen(pdf: pdf),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/otp_page.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +50,11 @@ class _LoginState extends State<Login> {
               });
         }
       } catch (e) {
-        print(e.toString());
+        Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       }
     }
 

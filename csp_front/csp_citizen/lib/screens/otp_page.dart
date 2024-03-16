@@ -14,10 +14,10 @@ class OtpPage extends StatelessWidget {
       height: 68,
       textStyle: const TextStyle(
         fontSize: 22,
-        color: Color.fromARGB(255, 14, 14, 14),
+        color: Color.fromARGB(255, 206, 206, 206),
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFC9C5BA),
+        color: Color.fromARGB(255, 71, 71, 71),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.transparent),
       ),
@@ -61,7 +61,7 @@ class OtpPage extends StatelessWidget {
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: defaultPinTheme.copyWith(
                   decoration: defaultPinTheme.decoration!
-                      .copyWith(border: Border.all(color: Colors.green)),
+                      .copyWith(border: Border.all(color: Colors.white)),
                 ),
                 onCompleted: (pin) => {
                   if (pin == otp)
@@ -79,15 +79,15 @@ class OtpPage extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              backgroundColor: Colors.grey[300],
-                              title: const Text('CSP'),
-                              content: const Text('Error!'),
+                              backgroundColor: const Color.fromARGB(255, 132, 132, 132),
+                              title: const Text('OTP'),
+                              content: const Text('Incorrect!'),
                               actions: [
                                 MaterialButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text('ok'),
+                                  child: const Text('OK'),
                                 )
                               ],
                             );

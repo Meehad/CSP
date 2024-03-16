@@ -25,7 +25,7 @@ class NavBar extends StatelessWidget {
         children: <Widget>[
            DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).drawerTheme.backgroundColor ,
+              color: Theme.of(context).colorScheme.primary ,
             ),
             child: const Text(
               'Navigation',

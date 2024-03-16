@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Image.asset(
-              'assets/CSP_logo.png', // Replace with the path to your logo
+              'assets/CSP_logo.png', // the path to logo
               width: 70,
               height: 70,
             ),

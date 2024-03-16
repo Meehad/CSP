@@ -106,13 +106,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
           return AlertDialog(
             backgroundColor: Colors.grey[300],
             title: const Text('CSP'),
-            content: const Text('Success!'),
+            content: const Text('Successfully Sumbitted!'),
             actions: [
               MaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('ok'),
+                child: const Text('OK'),
               )
             ],
           );
@@ -131,7 +131,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('ok'),
+                child: const Text('OK'),
               )
             ],
           );

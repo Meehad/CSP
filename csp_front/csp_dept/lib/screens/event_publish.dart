@@ -117,84 +117,86 @@ class _Event_publishState extends State<Event_publish> {
           border: Border.all(),
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Event Name
-            TextFormField(
-              controller: _eventNameController,
-              decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "EVENT NAME",
-                hintStyle: TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the event name';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _eventDescController,
-              maxLines: 4,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 35.0),
-            // Add Picture IconButton (with functionality)
-            _selectedImage == null
-                ? Container()
-                : Image.file(
-                    _selectedImage as File,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Event Name
+              TextFormField(
+                controller: _eventNameController,
+                decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
                   ),
-            const SizedBox(height: 8),
-            IconButton(
-              onPressed: _pickImage,
-              icon: const Center(
-                child: Icon(Icons.add_a_photo,
-                    color: Colors.black, size: 36.0),
-              ),
-            ),
-            const SizedBox(height: 50.0),
-            // Submit Button
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
                   ),
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: "EVENT NAME",
+                  hintStyle: TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
                 ),
-                onPressed: () {
-                  _submitEvent(
-                    postModel.post?.name ?? "",
-                    _eventNameController.text,
-                    _eventDescController.text,
-                  );
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the event name';
+                  }
+                  return null;
                 },
-                child: const Padding(
-                  padding:
-                      EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
-                  child: Text('SUBMIT', style: TextStyle(fontSize: 20)),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _eventDescController,
+                maxLines: 4,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 35.0),
+              // Add Picture IconButton (with functionality)
+              _selectedImage == null
+                  ? Container()
+                  : Image.file(
+                      _selectedImage as File,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+              const SizedBox(height: 8),
+              IconButton(
+                onPressed: _pickImage,
+                icon: const Center(
+                  child: Icon(Icons.add_a_photo,
+                      color: Colors.black, size: 36.0),
+                ),
+              ),
+              const SizedBox(height: 50.0),
+              // Submit Button
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    _submitEvent(
+                      postModel.post?.name ?? "",
+                      _eventNameController.text,
+                      _eventDescController.text,
+                    );
+                  },
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
+                    child: Text('SUBMIT', style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

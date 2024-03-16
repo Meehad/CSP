@@ -24,17 +24,13 @@ class NavBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
+           DrawerHeader(
             decoration: BoxDecoration(
-              color: Color(0xFF97B1A6),
+              color: Theme.of(context).drawerTheme.backgroundColor ,
             ),
-            child: Column(
-              children: [
-                Text(
-                  'Drawer',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ],
+            child: const Text(
+              'Navigation',
+              style: TextStyle(fontSize: 25),
             ),
           ).animate().fadeIn(delay: 800.ms).scaleX(),
           ListTile(
@@ -103,7 +99,7 @@ class NavBar extends StatelessWidget {
                 final Email email = Email(
                   body: feedback.text,
                   subject: "Report a bug",
-                  recipients: ['mohammedmihad2@gmail.com'],
+                  recipients: ['centralserviceportal.com'],
                   attachmentPaths: [screenshotFilePath],
                   isHTML: false,
                 );

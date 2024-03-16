@@ -22,7 +22,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
   List<EventModel> events = [];
   Client client = http.Client();
   int _currentIndex = 0;
@@ -79,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF698996),
-        title: Text('Welcome, ${postModel.post?.name ?? ""}').animate().fade(duration: 1000.ms).scaleY(),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        title: Text('Welcome, ${postModel.post?.name ?? ""}'),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -315,8 +315,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   '/forms'); // Replace '/forms' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF97B1A6), // Choose your preferred color
+                              backgroundColor: Theme.of(context).colorScheme.tertiary, // Choose your preferred color
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -348,8 +347,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   '/help'); // Replace '/help' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF698996), // Choose your preferred color for the "Help" button
+                              backgroundColor: Theme.of(context).colorScheme.primary, // Choose your preferred color for the "Help" button
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -385,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         
         ],
       ),
-      backgroundColor: const Color.fromARGB(255, 226, 226, 226),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

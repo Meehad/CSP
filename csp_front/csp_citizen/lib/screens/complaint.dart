@@ -111,13 +111,13 @@ class _ComplaintPageState extends State<ComplaintPage> {
           return AlertDialog(
             backgroundColor: Colors.grey[300],
             title: const Text('CSP'),
-            content: const Text('Success!'),
+            content: const Text('Successfully Sumbitted!'),
             actions: [
               MaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('ok'),
+                child: const Text('OK'),
               )
             ],
           );
@@ -136,7 +136,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('ok'),
+                child: const Text('OK'),
               )
             ],
           );
@@ -160,96 +160,98 @@ class _ComplaintPageState extends State<ComplaintPage> {
         // backgroundColor: Color(0xFF698996),
         title: const Text('Complaint Reporting', style: TextStyle(color: Colors.white)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _subjectController,
-              onChanged: (value) {
-                setState(() {
-                  _subjectError = null; // Clear the error message on typing
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Subject',
-                hintText: 'Subject *', // Indicate that it's required
-                errorText: _subjectError,
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _descriptionController,
-              onChanged: (value) {
-                setState(() {
-                  _descriptionError = null; // Clear the error message on typing
-                });
-              },
-              maxLines: 4,
-              decoration: InputDecoration(
-                labelText: 'Description',
-                hintText: 'Description *', // Indicate that it's required
-                errorText: _descriptionError,
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 5),
-            _selectedImagePath == null
-                ? Container()
-                : Image.file(
-                    _selectedImagePath as File,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-            const SizedBox(height: 1),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
-              label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFC9C5BA),
-              ),
-            ),
-            const SizedBox(height: 4),
-            _selectedLocation.isNotEmpty
-                ? Text('Location: $_selectedLocation')
-                : Container(),
-            const SizedBox(height: 2),
-            ElevatedButton.icon(
-              onPressed: () {
-                _pickLocation().then((value) {
-                  lat = '${value.latitude}';
-                  long = '${value.longitude}';
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                controller: _subjectController,
+                onChanged: (value) {
                   setState(() {
-                    _selectedLocation = '$lat,$long';
+                    _subjectError = null; // Clear the error message on typing
                   });
-                });
-              },
-              icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
-              label: const Text('Add Location', style: TextStyle(color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF97B1A6),
+                },
+                decoration: InputDecoration(
+                  labelText: 'Subject',
+                  hintText: 'Subject *', // Indicate that it's required
+                  errorText: _subjectError,
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            ElevatedButton(
-              onPressed: () {
-                _submitComplaint(
-                  postModel.post?.id_number ?? "",
-                  _subjectController.text,
-                  _descriptionController.text,
-                  _selectedLocation,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF698996),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _descriptionController,
+                onChanged: (value) {
+                  setState(() {
+                    _descriptionError = null; // Clear the error message on typing
+                  });
+                },
+                maxLines: 4,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  hintText: 'Description *', // Indicate that it's required
+                  errorText: _descriptionError,
+                  border: const OutlineInputBorder(),
+                ),
               ),
-              child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
-            ),
-          ],
+              const SizedBox(height: 5),
+              _selectedImagePath == null
+                  ? Container()
+                  : Image.file(
+                      _selectedImagePath as File,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+              const SizedBox(height: 1),
+              ElevatedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
+                label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              const SizedBox(height: 4),
+              _selectedLocation.isNotEmpty
+                  ? Text('Location: $_selectedLocation')
+                  : Container(),
+              const SizedBox(height: 2),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _pickLocation().then((value) {
+                    lat = '${value.latitude}';
+                    long = '${value.longitude}';
+                    setState(() {
+                      _selectedLocation = '$lat,$long';
+                    });
+                  });
+                },
+                icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
+                label: const Text('Add Location', style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                ),
+              ),
+              const SizedBox(height: 4),
+              ElevatedButton(
+                onPressed: () {
+                  _submitComplaint(
+                    postModel.post?.id_number ?? "",
+                    _subjectController.text,
+                    _descriptionController.text,
+                    _selectedLocation,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
+                child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+              ),
+            ],
+          ),
         ),
       ),
       // backgroundColor: const Color.fromARGB(255, 226, 252, 232),

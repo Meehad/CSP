@@ -11,6 +11,8 @@ import 'package:csp_citizen/screens/home.dart';
 import 'package:csp_citizen/screens/profile.dart';
 import 'package:csp_citizen/screens/survey.dart';
 import 'package:csp_citizen/screens/about.dart';
+import 'package:csp_citizen/themes/dark_theme.dart';
+import 'package:csp_citizen/themes/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:feedback/feedback.dart';
@@ -63,26 +65,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CSP',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF698996)),
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
-            .copyWith(background: const Color.fromARGB(255, 226, 226, 226)),
-        buttonTheme: const ButtonThemeData(buttonColor: Color(0xFF698996)),
-        elevatedButtonTheme: const ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
-            foregroundColor:
-                MaterialStatePropertyAll(Color.fromARGB(255, 213, 213, 213)),
-          ),
-        ),
-        cardTheme: CardTheme(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ),
+      theme: lighttheme,
+      darkTheme: darkTheme,
+      // theme: ThemeData(
+      //   appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF698996)),
+      //   useMaterial3: true,
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+      //       .copyWith(background: const Color.fromARGB(255, 226, 226, 226)),
+      //   buttonTheme: const ButtonThemeData(buttonColor: Color(0xFF698996)),
+      //   elevatedButtonTheme: const ElevatedButtonThemeData(
+      //     style: ButtonStyle(
+      //       backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
+      //       foregroundColor:
+      //           MaterialStatePropertyAll(Color.fromARGB(255, 213, 213, 213)),
+      //     ),
+      //   ),
+      //   cardTheme: CardTheme(
+      //     elevation: 5,
+      //     shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.circular(15),
+      //     ),
+      //   ),
+      // ),
       home: const OnboardingScreen(),
       routes: {
         '/home': (context) => const MyHomePage(),

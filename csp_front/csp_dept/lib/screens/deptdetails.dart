@@ -32,7 +32,7 @@ class _deptdetailsState extends State<deptdetails> {
           child: Center(
             child: Text(
               'DEPARTMENT DETAILS',
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
         ),

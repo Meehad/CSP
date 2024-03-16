@@ -9,6 +9,7 @@ import 'package:csp_citizen/screens/drawer.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +23,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
   List<EventModel> events = [];
   Client client = http.Client();
   int _currentIndex = 0;
@@ -83,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF698996),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text('Welcome, ${postModel.post?.name ?? ""}'),
         leading: Builder(
           builder: (BuildContext context) {
@@ -99,10 +100,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Image.asset(
-              'assets/CSP_logo.png', // Replace with the path to your logo
+              'assets/CSP_logo.png', // the path to logo
               width: 70,
               height: 70,
-            ),
+            ).animate().fade(duration: 1000.ms).scaleY(),
           ),
         ],
       ),
@@ -194,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                  ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -232,7 +233,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                  ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 7),
@@ -267,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                  ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
                 ),
               ],
             ),
@@ -319,8 +320,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   '/forms'); // Replace '/forms' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF97B1A6), // Choose your preferred color
+                              backgroundColor: Theme.of(context).colorScheme.tertiary, // Choose your preferred color
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -352,8 +352,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   '/help'); // Replace '/help' with your actual route
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(
-                                  0xFF698996), // Choose your preferred color for the "Help" button
+                              backgroundColor: Theme.of(context).colorScheme.primary, // Choose your preferred color for the "Help" button
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -383,12 +382,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-              ),
+              ).animate().fadeIn(delay: 2100.ms).scaleY(),
             ),
           ),
+        
         ],
       ),
-      backgroundColor: const Color.fromARGB(255, 226, 226, 226),
+      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

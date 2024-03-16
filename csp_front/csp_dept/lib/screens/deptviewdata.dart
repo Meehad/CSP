@@ -103,7 +103,10 @@ class _DeptviewState extends State<Deptview> {
         appBar: AppBar(
           // backgroundColor: Color(0xFF698996),
           title:
-              const Text('Data Section', style: TextStyle(color: Colors.white)),
+              const Center(child: Padding(
+                padding: EdgeInsets.only(right: 50),
+                child: Text('DATA SECTION', style: TextStyle(color: Colors.white)),
+              )),
         ),
         body: Padding(
             padding: const EdgeInsets.all(16.0),

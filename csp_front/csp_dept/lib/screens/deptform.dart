@@ -22,7 +22,7 @@ class _SurveyAppState extends State<SurveyApp> {
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.only(left: 40),
-          child: Text('SURVEY SECTION'),
+          child: Text('SURVEY SECTION',style: TextStyle(color: Colors.white),),
         ),
         actions: [
           IconButton(

@@ -16,9 +16,9 @@ class DeptEvent extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: 68,
+                  width: 55,
                 ),
-                Text("EVENT SECTION"),
+                Text("EVENT SECTION",style: TextStyle(color: Colors.white),),
               ],
             ),
           ),

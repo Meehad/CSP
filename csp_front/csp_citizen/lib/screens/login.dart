@@ -5,6 +5,7 @@ import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/screens/otp_page.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +60,8 @@ class _LoginState extends State<Login> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: const Color(0xFF698996),
+      
       body: SafeArea(
         child: Center(
             child: Column(
@@ -69,9 +71,9 @@ class _LoginState extends State<Login> {
               "CENTRAL SERVICE PORTAL",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 30),
-            ),
+            ).animate().fadeIn(delay: 1700.ms).scaleY(),
             const Padding(
               padding: EdgeInsets.all(40.0),
               child: Image(
@@ -86,9 +88,9 @@ class _LoginState extends State<Login> {
               "WELCOME",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 25),
-            ),
+            ).animate().fadeIn(delay: 2200.ms).scaleY(),
             // adhaar textfeild
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -98,19 +100,20 @@ class _LoginState extends State<Login> {
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r'^\d+')),
                   ],
+                  style: const TextStyle(color: Color(0xFF698996)),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20.0)),
                       focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
+                          borderSide: BorderSide(color: Colors.black)),
                       fillColor: const Color.fromRGBO(255, 255, 255, 1),
                       filled: true,
                       hintText: "AADHAAR NO",
                       hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 158, 158, 158))),
                   obscureText: false,
-                )),
+                ).animate().fadeIn(delay: 2500.ms).scaleY()),
             const SizedBox(height: 20),
             // buttonar
 
@@ -119,7 +122,7 @@ class _LoginState extends State<Login> {
                 fixedSize:
                     const Size(140, 40), //button dimentions for login button
                 foregroundColor: const Color(0xFF698996),
-                backgroundColor: const Color.fromARGB(255, 213, 213, 213),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 elevation: 5, // elevation
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)
@@ -134,7 +137,7 @@ class _LoginState extends State<Login> {
                 'SEND OTP',
                 style: TextStyle(fontSize: 15),
               ),
-            ),
+            ).animate().fadeIn(delay: 2900.ms).scaleY(),
           ],
         )),
       ),

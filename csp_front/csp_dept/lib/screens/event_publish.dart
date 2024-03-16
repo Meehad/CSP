@@ -111,13 +111,13 @@ class _Event_publishState extends State<Event_publish> {
     final postModel = Provider.of<DeptDataClass>(context);
     return Form(
       key: _formKey,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -188,7 +188,8 @@ class _Event_publishState extends State<Event_publish> {
                       _eventDescController.text,
                     );
                   },
-                  child: const Padding(
+                  child: 
+                  const Padding(
                     padding:
                         EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
                     child: Text('SUBMIT', style: TextStyle(fontSize: 20)),

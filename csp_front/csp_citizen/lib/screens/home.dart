@@ -8,6 +8,7 @@ import 'package:csp_citizen/screens/drawer.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'assets/CSP_logo.png', // the path to logo
               width: 70,
               height: 70,
-            ),
+            ).animate().fade(duration: 1000.ms).scaleY(),
           ),
         ],
       ),
@@ -152,118 +153,120 @@ class _MyHomePageState extends State<MyHomePage> {
               : const SizedBox(),
 
           // Animated buttons at the bottom
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/complaint');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/complaint');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF698996),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          100, 150), // Set the desired height and width
                     ),
-                    minimumSize: const Size(
-                        100, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/complaint.png', // Replace with the path to your image
-                        width: 70,
-                        height: 70,
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Complaint',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/complaint.png', // Replace with the path to your image
+                          width: 70,
+                          height: 70,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/survey');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Complaint',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    minimumSize: const Size(
-                        120, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Image.asset(
-                          'assets/form.png', // Replace with the path to your image
-                          width: 65,
-                          height: 65,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Survey',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 7),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/feedback');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:Theme.of(context).colorScheme.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/survey');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF97B1A6),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          120, 150), // Set the desired height and width
                     ),
-                    minimumSize: const Size(
-                        100, 150), // Set the desired height and width
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/feedback.png', // Replace with the path to your image
-                        width: 70,
-                        height: 70,
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Feedback',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            'assets/form.png', // Replace with the path to your image
+                            width: 65,
+                            height: 65,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Survey',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(right: 7),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/feedback');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFC9C5BA),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      minimumSize: const Size(
+                          100, 150), // Set the desired height and width
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/feedback.png', // Replace with the path to your image
+                          width: 70,
+                          height: 70,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Feedback',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
+                ),
+              ],
+            ),
           ),
 
           // Scrollable card at the bottom with unanswered survey questions
@@ -374,9 +377,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-              ),
+              ).animate().fadeIn(delay: 2100.ms).scaleY(),
             ),
           ),
+        
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

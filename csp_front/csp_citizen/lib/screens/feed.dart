@@ -6,6 +6,7 @@ import 'package:csp_citizen/models/user_data.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +39,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
     final postModel = Provider.of<DataClass>(context, listen: false);
     postModel.getPostData();
     events = [];
-    List response = jsonDecode((await client.get(showunfeeded(postModel.post?.id_number ?? ""))).body);
+    List response = jsonDecode(
+        (await client.get(showunfeeded(postModel.post?.id_number ?? ""))).body);
     for (var element in response) {
       events.add(EventModel.fromJson(element));
     }
@@ -97,7 +99,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
       }
       FocusScope.of(context).unfocus();
     } catch (e) {
-      print(e.toString());
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -112,7 +118,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
             child: Image.network(
-              "http://10.0.2.2:8000$imagePath",
+              "http://192.168.137.1:8000$imagePath",
               height: 200,
               width: double.infinity, // Adjust the width to fill the card
               fit: BoxFit.cover,

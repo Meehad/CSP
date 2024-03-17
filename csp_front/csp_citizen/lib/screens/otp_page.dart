@@ -17,7 +17,7 @@ class OtpPage extends StatelessWidget {
         color: Color.fromARGB(255, 206, 206, 206),
       ),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 71, 71, 71),
+        color: const Color.fromARGB(255, 71, 71, 71),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.transparent),
       ),

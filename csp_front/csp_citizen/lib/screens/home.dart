@@ -1,5 +1,6 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
+
 import 'dart:convert';
-import 'package:csp_citizen/models/feedback_data.dart';
 import 'package:csp_citizen/models/feedback_model.dart';
 import 'package:csp_citizen/models/survey_data.dart';
 import 'package:csp_citizen/models/survey_model.dart';
@@ -51,7 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
       setState(() {});
     } catch (e) {
-      print("Error: $e");
+      Fluttertoast.showToast(
+        msg: "Error: $e",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 

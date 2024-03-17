@@ -68,7 +68,7 @@ class DeptLogin extends StatelessWidget {
                 child: Image.asset(
                   'assets/logo.png',
                   height: 165,
-                ).animate().fadeIn(delay: 1000.ms).scaleY(),
+                ).animate().fadeIn(delay: 800.ms).scaleY(),
               ),
               const SizedBox(height: 5),
               Padding(
@@ -90,7 +90,7 @@ class DeptLogin extends StatelessWidget {
                       color: Colors.grey[600],
                     ),
                   ),
-                ).animate().fadeIn(delay: 1500.ms).scaleY(),
+                ).animate().fadeIn(delay: 1100.ms).scaleY(),
               ),
               const SizedBox(height: 5),
               Padding(
@@ -113,7 +113,7 @@ class DeptLogin extends StatelessWidget {
                     ),
                   ),
                   obscureText: true,
-                ).animate().fadeIn(delay: 2000.ms).scaleY(),
+                ).animate().fadeIn(delay: 1400.ms).scaleY(),
               ),
               const SizedBox(height: 7),
               ElevatedButton(
@@ -134,7 +134,7 @@ class DeptLogin extends StatelessWidget {
                   'LOGIN',
                   style: TextStyle(fontSize: 20),
                 ),
-              ).animate().fadeIn(delay: 2500.ms).scaleY(),
+              ).animate().fadeIn(delay: 1700.ms).scaleY(),
             ],
           ),
         ),

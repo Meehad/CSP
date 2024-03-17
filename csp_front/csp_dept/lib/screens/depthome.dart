@@ -234,7 +234,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
                 child: Text('CREATE FORM', style: TextStyle(fontSize: 20)),
               ),
-            ).animate().fadeIn(delay: 1500.ms).scaleY(),
+            ).animate().fadeIn(delay: 1000.ms).scaleY(),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -253,7 +253,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 65, right: 65, top: 15, bottom: 15),
                 child: Text('PUBLISH AN EVENT', style: TextStyle(fontSize: 20)),
               ),
-            ).animate().fadeIn(delay: 1500.ms).scaleY(),
+            ).animate().fadeIn(delay: 1200.ms).scaleY(),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -272,7 +272,7 @@ class _DepthomeState extends State<Depthome> {
                     EdgeInsets.only(left: 105, right: 105, top: 15, bottom: 15),
                 child: Text('VIEW DATA', style: TextStyle(fontSize: 20)),
               ),
-            ).animate().fadeIn(delay: 1500.ms).scaleY(),
+            ).animate().fadeIn(delay: 1400.ms).scaleY(),
             const SizedBox(height: 60),
             events.isNotEmpty
                 ? CarouselSlider(

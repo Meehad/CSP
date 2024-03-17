@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'assets/CSP_logo.png', // the path to logo
               width: 70,
               height: 70,
-            ).animate().fade(duration: 1000.ms).scaleY(),
+            ).animate().fadeIn(delay: 600.ms).scaleY(),
           ),
         ],
       ),
@@ -190,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
+                  ).animate().fadeIn(delay: 900.ms).scaleY(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -228,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
+                  ).animate().fadeIn(delay: 900.ms).scaleY(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 7),
@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                  ).animate().fadeIn(delay: 1700.ms).scaleY(),
+                  ).animate().fadeIn(delay: 900.ms).scaleY(),
                 ),
               ],
             ),
@@ -377,7 +377,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-              ).animate().fadeIn(delay: 2100.ms).scaleY(),
+              ).animate().fadeIn(delay: 1200.ms).scaleY(),
             ),
           ),
         

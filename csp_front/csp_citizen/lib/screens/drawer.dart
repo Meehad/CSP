@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:csp_citizen/screens/login.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -32,50 +31,50 @@ class NavBar extends StatelessWidget {
               'Navigation',
               style: TextStyle(fontSize: 25),
             ),
-          ).animate().fadeIn(delay: 800.ms).scaleX(),
+          ),
           ListTile(
-            leading: const Icon(Icons.person).animate().fadeIn(delay: 2000.ms).scaleX(),
-            title: const Text('Profile').animate().fadeIn(delay: 2000.ms).scaleX(),
+            leading: const Icon(Icons.person),
+            title: const Text('Profile'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/profile');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info).animate().fadeIn(delay: 2300.ms).scaleX(),
-            title: const Text('About').animate().fadeIn(delay: 2300.ms).scaleX(),
+            leading: const Icon(Icons.info),
+            title: const Text('About'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/about');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.assignment).animate().fadeIn(delay: 2600.ms).scaleX(),
-            title: const Text('Survey').animate().fadeIn(delay: 2600.ms).scaleX(),
+            leading: const Icon(Icons.assignment),
+            title: const Text('Survey'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/survey');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.feedback).animate().fadeIn(delay: 2900.ms).scaleX(),
-            title: const Text('Feedback').animate().fadeIn(delay: 2900.ms).scaleX(),
+            leading: const Icon(Icons.feedback),
+            title: const Text('Feedback'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/feedback');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.report).animate().fadeIn(delay: 3200.ms).scaleX(),
-            title: const Text('Report a complaint').animate().fadeIn(delay: 3200.ms).scaleX(),
+            leading: const Icon(Icons.report),
+            title: const Text('Report a complaint'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/complaint');
             },
           ),
           ListTile(
-            leading: const Icon(Icons.help).animate().fadeIn(delay: 3500.ms).scaleX(),
-            title: const Text('Help').animate().fadeIn(delay: 3500.ms).scaleX(),
+            leading: const Icon(Icons.help),
+            title: const Text('Help'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/help');
@@ -89,8 +88,8 @@ class NavBar extends StatelessWidget {
           //   },
           // ),
           ListTile(
-            leading: const Icon(Icons.bug_report).animate().fadeIn(delay: 3800.ms).scaleX(),
-            title: const Text('Report a bug').animate().fadeIn(delay: 3800.ms).scaleX(),
+            leading: const Icon(Icons.bug_report),
+            title: const Text('Report a bug'),
             onTap: () {
               BetterFeedback.of(context).show((feedback) async {
                 final screenshotFilePath =
@@ -111,13 +110,13 @@ class NavBar extends StatelessWidget {
             leading: const Icon(
               Icons.logout,
               color: Colors.red,
-            ).animate().fadeIn(delay: 4100.ms).scaleX(),
+            ),
             title: const Text(
               'Logout',
               style: TextStyle(
                 color: Colors.red,
               ),
-            ).animate().fadeIn(delay: 4100.ms).scaleX(),
+            ),
             onTap: () {
               Navigator.pushAndRemoveUntil(
                 context,

@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class ViewFeedback extends StatefulWidget {
-  const ViewFeedback({super.key});
+  const ViewFeedback({super.key, required String date, required feedback, required rating, required eventName, required feedbackId});
 
   @override
   State<ViewFeedback> createState() => _ViewFeedbackState();

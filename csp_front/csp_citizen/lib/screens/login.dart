@@ -6,6 +6,7 @@ import 'package:csp_citizen/screens/otp_page.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,11 @@ class _LoginState extends State<Login> {
               });
         }
       } catch (e) {
-        print(e.toString());
+        Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       }
     }
 
@@ -68,14 +73,14 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 30),
-            ).animate().fadeIn(delay: 1700.ms).scaleY(),
+            ).animate().fadeIn(delay: 600.ms).scaleY(),
             const Padding(
               padding: EdgeInsets.all(40.0),
               child: Image(
                 image: AssetImage('assets/logo.png'),
                 height: 200,
               ),
-            ),
+            ).animate().fadeIn(delay: 900.ms).scaleY(),
 
             // Hello again
 
@@ -85,7 +90,7 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 25),
-            ).animate().fadeIn(delay: 2200.ms).scaleY(),
+            ).animate().fadeIn(delay: 1200.ms).scaleY(),
             // adhaar textfeild
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -108,7 +113,7 @@ class _LoginState extends State<Login> {
                       hintStyle: const TextStyle(
                           color: Color.fromARGB(255, 158, 158, 158))),
                   obscureText: false,
-                ).animate().fadeIn(delay: 2500.ms).scaleY()),
+                ).animate().fadeIn(delay: 1500.ms).scaleY()),
             const SizedBox(height: 20),
             // buttonar
 
@@ -132,7 +137,7 @@ class _LoginState extends State<Login> {
                 'SEND OTP',
                 style: TextStyle(fontSize: 15),
               ),
-            ).animate().fadeIn(delay: 2900.ms).scaleY(),
+            ).animate().fadeIn(delay: 1800.ms).scaleY(),
           ],
         )),
       ),

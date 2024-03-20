@@ -112,7 +112,7 @@ class _Event_publishState extends State<Event_publish> {
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
-        child: Container(
+        child: Container(         
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             border: Border.all(),

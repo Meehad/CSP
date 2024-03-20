@@ -45,7 +45,7 @@ class DataClass extends ChangeNotifier {
     try {
       post = await getSinglePostData(id_num: id_num);
       loading = false;
-      notifyListeners();  // Move the notifyListeners outside of the asynchronous block
+      notifyListeners(); // Move the notifyListeners outside of the asynchronous block
     } catch (e) {
       loading = false;
       log(e.toString());

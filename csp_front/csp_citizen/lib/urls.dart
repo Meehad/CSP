@@ -47,12 +47,14 @@ Uri downloadpdf(int id) {
 
 // Uri postfeed = Uri.parse("http://192.168.1.8:8000/feedback/feed/");
 
-// Uri showEvents = Uri.parse("http://192.168.1.8:8000/feedback/events_view/");
+// Uri postfeed = Uri.parse("http://192.168.137.1:8000/feedback/feed/");
 
 // Uri showunfeeded(String id) {
-//   Uri showEvents = Uri.parse("http://192.168.1.8:8000/feedback/feed_view/$id/");
+//   Uri showEvents = Uri.parse("http://192.168.137.1:8000/feedback/feed_view/$id/");
 //   return showEvents;
 // }
+
+// Uri showEvents = Uri.parse("http://192.168.137.1:8000/feedback/events_view/");
 
 // Uri logouturl = Uri.parse("http://192.168.1.8:8000/csp_log/logout_user/");
 

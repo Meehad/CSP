@@ -1,6 +1,7 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:csp_citizen/screens/login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

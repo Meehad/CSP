@@ -71,17 +71,23 @@ def questiontobeanswered(request, pk):
 @api_view(['GET'])
 def answers_by_department(request, dept_name):
     try:
-        # Get the Survey_Q object for the given department name
-        survey_q_object = Survey_Q.objects.get(name__name__iexact=dept_name)
+        # Get all Survey_Q objects for the given department name
+        survey_q_objects = Survey_Q.objects.filter(
+            name__name__iexact=dept_name)
 
-        # Get the Survey_A objects for the specific Survey_Q object
-        answers = Survey_A.objects.filter(question=survey_q_object)
+        # Check if any Survey_Q object exists for the given department name
+        if survey_q_objects.exists():
+            answers_data = []  # List to store answers for all questions
+            for survey_q_object in survey_q_objects:
+                # Get the Survey_A objects for the specific Survey_Q object
+                answers = Survey_A.objects.filter(question=survey_q_object)
 
-        # Serialize the answers
-        serializer = SurveyaSerializer(answers, many=True)
+                # Serialize the answers
+                serializer = SurveyaSerializer(answers, many=True)
+                answers_data.append(serializer.data)
 
-        return Response(serializer.data)
-    except Survey_Q.DoesNotExist:
-        return Response({"error": "Survey_Q object not found for the given department name."}, status=404)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Survey_Q object not found for the given department name."}, status=404)
     except Exception as e:
         return Response({"error": str(e)}, status=500)

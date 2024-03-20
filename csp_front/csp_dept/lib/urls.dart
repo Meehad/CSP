@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 Uri loginurl = Uri.parse("http://10.0.2.2:8000/csp_log/dlogin/");
 
 Uri profileurl =

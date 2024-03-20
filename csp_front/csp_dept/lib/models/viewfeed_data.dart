@@ -1,6 +1,7 @@
 import 'package:csp_dept/models/viewfeed_model.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -21,7 +22,11 @@ class FeedClass extends ChangeNotifier {
         final item = json.decode(response.body);
         eventList = FeedModel.fromJson(item);
       } else {
-        print('error');
+        Fluttertoast.showToast(
+        msg: 'Error',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       }
     } catch (e) {
       log(e.toString());

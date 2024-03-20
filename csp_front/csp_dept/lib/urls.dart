@@ -20,6 +20,11 @@ Uri showans(String id) {
 
 Uri survey_create = Uri.parse('http://10.0.2.2:8000/survey_create/');
 
+Uri showop(String id) {
+  Uri u = Uri.parse("http://10.0.2.2:8000/options/$id/");
+  return u;
+}
+
 // Uri loginurl = Uri.parse("http://192.168.88.231:8000/csp_log/dlogin/");
 
 // Uri profileurl =

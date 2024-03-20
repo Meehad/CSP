@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:csp_citizen/models/user_data.dart';
+import 'package:csp_citizen/screens/submit_loading.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,7 +31,8 @@ class _ComplaintPageState extends State<ComplaintPage> {
   Future<void> _pickImage() async {
     final imagePicker = ImagePicker();
     try {
-      final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+      final pickedFile =
+          await imagePicker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile != null) {
         setState(() {
@@ -68,11 +70,15 @@ class _ComplaintPageState extends State<ComplaintPage> {
   }
 
   void _submitComplaint(Id, String s, String d, String l) async {
-    if (_subjectController.text.isEmpty || _descriptionController.text.isEmpty) {
+    if (_subjectController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
       // Set the error messages only when submitting
       setState(() {
-        _subjectError = _subjectController.text.isEmpty ? 'Subject is required' : null;
-        _descriptionError = _descriptionController.text.isEmpty ? 'Description is required' : null;
+        _subjectError =
+            _subjectController.text.isEmpty ? 'Subject is required' : null;
+        _descriptionError = _descriptionController.text.isEmpty
+            ? 'Description is required'
+            : null;
       });
       return;
     }
@@ -105,24 +111,29 @@ class _ComplaintPageState extends State<ComplaintPage> {
     _subjectController.clear();
     _descriptionController.clear();
     if (res.statusCode == 201) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.grey[300],
-            title: const Text('CSP'),
-            content: const Text('Successfully Sumbitted!'),
-            actions: [
-              MaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              )
-            ],
-          );
-        },
-      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AnimationPage()),
+      ).then((_) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.grey[300],
+              title: const Text('CSP'),
+              content: const Text('Successfully Sumbitted!'),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                )
+              ],
+            );
+          },
+        );
+      });
     } else {
       showDialog(
         context: context,
@@ -158,7 +169,8 @@ class _ComplaintPageState extends State<ComplaintPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Color(0xFF698996),
-        title: const Text('Complaint Reporting', style: TextStyle(color: Colors.white)),
+        title: const Text('Complaint Reporting',
+            style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -185,7 +197,8 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 controller: _descriptionController,
                 onChanged: (value) {
                   setState(() {
-                    _descriptionError = null; // Clear the error message on typing
+                    _descriptionError =
+                        null; // Clear the error message on typing
                   });
                 },
                 maxLines: 4,
@@ -208,8 +221,10 @@ class _ComplaintPageState extends State<ComplaintPage> {
               const SizedBox(height: 1),
               ElevatedButton.icon(
                 onPressed: _pickImage,
-                icon: const Icon(Icons.attach_file, color: Color.fromARGB(255, 73, 64, 209)),
-                label: const Text('Attach Image', style: TextStyle(color: Colors.white)),
+                icon: const Icon(Icons.attach_file,
+                    color: Color.fromARGB(255, 73, 64, 209)),
+                label: const Text('Attach Image',
+                    style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                 ),
@@ -229,8 +244,10 @@ class _ComplaintPageState extends State<ComplaintPage> {
                     });
                   });
                 },
-                icon: const Icon(Icons.add_location, color: Color.fromARGB(255, 186, 40, 40)),
-                label: const Text('Add Location', style: TextStyle(color: Colors.white)),
+                icon: const Icon(Icons.add_location,
+                    color: Color.fromARGB(255, 186, 40, 40)),
+                label: const Text('Add Location',
+                    style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.tertiary,
                 ),
@@ -248,7 +265,9 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                 ),
-                child: const Text('Submit', style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
+                child: const Text('Submit',
+                    style:
+                        TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
               ),
             ],
           ),

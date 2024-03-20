@@ -6,6 +6,7 @@ from .models import Survey_Q, Survey_A
 from .serializers import SurveyqSerializer, SurveyaSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.db.models import Count
 # create views here
 
 
@@ -87,6 +88,36 @@ def answers_by_department(request, dept_name):
                 answers_data.append(serializer.data)
 
             return Response(serializer.data)
+        else:
+            return Response({"error": "Survey_Q object not found for the given department name."}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+
+@api_view(['GET'])
+def optionstopie(request, dept_name):
+    try:
+        # Get all Survey_Q objects for the given department name
+        survey_q_objects = Survey_Q.objects.filter(
+            name__name__iexact=dept_name)
+
+        # Check if any Survey_Q object exists for the given department name
+        if survey_q_objects.exists():
+            options_count = []
+            for survey_q in survey_q_objects:
+                if survey_q.is_options:
+                    # Count the occurrences of each option for the current question
+                    option_counts = Survey_A.objects.filter(question=survey_q).values(
+                        'answer').annotate(count=Count('answer'))
+
+                    # Create a dictionary of option counts for the current question
+                    question_data = {
+                        "question": survey_q.question,
+                        "options": {option['answer']: option['count'] for option in option_counts}
+                    }
+                    options_count.append(question_data)
+
+            return Response(options_count)
         else:
             return Response({"error": "Survey_Q object not found for the given department name."}, status=404)
     except Exception as e:

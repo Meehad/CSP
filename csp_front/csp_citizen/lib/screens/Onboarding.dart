@@ -57,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255), // Change this to your desired background color
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Change this to your desired background color
       body: Stack(
         children: [
           PageView.builder(
@@ -90,7 +90,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(const Size(350.0, 48.0)),
                           ),
-                          child: const Text('Get Started', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.black)),
+                          child: const Text('Get Started', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 221, 221, 221))),
                         ).animate().fadeIn(delay: 1700.ms).scaleY(),
                         const SizedBox(height: 16.0),
                       ],
@@ -144,7 +144,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               fontSize: _currentPage == onboardingData.length - 1 ? 18.0 : 18.0,
                             ),
                           ),
-                          child: Text(_currentPage < onboardingData.length - 1 ? 'Next' : 'Get Started'),
+                          child: Text(_currentPage < onboardingData.length - 1 ? 'Next' : 'Get Started',style: const TextStyle(color: Color.fromARGB(255, 207, 207, 207)),),
                         ).animate().fadeIn(delay: 2000.ms).scaleY(),
                       ],
                     ),

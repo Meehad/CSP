@@ -89,8 +89,9 @@ class NavBar extends StatelessWidget {
           //   },
           // ),
           ListTile(
-            leading: const Icon(Icons.bug_report).animate().fadeIn(delay: 3800.ms).scaleX(),
-            title: const Text('Report a bug').animate().fadeIn(delay: 3800.ms).scaleX(),
+            leading: const Icon(Icons.bug_report, color: Colors.red,).animate().fadeIn(delay: 3800.ms).scaleX(),
+            title: const Text('Report a bug',
+            style: TextStyle(color: Colors.red),).animate().fadeIn(delay: 3800.ms).scaleX(),
             onTap: () {
               BetterFeedback.of(context).show((feedback) async {
                 final screenshotFilePath =

@@ -24,6 +24,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => EventClass()),
         ChangeNotifierProvider(create: (context) => SurveyClass()),
         ChangeNotifierProvider(create: (context) => SurveyDataProvider()),
+        ChangeNotifierProvider(create: (context) => AvgFeedClass()),
       ],
       child: const MyApp(),
     ),

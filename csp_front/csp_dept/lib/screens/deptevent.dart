@@ -1,6 +1,5 @@
 import 'package:csp_dept/screens/event_publish.dart';
 import 'package:csp_dept/screens/feedbackavg.dart';
-import 'package:csp_dept/screens/view_feedback.dart';
 import 'package:flutter/material.dart';
 
 class DeptEvent extends StatelessWidget {
@@ -41,9 +40,9 @@ class DeptEvent extends StatelessWidget {
             ],
           ),
         ),
-        body:  TabBarView(
+        body:  const TabBarView(
           children: [
-            const Event_publish(),
+            Event_publish(),
             EventListPage(),
           ],
         ),

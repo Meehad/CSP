@@ -65,7 +65,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       children: [
                         const SizedBox(height: 12),
                         Text(
-                          'USER ID: ${feedbacks[index].id_number}_$index',
+                          'USER ID: ${feedbacks[index].id_number}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

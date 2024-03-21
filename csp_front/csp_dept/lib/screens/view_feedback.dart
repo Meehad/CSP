@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/models/viewfeed_data.dart';
 import 'package:csp_dept/models/viewfeed_model.dart';
 import 'package:csp_dept/urls.dart';
@@ -23,13 +24,18 @@ class _ViewFeedbackState extends State<ViewFeedback> {
   void initState() {
     super.initState();
     _retrieveFeedbacks();
+    final postModel = Provider.of<DeptDataClass>(context, listen: false);
+    postModel.getPostData();
     final postFeed = Provider.of<FeedClass>(context, listen: false);
-    postFeed.getPostData();
+    postFeed.getPostData(postModel.post?.name ?? "");
+
   }
 
   _retrieveFeedbacks() async {
+    final postModel = Provider.of<DeptDataClass>(context, listen: false);
+    postModel.getPostData();
     feedbacks = [];
-    List response = jsonDecode((await client.get(showfeeds)).body);
+    List response = jsonDecode((await client.get(showfeeds(postModel.post?.name ?? ""))).body);
     for (var element in response) {
       feedbacks.add(FeedModel.fromJson(element));
     }

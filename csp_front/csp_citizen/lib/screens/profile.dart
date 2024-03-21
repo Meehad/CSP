@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
               const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 15),
           child: Card(
             elevation: 5,
-            color:Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.primary,
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 30.0,
@@ -104,7 +104,6 @@ class ProfilePage extends StatelessWidget {
               text: text.split(".")[0], // Extracting label before ":"
               style: const TextStyle(
                 fontSize: 16,
-               
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -112,7 +111,6 @@ class ProfilePage extends StatelessWidget {
               text: text.split(".")[1], // Extracting text after ":"
               style: const TextStyle(
                 fontSize: 16,
-                
               ),
             ),
           ],

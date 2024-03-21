@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
+
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +41,11 @@ class DeptLogin extends StatelessWidget {
               });
         }
       } catch (e) {
-        print(e.toString());
+        Fluttertoast.showToast(
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
       }
     }
 

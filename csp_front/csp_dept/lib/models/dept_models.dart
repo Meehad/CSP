@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class DeptModel {
   final String name;
   final String dept_id;

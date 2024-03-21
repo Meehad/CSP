@@ -295,7 +295,7 @@ class _DepthomeState extends State<Depthome> {
                     items: [
                       for (int i = 0; i < events.length; i++)
                         Image.network(
-                          "http://10.0.2.2:8000${events[i].event_img}",
+                          "http://192.168.0.187:8000${events[i].event_img}",
                           fit: BoxFit.cover,
                         ),
                     ],

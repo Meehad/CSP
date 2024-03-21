@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, use_build_context_synchronously
+
 import 'dart:io';
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/urls.dart';
@@ -51,7 +53,6 @@ class _Event_publishState extends State<Event_publish> {
     request.files.add(http.MultipartFile('event_img',
         _selectedImage!.readAsBytes().asStream(), _selectedImage!.lengthSync(),
         filename: _selectedImage!.path.split("/").last));
-    print(request);
     request.headers.addAll(headers);
     final response = await request.send();
     http.Response res = await http.Response.fromStream(response);

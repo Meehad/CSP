@@ -21,7 +21,7 @@ class DataClass extends ChangeNotifier {
   Future<UserModel?> getSinglePostData({required String id_num}) async {
     try {
       final response = await http.get(
-        Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showprofile/"),
+        Uri.parse("http://192.168.0.187:8000/csp_log/$id_num/showprofile/"),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },

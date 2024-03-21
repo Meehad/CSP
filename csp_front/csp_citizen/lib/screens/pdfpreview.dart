@@ -24,7 +24,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   }
 
   Future<File> _downloadPdf() async {
-    final url = "http://10.0.2.2:8000${widget.pdf.pdf_file}";
+    final url = "http://192.168.0.187:8000${widget.pdf.pdf_file}";
     final filename = '${widget.pdf.title}.pdf';
     final downloadsPath = Directory.systemTemp.path;
     final file = File('$downloadsPath/$filename');

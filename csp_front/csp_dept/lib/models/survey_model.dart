@@ -26,3 +26,17 @@ class SurveyModel {
     };
   }
 }
+// survey_data_model.dart
+class SurveyOptions {
+  final String question;
+  final Map<String, int> options;
+
+  SurveyOptions({required this.question, required this.options});
+
+  factory SurveyOptions.fromJson(Map<String, dynamic> json) {
+    return SurveyOptions(
+      question: json['question'],
+      options: Map<String, int>.from(json['options']),
+    );
+  }
+}

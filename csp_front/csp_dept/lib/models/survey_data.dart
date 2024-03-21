@@ -39,3 +39,32 @@ class SurveyClass extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class SurveyDataProvider extends ChangeNotifier {
+  List<SurveyOptions> _surveyData = [];
+  bool _isLoading = false;
+
+  List<SurveyOptions> get surveyData => _surveyData;
+  bool get isLoading => _isLoading;
+
+  Future<void> fetchSurveyData(String departmentName) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final response = await http.get(showop(departmentName));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        _surveyData = data.map((json) => SurveyOptions.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load survey data');
+      }
+    } catch (e) {
+      log('Error fetching survey data: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+}

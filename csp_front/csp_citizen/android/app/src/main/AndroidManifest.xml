@@ -13,7 +13,7 @@
     </intent>
     </queries>
     <application
-        android:label="csp_citizen"
+        android:label="CSP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

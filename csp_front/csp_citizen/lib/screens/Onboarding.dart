@@ -49,9 +49,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     bool seen = prefs.getBool('seen') ?? false;
 
     if (seen) {
-      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-      //} else {
-      // await prefs.setBool('seen', true);
+    //   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+    //   } else {
+    //   await prefs.setBool('seen', true);
     }
   }
 

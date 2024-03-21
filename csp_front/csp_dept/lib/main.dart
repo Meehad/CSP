@@ -7,6 +7,7 @@ import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptform.dart';
 import 'package:csp_dept/screens/depthome.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
+import 'package:csp_dept/screens/help.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/deptlogin.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           '/event': (context) => const DeptEvent(),
           '/survey': (context) => const SurveyApp(),
           '/dataview': (context) => const Deptview(),
+          '/help':(context) => const HelpPage(),
           // '/surveytable': (context) => const SurveyTable(),
         });
   }

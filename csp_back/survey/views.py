@@ -83,10 +83,10 @@ def answers_by_department(request, dept_name):
                 # Get the Survey_A objects for the specific Survey_Q object
                 answers = Survey_A.objects.filter(question=survey_q_object)
 
-                # Serialize the answers
-                serializer = SurveyaSerializer(answers, many=True)
-                answers_data.append(serializer.data)
+                for answer in answers:
+                    answers_data.append(answer)
 
+            serializer = SurveyaSerializer(answers_data, many=True)
             return Response(serializer.data)
         else:
             return Response({"error": "Survey_Q object not found for the given department name."}, status=404)

@@ -4,9 +4,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from csp_log.models import UserProfile
 from .models import event, feedback
-from .serializers import EventSerializer, FeedbackSerializer
+from .serializers import AvgFeedbackSerializer, EventSerializer, FeedbackSerializer
 from rest_framework import status
-from django.shortcuts import redirect
+from django.db.models import Avg
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.exceptions import NotFound
 
 # Create your views here.
 
@@ -73,5 +75,48 @@ def feedbacktobeanswered(request, pk):
 
     except Http404:
         return Response({"error": "UserProfile not found for the given id_number."}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+
+@api_view(['GET'])
+def avg_rating(request, dept_name):
+    try:
+        event_list = event.objects.filter(name__name__iexact=dept_name)
+        feed_data = []
+        for ev in event_list:
+            try:
+                avg_rating = feedback.objects.filter(event_name=ev).aggregate(
+                    avg_rating=Avg('rating'))['avg_rating']
+            except ObjectDoesNotExist:
+                # If no feedback, set average rating to 0
+                avg_rating = 0
+
+            feed_data.append({
+                "event_name": ev.event_name,
+                "avg_rating": avg_rating
+            })
+
+        serializer = AvgFeedbackSerializer(feed_data, many=True)
+        return Response(serializer.data)
+    except ObjectDoesNotExist:
+        raise NotFound("Department or event not found")
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+
+@api_view(['GET'])
+def feedbyevent(request, event_name):
+    try:
+        # Get all feedback objects for the given event name
+        feedback_objects = feedback.objects.filter(
+            event_name__event_name__iexact=event_name)
+
+        # Check if any feedback object exists for the given event name
+        if feedback_objects.exists():
+            serializer = FeedbackSerializer(feedback_objects, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Feedback object not found for the given event name."}, status=404)
     except Exception as e:
         return Response({"error": str(e)}, status=500)

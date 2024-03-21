@@ -35,7 +35,7 @@ Uri loginurl = Uri.parse("http://192.168.0.187:8000/csp_log/dlogin/");
 Uri eventUrl = Uri.parse("http://192.168.0.187:8000/feedback/event/");
 
 Uri showfeeds(String id) {
-  Uri u = Uri.parse("http://192.168.0.187:8000/feedback/feedbyd/$id/");
+  Uri u = Uri.parse("http://192.168.0.187:8000/feedback/feedbyevent/$id/");
   return u;
 }
 

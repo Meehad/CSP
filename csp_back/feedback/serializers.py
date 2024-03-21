@@ -12,3 +12,8 @@ class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = feedback
         fields = "__all__"
+
+
+class AvgFeedbackSerializer(serializers.Serializer):
+    event_name = serializers.CharField()
+    avg_rating = serializers.DecimalField(max_digits=5, decimal_places=2)

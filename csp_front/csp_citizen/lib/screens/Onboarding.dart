@@ -6,21 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: OnboardingScreen(),
-    );
-  }
-}
-
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -30,9 +15,19 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, dynamic>> onboardingData = [
-    {"text": "100 % SECURE! \nAuthorized by the Government", "image": "assets/19198219.png"},
-    {"text": " Sumbit Surveys \n Report Complaints \n Give Feedback \n All in One App .", "image": "assets/survey.jpg"},
-    {"text": "No Registration, Just Verify Your Adhaar ID", "image": "assets/Wavy_Bus-24_Single-11.png"},
+    {
+      "text": "100 % SECURE! \nAuthorized by the Government",
+      "image": "assets/19198219.png"
+    },
+    {
+      "text":
+          " Sumbit Surveys \n Report Complaints \n Give Feedback \n All in One App .",
+      "image": "assets/survey.jpg"
+    },
+    {
+      "text": "No Registration, Just Verify Your Adhaar ID",
+      "image": "assets/Wavy_Bus-24_Single-11.png"
+    },
   ];
 
   final PageController _pageController = PageController();
@@ -49,16 +44,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     bool seen = prefs.getBool('seen') ?? false;
 
     if (seen) {
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-    //   } else {
-    //   await prefs.setBool('seen', true);
+      //   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+      //   } else {
+      //   await prefs.setBool('seen', true);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Change this to your desired background color
+      backgroundColor: const Color.fromARGB(
+          255, 255, 255, 255), // Change this to your desired background color
       body: Stack(
         children: [
           PageView.builder(
@@ -86,12 +82,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()));
                           },
                           style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(const Size(350.0, 48.0)),
+                            minimumSize: MaterialStateProperty.all(
+                                const Size(350.0, 48.0)),
                           ),
-                          child: const Text('Get Started', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 221, 221, 221))),
+                          child: const Text('Get Started',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 221, 221, 221))),
                         ).animate().fadeIn(delay: 1700.ms).scaleY(),
                         const SizedBox(height: 16.0),
                       ],
@@ -109,11 +112,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           },
                           child: const Text(
                             'Skip',
-                            style: TextStyle(fontSize: 18.0,color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 18.0, color: Colors.black),
                           ),
                         ).animate().fadeIn(delay: 2000.ms).scaleY(),
                         SmoothPageIndicator(
-                          
                           controller: _pageController,
                           count: onboardingData.length,
                           effect: const WormEffect(),
@@ -122,7 +125,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               index,
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
-                              
                             );
                           },
                         ).animate().fadeIn(delay: 2000.ms).scaleY(),
@@ -134,18 +136,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             } else {
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Login()));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const Login()));
                             }
                           },
                           style: ElevatedButton.styleFrom(
                             padding: _currentPage == onboardingData.length - 1
-                                ? const EdgeInsets.symmetric(horizontal: 60.0, vertical: 20.0)
-                                : const EdgeInsets.symmetric(horizontal: 40.0, vertical: 16.0),
-                            textStyle: TextStyle(color: Colors.black,
-                              fontSize: _currentPage == onboardingData.length - 1 ? 18.0 : 18.0,
+                                ? const EdgeInsets.symmetric(
+                                    horizontal: 60.0, vertical: 20.0)
+                                : const EdgeInsets.symmetric(
+                                    horizontal: 40.0, vertical: 16.0),
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize:
+                                  _currentPage == onboardingData.length - 1
+                                      ? 18.0
+                                      : 18.0,
                             ),
                           ),
-                          child: Text(_currentPage < onboardingData.length - 1 ? 'Next' : 'Get Started',style: const TextStyle(color: Color.fromARGB(255, 207, 207, 207)),),
+                          child: Text(
+                            _currentPage < onboardingData.length - 1
+                                ? 'Next'
+                                : 'Get Started',
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 207, 207, 207)),
+                          ),
                         ).animate().fadeIn(delay: 2000.ms).scaleY(),
                       ],
                     ),
@@ -177,7 +193,10 @@ class OnboardingPage extends StatelessWidget {
           const SizedBox(height: 20.0),
           Text(
             text,
-            style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 0, 0, 0)),
+            style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 0, 0, 0)),
             textAlign: TextAlign.left,
           ).animate().fadeIn(delay: 1700.ms).scaleY(),
           const SizedBox(height: 20.0),

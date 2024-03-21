@@ -23,8 +23,7 @@ class DeptDataClass extends ChangeNotifier {
     DeptModel? result;
     try {
       final response = await http.get(
-          Uri.parse(
-              "http://192.168.0.187:8000/csp_log/$dept_id/showdeptprofile/"),
+          Uri.parse("http://10.0.2.2:8000/csp_log/$dept_id/showdeptprofile/"),
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
           });

@@ -202,7 +202,7 @@ class _DepthomeState extends State<Depthome> {
             ),
           ),
         ),
-         leading: Builder(
+        leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: const Icon(Icons.menu),
@@ -294,7 +294,7 @@ class _DepthomeState extends State<Depthome> {
                     items: [
                       for (int i = 0; i < events.length; i++)
                         Image.network(
-                          "http://192.168.0.187:8000${events[i].event_img}",
+                          "http://10.0.2.2:8000${events[i].event_img}",
                           fit: BoxFit.cover,
                         ),
                     ],

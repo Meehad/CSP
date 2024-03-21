@@ -2,6 +2,7 @@
 
 import 'package:csp_citizen/models/user_models.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -31,7 +32,11 @@ class DataClass extends ChangeNotifier {
         final item = json.decode(response.body);
         return UserModel.fromJson(item);
       } else {
-        print('Error fetching user data. Status code: ${response.statusCode}');
+        Fluttertoast.showToast(
+          msg: 'Error fetching user data. Status code: ${response.statusCode}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
         return null;
       }
     } catch (e) {

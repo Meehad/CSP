@@ -23,9 +23,9 @@ class NavBar extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-           DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary ,
+              color: Theme.of(context).colorScheme.primary,
             ),
             child: const Text(
               'Navigation',
@@ -40,8 +40,7 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, '/dept_details');
             },
           ),
-          
-        
+
           ListTile(
             leading: const Icon(Icons.assignment),
             title: const Text('Create Form'),

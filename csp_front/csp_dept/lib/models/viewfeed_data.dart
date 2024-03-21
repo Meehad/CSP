@@ -12,15 +12,14 @@ class FeedClass extends ChangeNotifier {
   bool loading = false;
 
   Future<FeedModel?> getSinglePostData(String id) async {
-    FeedModel? eventList;
     try {
       final response = await http.get(showfeeds(id), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
-      notifyListeners();
+
       if (response.statusCode == 200) {
-        final item = json.decode(response.body);
-        eventList = FeedModel.fromJson(item);
+        final jsonData = json.decode(response.body);
+        return FeedModel.fromJson(jsonData);
       } else {
         Fluttertoast.showToast(
           msg: 'No Feedbacks yet',
@@ -29,17 +28,38 @@ class FeedClass extends ChangeNotifier {
         );
       }
     } catch (e) {
-      log(e.toString());
+      print('Error fetching post data: $e');
+      // Handle error gracefully, e.g., return null or throw an exception
     }
-    return eventList;
+    return null;
   }
 
-  getPostData(String id) async {
-    loading = true;
-    post = (await getSinglePostData(id))!;
-    loading = false;
+  Future<List<FeedModel>> getPostData(String id) async {
+    try {
+      final response = await http.get(showfeeds(id), headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      });
 
-    notifyListeners();
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonDataList = json.decode(response.body);
+        List<FeedModel> feedModels = [];
+        for (var jsonData in jsonDataList) {
+          feedModels.add(FeedModel.fromJson(jsonData));
+        }
+        return feedModels;
+      } else {
+        Fluttertoast.showToast(
+          msg: 'No Feedbacks yet',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching post data: $e');
+      // Handle error gracefully, e.g., throw an exception
+      throw Exception('Failed to load post data');
+    }
   }
 }
 
@@ -47,16 +67,18 @@ class AvgFeedClass extends ChangeNotifier {
   AvgFeedModel? post;
   bool loading = false;
 
-  Future<AvgFeedModel?> getSinglePostData(String id) async {
-    AvgFeedModel? eventList;
+  Future<void> getSinglePostData(String id) async {
     try {
+      loading = true; // Set loading to true before making the request
+      notifyListeners(); // Notify listeners after changing the loading state
+
       final response = await http.get(showavgfeed(id), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
-      notifyListeners();
+
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
-        eventList = AvgFeedModel.fromJson(item);
+        post = AvgFeedModel.fromJson(item);
       } else {
         Fluttertoast.showToast(
           msg: 'No Feedbacks yet',
@@ -66,15 +88,14 @@ class AvgFeedClass extends ChangeNotifier {
       }
     } catch (e) {
       log(e.toString());
+    } finally {
+      loading =
+          false; // Set loading to false after the request completes (whether successful or not)
+      notifyListeners(); // Notify listeners after changing the loading state
     }
-    return eventList;
   }
 
-  getPostData(String id) async {
-    loading = true;
-    notifyListeners();
-    post = (await getSinglePostData(id))!;
-    loading = false;
-    notifyListeners();
+  void getPostData(String id) async {
+    await getSinglePostData(id);
   }
 }

@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:csp_dept/models/dept_data.dart';
-import 'package:csp_dept/models/viewfeed_data.dart';
 import 'package:csp_dept/models/viewfeed_model.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:csp_dept/widgets/eventfeedCard.dart';
@@ -23,18 +22,14 @@ class _EventListPageState extends State<EventListPage> {
   List<AvgFeedModel> feedbacks = [];
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _retrieveFeedbacks();
-    final postModel = Provider.of<DeptDataClass>(context, listen: false);
-    postModel.getPostData();
-    final postFeed = Provider.of<AvgFeedClass>(context, listen: false);
-    postFeed.getPostData(postModel.post?.name ?? "");
   }
 
   _retrieveFeedbacks() async {
     final postModel = Provider.of<DeptDataClass>(context, listen: false);
-    postModel.getPostData();
+    await postModel.getPostData();
     feedbacks = [];
     List response = jsonDecode(
         (await client.get(showavgfeed(postModel.post?.name ?? ""))).body);

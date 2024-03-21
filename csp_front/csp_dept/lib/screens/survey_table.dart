@@ -88,7 +88,9 @@ class _SurveyTableState extends State<SurveyTable> {
                 );
               }).toList(),
             )
-          : LottieBuilder.asset(height: 500, width: 400, 'assets/emptyDB.json'),
+          : Center(
+              child: LottieBuilder.asset(
+                  height: 500, width: 400, 'assets/emptyDB.json')),
     );
   }
 }

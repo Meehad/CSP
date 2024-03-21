@@ -55,8 +55,9 @@ class SurveyDataProvider extends ChangeNotifier {
       final response = await http.get(showop(departmentName));
 
       if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
-        _surveyData = data.map((json) => SurveyOptions.fromJson(json)).toList();
+        final List<dynamic> dataList = jsonDecode(response.body);
+        _surveyData =
+            dataList.map((item) => SurveyOptions.fromJson(item)).toList();
       } else {
         throw Exception('Failed to load survey data');
       }

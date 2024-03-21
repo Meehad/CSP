@@ -62,19 +62,25 @@ class _Survey_chartState extends State<Survey_chart> {
       scrollDirection: Axis.vertical,
       child: Column(
         children: data.map((response) {
-          return Column(
-            children: [
-              Text(
-                "${response.question} (total responses: ${sumOfValues(response.options)})", // Assuming `question` is a property in SurveyOptions
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "${response.question} (total responses: ${sumOfValues(response.options)})", // Assuming `question` is a property in SurveyOptions
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildPieChart(response.options),
+                  const SizedBox(height: 20), // Add spacing between charts
+                ],
               ),
-              const SizedBox(height: 20),
-              _buildPieChart(response.options),
-              const SizedBox(height: 20), // Add spacing between charts
-            ],
+            ),
           );
         }).toList(),
       ),
@@ -82,6 +88,9 @@ class _Survey_chartState extends State<Survey_chart> {
   }
 
   Widget _buildPieChart(Map<String, int> data) {
+    List<Color> pieColor = [];
+    List<String> options = [];
+
     Color getRandomColor() {
       Random random = Random();
       List<Color> pieChartColors = const [
@@ -92,6 +101,7 @@ class _Survey_chartState extends State<Survey_chart> {
         // Add more shades as needed
       ];
       int ind = random.nextInt(pieChartColors.length);
+      pieColor.add(pieChartColors[ind]);
       return pieChartColors[ind];
     }
 
@@ -100,7 +110,6 @@ class _Survey_chartState extends State<Survey_chart> {
     data.forEach((key, value) {
       sections.add(
         PieChartSectionData(
-          title: "$key:$value",
           titleStyle: const TextStyle(
             color: Colors.white70,
             fontWeight: FontWeight.bold,
@@ -112,17 +121,40 @@ class _Survey_chartState extends State<Survey_chart> {
           color: getRandomColor(),
         ),
       );
+      options.add("$key:$value");
     });
 
     return SizedBox(
-      height: 300, // Set height
-      width: 300, // Set width
-      child: PieChart(
-        swapAnimationDuration: const Duration(milliseconds: 750),
-        swapAnimationCurve: Curves.easeInOutQuint,
-        PieChartData(
-          sections: sections,
-        ),
+      height: 400, // Set height
+      child: Column(
+        children: [
+          Expanded(
+            child: PieChart(
+              swapAnimationDuration: const Duration(milliseconds: 750),
+              swapAnimationCurve: Curves.easeInOutQuint,
+              PieChartData(
+                sections: sections,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 200, // Set height
+            child: ListView.builder(
+              itemCount: options.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: Container(
+                    width: 20, // Adjust width as needed
+                    height: 20, // Adjust height as needed
+                    color: pieColor[index],
+                  ),
+                  title: Text(options[index],
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -134,12 +166,16 @@ class _Survey_chartState extends State<Survey_chart> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-              child: LottieBuilder.asset(
-                  height: 500, width: 400, 'assets/emptyDB.json'));
+              child: Center(
+            child: LottieBuilder.asset(
+                height: 500, width: 400, 'assets/emptyDB.json'),
+          ));
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
-          return _buildpiechart(snapshot.data ?? []);
+          return Padding(
+              padding: EdgeInsets.all(8.0),
+              child: _buildpiechart(snapshot.data ?? []));
         }
       },
     );

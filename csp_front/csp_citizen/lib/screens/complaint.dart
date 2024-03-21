@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ComplaintPage extends StatefulWidget {
   const ComplaintPage({super.key});
@@ -28,11 +29,55 @@ class _ComplaintPageState extends State<ComplaintPage> {
   String? _subjectError;
   String? _descriptionError;
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImageFromGallery() async {
+  final PermissionStatus permissionStatus = await Permission.photos.request();
+  if (permissionStatus.isGranted) {
+    final imagePicker = ImagePicker();
+    try {
+      final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        setState(() {
+          _selectedImagePath = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: 'Error picking image: $e',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+    Navigator.pop(context);
+  } else {
+    Fluttertoast.showToast(
+      msg: 'Permission to access gallery denied',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
+  }
+}
+
+  Future<void> _pickImageFromCamera() async {
+    PermissionStatus status = await Permission.camera.status;
+    
+    if (status.isDenied || status.isRestricted) {
+    // If permission is denied or restricted, request it
+      status = await Permission.camera.request();
+      if (status.isDenied) {
+      // Handle case when user denies the permission
+        Fluttertoast.showToast(
+        msg: 'Camera permission is required to pick image from camera',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        );
+      return;
+    }
+  }
     final imagePicker = ImagePicker();
     try {
       final pickedFile =
-          await imagePicker.pickImage(source: ImageSource.gallery);
+          await imagePicker.pickImage(source: ImageSource.camera);
 
       if (pickedFile != null) {
         setState(() {
@@ -47,27 +92,80 @@ class _ComplaintPageState extends State<ComplaintPage> {
       );
       // Handle the error (show a dialog, log it, etc.)
     }
+    Navigator.pop(context);
+  }
+
+  void _pickImage(BuildContext context) {
+    showModalBottomSheet(
+      backgroundColor: Colors.grey,
+      context: context, builder: (builder){
+        return Padding(
+          padding: const EdgeInsets.all(18),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/4,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: (){
+                      _pickImageFromGallery();
+                    },
+                    child: const SizedBox(
+                      child: Column(
+                        children: [Icon(Icons.image,size: 70,), Text('Gallery')],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: (){
+                      _pickImageFromCamera();
+                    },
+                    child: const SizedBox(
+                      child: Column(
+                        children: [Icon(Icons.camera,size: 70,), Text('Camera')],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
   }
 
   Future<Position> _pickLocation() async {
+  try {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled');
+      throw Exception('Location services are disabled');
     }
+
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        throw Exception('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error("Location permissions are permanently denied");
+      throw Exception("Location permissions are permanently denied");
     }
 
     return await Geolocator.getCurrentPosition();
+  } catch (e) {
+    Fluttertoast.showToast(
+      msg: 'Error getting location: $e',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
+    rethrow; // Re-throw the exception to indicate that it has been handled
   }
+}
 
   void _submitComplaint(Id, String s, String d, String l) async {
     if (_subjectController.text.isEmpty ||
@@ -113,7 +211,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
     if (res.statusCode == 201) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AnimationPage()),
+        MaterialPageRoute(builder: (context) => const AnimationPage()),
       ).then((_) {
         showDialog(
           context: context,
@@ -220,7 +318,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                     ),
               const SizedBox(height: 1),
               ElevatedButton.icon(
-                onPressed: _pickImage,
+                onPressed:() {_pickImage(context);},
                 icon: const Icon(Icons.attach_file,
                     color: Color.fromARGB(255, 73, 64, 209)),
                 label: const Text('Attach Image',

@@ -140,7 +140,6 @@
 import 'dart:convert';
 import 'package:csp_dept/models/event_data.dart';
 import 'package:csp_dept/models/event_models.dart';
-import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
 import 'package:csp_dept/screens/drawer.dart';

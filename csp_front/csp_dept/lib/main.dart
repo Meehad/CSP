@@ -10,6 +10,7 @@ import 'package:csp_dept/screens/deptviewdata.dart';
 import 'package:csp_dept/screens/survey_chart.dart';
 import 'package:csp_dept/screens/survey_table.dart';
 import 'package:csp_dept/screens/help.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/deptlogin.dart';
@@ -27,7 +28,23 @@ void main() {
         ChangeNotifierProvider(create: (context) => SurveyDataProvider()),
         ChangeNotifierProvider(create: (context) => AvgFeedClass()),
       ],
-      child: const MyApp(),
+      child: BetterFeedback(
+        theme: FeedbackThemeData(
+          background: const Color.fromARGB(255, 40, 40, 40),
+          feedbackSheetColor: const Color.fromARGB(255, 28, 28, 28),
+          drawColors: [
+            Colors.red,
+            Colors.green,
+            Colors.blue,
+            Colors.yellow,
+          ],
+          bottomSheetDescriptionStyle: const TextStyle(color: Color.fromARGB(255, 211, 211, 211)),
+          bottomSheetTextInputStyle: const TextStyle(color: Color.fromARGB(255, 212, 212, 212))
+        ),
+        localizationsDelegates: [
+          GlobalFeedbackLocalizationsDelegate(),
+        ],
+        localeOverride: const Locale('en'),child: const MyApp(),),
     ),
   );
 }

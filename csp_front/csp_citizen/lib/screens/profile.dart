@@ -9,7 +9,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
     final String img = postModel.post?.image ?? "";
-    final String imgUrl = "http://192.168.0.187:8000$img";
+    final String imgUrl = "http://10.0.2.2:8000$img";
 
     return Scaffold(
       appBar: AppBar(

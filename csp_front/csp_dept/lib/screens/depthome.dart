@@ -143,6 +143,7 @@ import 'package:csp_dept/models/event_models.dart';
 import 'package:csp_dept/screens/deptdetails.dart';
 import 'package:csp_dept/screens/deptevent.dart';
 import 'package:csp_dept/screens/deptviewdata.dart';
+import 'package:csp_dept/screens/drawer.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -202,19 +203,18 @@ class _DepthomeState extends State<Depthome> {
             ),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const deptdetails()),
+         leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             );
           },
-          icon: const Icon(
-            Icons.list,
-            color: Colors.black,
-          ),
-          iconSize: 45.0,
         ),
       ),
+      drawer: const NavBar(),
       body: Center(
         child: Column(
           children: [

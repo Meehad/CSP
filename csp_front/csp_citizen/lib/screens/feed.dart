@@ -118,7 +118,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
             child: Image.network(
-              "http://10.0.2.2:8000$imagePath",
+              "http://192.168.0.187:8000$imagePath",
               height: 200,
               width: double.infinity, // Adjust the width to fill the card
               fit: BoxFit.cover,
@@ -194,6 +194,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 ElevatedButton(
                   onPressed: () {
                     _submitFeedback(ind, title, ratingControllers[ind]);
+                    feedbackControllers.removeAt(ind);
+                    ratingControllers.removeAt(ind);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,

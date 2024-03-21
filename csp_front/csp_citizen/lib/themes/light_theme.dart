@@ -21,7 +21,6 @@ ThemeData lighttheme = ThemeData(
         drawerTheme: const DrawerThemeData(
           backgroundColor: Color.fromARGB(255, 211, 211, 211)
           
-          
           ),
     
   colorScheme: const ColorScheme.light(
@@ -30,9 +29,5 @@ ThemeData lighttheme = ThemeData(
     secondary: Color(0xFFC9C5BA),
     tertiary: Color(0xFF97B1A6),
     onSecondary: Colors.white
-  
-
-  
-    
   )
 );

@@ -21,6 +21,8 @@ class Formspage extends StatefulWidget {
 class _FormsPageState extends State<Formspage> {
   Client client = http.Client();
   List<pdfModel> pdfList = [];
+  List<pdfModel> filteredPdfList = [];
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -36,7 +38,26 @@ class _FormsPageState extends State<Formspage> {
     for (var element in response) {
       pdfList.add(pdfModel.fromJson(element));
     }
+    filteredPdfList = List.from(pdfList);
     setState(() {});
+  }
+
+  void filterPdfList(String query) {
+    if (query.isNotEmpty) {
+      List<pdfModel> filteredList = [];
+      for (var pdf in pdfList) {
+        if (pdf.title.toLowerCase().contains(query.toLowerCase())) {
+          filteredList.add(pdf);
+        }
+      }
+      setState(() {
+        filteredPdfList = filteredList;
+      });
+    } else {
+      setState(() {
+        filteredPdfList = List.from(pdfList);
+      });
+    }
   }
 
   _downloadclicked(int pdfId, String title) async {
@@ -119,8 +140,7 @@ class _FormsPageState extends State<Formspage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            PdfPreviewScreen(pdf: pdf),
+        builder: (context) => PdfPreviewScreen(pdf: pdf),
       ),
     );
   }
@@ -131,11 +151,32 @@ class _FormsPageState extends State<Formspage> {
       appBar: AppBar(
         title: const Text('Forms'),
       ),
-      body: ListView.builder(
-        itemCount: pdfList.length,
-        itemBuilder: (context, index) {
-          return _buildListTile(pdfList[index].id, pdfList[index]);
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                filterPdfList(value);
+              },
+              decoration: const InputDecoration(
+                labelText: 'Search PDFs',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredPdfList.length,
+              itemBuilder: (context, index) {
+                return _buildListTile(
+                    filteredPdfList[index].id, filteredPdfList[index]);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

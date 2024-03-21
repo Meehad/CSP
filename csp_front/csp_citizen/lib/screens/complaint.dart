@@ -113,7 +113,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
     if (res.statusCode == 201) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AnimationPage()),
+        MaterialPageRoute(builder: (context) => const AnimationPage()),
       ).then((_) {
         showDialog(
           context: context,

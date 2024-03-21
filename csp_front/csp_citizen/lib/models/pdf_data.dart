@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:csp_citizen/models/pdf_model.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';

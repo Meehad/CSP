@@ -87,6 +87,7 @@ class _Survey_chartState extends State<Survey_chart> {
       List<Color> pieChartColors = const [
         Color(0xFF698996), // Primary color
         Color(0xFF8CA2A8), // Lighter shade
+        Color(0xFF97B1A6),
         Color(0xFF4D666E), // Darker shade
         // Add more shades as needed
       ];

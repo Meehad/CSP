@@ -34,3 +34,26 @@ class FeedModel {
     };
   }
 }
+
+class AvgFeedModel {
+  final String event_name;
+  final String? avg_rating;
+
+  AvgFeedModel(
+      {
+        required this.event_name,
+        required this.avg_rating,
+      });
+
+  factory AvgFeedModel.fromJson(Map<String, dynamic> json) {
+    return AvgFeedModel(
+      event_name: json['event_name'] ?? "",
+      avg_rating: json['avg_rating'] ?? "",);
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'event_name': event_name,
+      'avg_rating': avg_rating,
+    };
+  }
+}

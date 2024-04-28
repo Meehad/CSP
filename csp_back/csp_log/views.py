@@ -11,6 +11,17 @@ import random
 from django.contrib.auth import logout, login, authenticate
 from rest_framework.authtoken.models import Token
 from django.core.exceptions import ObjectDoesNotExist
+from twilio.rest import Client
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+t_phone_num = os.getenv("TWILIO_PHONE_NUMBER")
+t_acc_sid = os.getenv("TWILIO_ACCOUNT_SID")
+t_auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+phone_num = os.getenv("PHONE_NUMBER")
+client = Client(t_acc_sid, t_auth_token)
 
 
 @api_view(['POST'])
@@ -84,7 +95,8 @@ def clogin(request):
                 # Query UserProfile using the entered ID
                 user_profile = UserProfile.objects.get(id_number=entered_id)
                 otp = random.randint(1000, 9999)
-                print(otp)
+                message = client.messages.create(
+                    body=f"Your otp is {otp}", from_=t_phone_num, to=phone_num)
                 # If found, you can do further processing or return some data
                 return Response({'otp': otp}, status=status.HTTP_200_OK)
             except UserProfile.DoesNotExist:

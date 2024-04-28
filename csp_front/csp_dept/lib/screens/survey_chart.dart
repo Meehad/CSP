@@ -94,10 +94,10 @@ class _Survey_chartState extends State<Survey_chart> {
     Color getRandomColor() {
       Random random = Random();
       List<Color> pieChartColors = const [
-        Color(0xFF698996), // Primary color
-        Color(0xFF8CA2A8), // Lighter shade
+        Color(0xFF698996),
+        Color(0xFF8CA2A8),
         Color(0xFF97B1A6),
-        Color(0xFF4D666E), // Darker shade
+        Color(0xFF4D666E),
         // Add more shades as needed
       ];
       int ind = random.nextInt(pieChartColors.length);
@@ -166,15 +166,14 @@ class _Survey_chartState extends State<Survey_chart> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-              child: Center(
             child: LottieBuilder.asset(
                 height: 500, width: 400, 'assets/emptyDB.json'),
-          ));
+          );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
           return Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: _buildpiechart(snapshot.data ?? []));
         }
       },

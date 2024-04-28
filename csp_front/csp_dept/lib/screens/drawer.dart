@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:csp_dept/screens/deptlogin.dart';
+import 'package:csp_dept/screens/pdf_upload.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -66,6 +67,17 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.file_copy),
+            title: const Text('Forms upload'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UploadPDFPage()),
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.help),
             title: const Text('Help'),
             onTap: () {
@@ -73,13 +85,6 @@ class NavBar extends StatelessWidget {
               Navigator.pushNamed(context, '/help');
             },
           ),
-          // ListTile(
-          //   leading: Icon(Icons.app_settings_alt),
-          //   title: const Text('Preferences'),
-          //   onTap: () {
-          //     // Implement preferences functionality
-          //   },
-          // ),
           ListTile(
             leading: const Icon(Icons.bug_report),
             title: const Text('Report a bug'),

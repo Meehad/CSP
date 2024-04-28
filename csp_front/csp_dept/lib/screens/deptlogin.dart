@@ -28,7 +28,7 @@ class DeptLogin extends StatelessWidget {
                 return AlertDialog(
                   backgroundColor: Colors.grey[300],
                   title: const Text('CSP'),
-                  content: const Text('Failed!'),
+                  content: const Text('Failed to Login'),
                   actions: [
                     MaterialButton(
                       onPressed: () {
@@ -63,7 +63,7 @@ class DeptLogin extends StatelessWidget {
             ),
           ),
         ).animate().fadeIn(delay: 500.ms).scaleY(),
-        // backgroundColor: Colors.teal[400],
+        backgroundColor: const Color(0xFF698996),
       ),
       body: SafeArea(
         child: Center(
@@ -82,6 +82,7 @@ class DeptLogin extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: dpId,
+                  style: const TextStyle(color: Color(0xFF698996)),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.white),
@@ -104,6 +105,7 @@ class DeptLogin extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: dppwd,
+                  style: const TextStyle(color: Color(0xFF698996)),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.white),
@@ -146,6 +148,7 @@ class DeptLogin extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: const Color(0xFF698996),
     );
   }
 }

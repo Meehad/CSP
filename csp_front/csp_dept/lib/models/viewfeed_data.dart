@@ -28,7 +28,11 @@ class FeedClass extends ChangeNotifier {
         );
       }
     } catch (e) {
-      print('Error fetching post data: $e');
+      Fluttertoast.showToast(
+        msg: 'Error fetching post data: $e',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       // Handle error gracefully, e.g., return null or throw an exception
     }
     return null;
@@ -56,7 +60,11 @@ class FeedClass extends ChangeNotifier {
         return [];
       }
     } catch (e) {
-      print('Error fetching post data: $e');
+      Fluttertoast.showToast(
+        msg: 'Error fetching post data: $e',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
       // Handle error gracefully, e.g., throw an exception
       throw Exception('Failed to load post data');
     }

@@ -15,7 +15,6 @@ from rest_framework.exceptions import NotFound
 
 @api_view(['POST'])
 def Review_rate(request):
-    print(request.data)
     serializer = FeedbackSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -25,7 +24,6 @@ def Review_rate(request):
 
 @api_view(['POST'])
 def Event_post(request):
-    print(request.data)
     serializer = EventSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()

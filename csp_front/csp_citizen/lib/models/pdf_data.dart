@@ -16,7 +16,7 @@ class pdfClass extends ChangeNotifier {
   Future<pdfModel?> getSinglePostData() async {
     pdfModel? eventList;
     try {
-      final response = await http.get(showfeeds, headers: {
+      final response = await http.get(showPdf, headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
       notifyListeners();

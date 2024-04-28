@@ -69,26 +69,6 @@ class MyApp extends StatelessWidget {
       title: 'CSP',
       theme: lighttheme,
       darkTheme: darkTheme,
-      // theme: ThemeData(
-      //   appBarTheme: const AppBarTheme(backgroundColor: Color(0xFF698996)),
-      //   useMaterial3: true,
-      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
-      //       .copyWith(background: const Color.fromARGB(255, 226, 226, 226)),
-      //   buttonTheme: const ButtonThemeData(buttonColor: Color(0xFF698996)),
-      //   elevatedButtonTheme: const ElevatedButtonThemeData(
-      //     style: ButtonStyle(
-      //       backgroundColor: MaterialStatePropertyAll(Color(0xFF698996)),
-      //       foregroundColor:
-      //           MaterialStatePropertyAll(Color.fromARGB(255, 213, 213, 213)),
-      //     ),
-      //   ),
-      //   cardTheme: CardTheme(
-      //     elevation: 5,
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(15),
-      //     ),
-      //   ),
-      // ),
       home: const OnboardingScreen(),
       routes: {
         '/home': (context) => const MyHomePage(),

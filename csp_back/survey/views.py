@@ -12,7 +12,6 @@ from django.db.models import Count
 
 @api_view(['POST'])
 def createSurvey(request):
-    print(request.data)
     serializer = SurveyqSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -29,7 +28,6 @@ def Questions_view(request):
 
 @api_view(['POST'])
 def submit_survey(request):
-    print(request.data)
     serializer = SurveyaSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -42,7 +40,6 @@ def Answers_view(request):
     answers = Survey_A.objects.all()
     serializer = SurveyaSerializer(answers, many=True)
     return Response(serializer.data)
-
 
 @api_view(['GET'])
 def questiontobeanswered(request, pk):

@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
-import 'package:csp_citizen/models/pdf_data.dart';
 import 'package:csp_citizen/models/pdf_model.dart';
 import 'package:csp_citizen/screens/pdfpreview.dart';
 import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -22,14 +20,14 @@ class _FormsPageState extends State<Formspage> {
   Client client = http.Client();
   List<pdfModel> pdfList = [];
   List<pdfModel> filteredPdfList = [];
+  List<String> departments = [];
+  String selectedDepartment = 'All';
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     _retrievePdfs();
     super.initState();
-    final postpdf = Provider.of<pdfClass>(context, listen: false);
-    postpdf.getPostData();
   }
 
   _retrievePdfs() async {
@@ -38,7 +36,10 @@ class _FormsPageState extends State<Formspage> {
     for (var element in response) {
       pdfList.add(pdfModel.fromJson(element));
     }
-    filteredPdfList = List.from(pdfList);
+    departments = pdfList
+        .map((pdf) => pdf.name)
+        .toSet()
+        .toList(); // Get unique departments
     setState(() {});
   }
 
@@ -47,6 +48,24 @@ class _FormsPageState extends State<Formspage> {
       List<pdfModel> filteredList = [];
       for (var pdf in pdfList) {
         if (pdf.title.toLowerCase().contains(query.toLowerCase())) {
+          filteredList.add(pdf);
+        }
+      }
+      setState(() {
+        filteredPdfList = filteredList;
+      });
+    } else {
+      setState(() {
+        filteredPdfList = List.from(pdfList);
+      });
+    }
+  }
+
+  filterPdfListdept(String selectedDepartment) {
+    if (selectedDepartment != 'All') {
+      List<pdfModel> filteredList = [];
+      for (var pdf in pdfList) {
+        if (pdf.name.toLowerCase().contains(selectedDepartment.toLowerCase())) {
           filteredList.add(pdf);
         }
       }
@@ -155,18 +174,51 @@ class _FormsPageState extends State<Formspage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: searchController,
-              onChanged: (value) {
-                filterPdfList(value);
-              },
-              decoration: const InputDecoration(
-                labelText: 'Search PDFs',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    filterPdfList(value);
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Search PDFs',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10), // Add some spacing
+                Center(
+                  child: DropdownMenu(
+                    label: const Text('Select Department'),
+                    helperText: 'Filter forms by department',
+                    width: 395,
+                    leadingIcon: const Icon(Icons.menu),
+                    dropdownMenuEntries: [
+                      const DropdownMenuEntry(
+                        value: 'All',
+                        label: 'All Departments',
+                      ),
+                      for (String department in departments)
+                        DropdownMenuEntry(
+                          value: department,
+                          label: department,
+                        ),
+                    ],
+                    onSelected: (value) {
+                      setState(() {
+                        selectedDepartment = value.toString();
+                        filterPdfListdept(
+                            selectedDepartment); // Apply filtering
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
+          const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               itemCount: filteredPdfList.length,

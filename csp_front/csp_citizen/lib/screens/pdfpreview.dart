@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:csp_citizen/models/pdf_model.dart';
+import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
@@ -24,7 +25,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   }
 
   Future<File> _downloadPdf() async {
-    final url = "http://10.0.2.2:8000${widget.pdf.pdf_file}";
+    final url = showbu(widget.pdf.pdf_file);
     final filename = '${widget.pdf.title}.pdf';
     final downloadsPath = Directory.systemTemp.path;
     final file = File('$downloadsPath/$filename');

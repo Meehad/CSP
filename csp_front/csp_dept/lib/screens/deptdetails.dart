@@ -2,6 +2,7 @@
 
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/screens/deptlogin.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,15 +17,14 @@ class _deptdetailsState extends State<deptdetails> {
   @override
   void initState() {
     super.initState();
-    final postModel = Provider.of<DeptDataClass>(context, listen: false);
-    postModel.getPostData();
+    // Don't perform context-dependent operations here
+    // Move it to build() or didChangeDependencies()
   }
 
   @override
   Widget build(BuildContext context) {
     final postModel = Provider.of<DeptDataClass>(context);
     final String img = postModel.post?.image ?? "";
-    final String imgUrl = "http://10.0.2.2:8000/$img";
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
@@ -63,12 +63,10 @@ class _deptdetailsState extends State<deptdetails> {
                   children: [
                     CircleAvatar(
                       radius: 70.0,
-                      backgroundImage: NetworkImage(
-                          imgUrl), //NetworkImage("http://10.0.2.2:8000" +img_url),
+                      backgroundImage: NetworkImage(imageU(img)),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      // 'Tyler Durden'
                       postModel.post?.name ?? "",
                       style: const TextStyle(
                         color: Colors.black,
@@ -95,7 +93,6 @@ class _deptdetailsState extends State<deptdetails> {
                         ),
                         Text(
                           postModel.post?.head ?? "",
-                          // (currentUser.phoneNumber).toString(),
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                               fontSize: 16,
@@ -118,7 +115,6 @@ class _deptdetailsState extends State<deptdetails> {
                         const SizedBox(width: 5),
                         Text(
                           postModel.post?.dept_id ?? "",
-                          // currentUser.dob,
                           style: const TextStyle(
                               fontSize: 16,
                               color: Color.fromARGB(255, 40, 40, 40)),

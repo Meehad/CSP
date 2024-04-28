@@ -52,16 +52,15 @@ class _LoginState extends State<Login> {
         }
       } catch (e) {
         Fluttertoast.showToast(
-        msg: e.toString(),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
       }
     }
 
     return Scaffold(
       backgroundColor: const Color(0xFF698996),
-      
       body: SafeArea(
         child: Center(
             child: Column(

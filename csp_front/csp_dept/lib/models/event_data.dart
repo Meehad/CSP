@@ -8,37 +8,34 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class EventClass extends ChangeNotifier {
-  EventModel? post;
+  List<EventModel> post = [];
   bool loading = false;
 
-  Future<EventModel?> getSinglePostData() async {
-    EventModel? eventList;
+  Future<void> getEventList() async {
     try {
       final response = await http.get(showEvents, headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       });
       notifyListeners();
       if (response.statusCode == 200) {
-        final item = json.decode(response.body);
-        eventList = EventModel.fromJson(item);
+        final List<dynamic> data = json.decode(response.body);
+        post = data.map((item) => EventModel.fromJson(item)).toList();
       } else {
         Fluttertoast.showToast(
-        msg: 'Error',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
+          msg: 'Error',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
       }
     } catch (e) {
       log(e.toString());
     }
-    return eventList;
   }
 
-  getPostData() async {
+  Future<void> getPostData() async {
     loading = true;
-    post = (await getSinglePostData())!;
+    await getEventList();
     loading = false;
-
     notifyListeners();
   }
 }

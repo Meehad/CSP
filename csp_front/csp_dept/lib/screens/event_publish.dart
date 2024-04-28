@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:csp_dept/models/dept_data.dart';
 import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -33,9 +34,11 @@ class _Event_publishState extends State<Event_publish> {
         });
       }
     } catch (e) {
-      // ignore: avoid_print
-      print('Error picking image: $e');
-      // Handle the error (show a dialog, log it, etc.)
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
@@ -68,7 +71,7 @@ class _Event_publishState extends State<Event_publish> {
             return AlertDialog(
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
-              content: const Text('Success!'),
+              content: const Text('Successfully published the event'),
               actions: [
                 MaterialButton(
                   onPressed: () {
@@ -86,7 +89,7 @@ class _Event_publishState extends State<Event_publish> {
             return AlertDialog(
               backgroundColor: Colors.grey[300],
               title: const Text('CSP'),
-              content: const Text('Failed!'),
+              content: const Text('Failed to publish the event'),
               actions: [
                 MaterialButton(
                   onPressed: () {
@@ -109,11 +112,11 @@ class _Event_publishState extends State<Event_publish> {
 
   @override
   Widget build(BuildContext context) {
-    final postModel = Provider.of<DeptDataClass>(context);
+    final postModel = Provider.of<DeptDataClass>(context, listen: false);
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
-        child: Container(         
+        child: Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             border: Border.all(),
@@ -136,7 +139,8 @@ class _Event_publishState extends State<Event_publish> {
                   fillColor: Colors.white,
                   filled: true,
                   hintText: "EVENT NAME",
-                  hintStyle: TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 158, 158, 158)),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -168,8 +172,8 @@ class _Event_publishState extends State<Event_publish> {
               IconButton(
                 onPressed: _pickImage,
                 icon: const Center(
-                  child: Icon(Icons.add_a_photo,
-                      color: Colors.black, size: 36.0),
+                  child:
+                      Icon(Icons.add_a_photo, color: Colors.black, size: 36.0),
                 ),
               ),
               const SizedBox(height: 50.0),
@@ -189,10 +193,9 @@ class _Event_publishState extends State<Event_publish> {
                       _eventDescController.text,
                     );
                   },
-                  child: 
-                  const Padding(
-                    padding:
-                        EdgeInsets.only(left: 90, right: 90, top: 15, bottom: 15),
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                        left: 90, right: 90, top: 15, bottom: 15),
                     child: Text('SUBMIT', style: TextStyle(fontSize: 20)),
                   ),
                 ),

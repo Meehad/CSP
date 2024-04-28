@@ -1,4 +1,5 @@
 import 'package:csp_citizen/models/user_data.dart';
+import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final postModel = Provider.of<DataClass>(context);
     final String img = postModel.post?.image ?? "";
-    final String imgUrl = "http://192.168.0.187:8000$img";
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +35,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 70.0,
-                    backgroundImage: NetworkImage(imgUrl),
+                    backgroundImage: NetworkImage(showbu(img)),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -64,11 +64,11 @@ class ProfilePage extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         _buildInfoBox(
-                          'Gender :. Male',
+                          'Gender :. ${postModel.post?.gender ?? ""}',
                         ),
                         const SizedBox(height: 16),
                         _buildInfoBox(
-                          'Aadhaar ID :. 2012022022',
+                          'Aadhaar ID :. ${postModel.post?.id_number ?? ""}',
                         ),
                       ],
                     ),

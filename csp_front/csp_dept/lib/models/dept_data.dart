@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:csp_dept/models/dept_models.dart';
+import 'package:csp_dept/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -22,11 +23,9 @@ class DeptDataClass extends ChangeNotifier {
   Future<DeptModel?> getSinglePostData({required String dept_id}) async {
     DeptModel? result;
     try {
-      final response = await http.get(
-          Uri.parse("http://10.0.2.2:8000/csp_log/$dept_id/showdeptprofile/"),
-          headers: {
-            HttpHeaders.contentTypeHeader: "application/json",
-          });
+      final response = await http.get(showdeptprofile(dept_id), headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      });
       notifyListeners();
       if (response.statusCode == 200) {
         final item = json.decode(response.body);
@@ -48,7 +47,6 @@ class DeptDataClass extends ChangeNotifier {
     loading = true;
     post = (await getSinglePostData(dept_id: dept_id))!;
     loading = false;
-
     notifyListeners();
   }
 }

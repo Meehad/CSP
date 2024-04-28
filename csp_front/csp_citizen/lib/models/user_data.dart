@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:csp_citizen/models/user_models.dart';
+import 'package:csp_citizen/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
@@ -22,7 +23,7 @@ class DataClass extends ChangeNotifier {
   Future<UserModel?> getSinglePostData({required String id_num}) async {
     try {
       final response = await http.get(
-        Uri.parse("http://10.0.2.2:8000/csp_log/$id_num/showprofile/"),
+        showProfile(id_num),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },

@@ -33,9 +33,9 @@ class SurveyClass extends ChangeNotifier {
 
   Future<void> getPostData(String id) async {
     loading = true;
+    notifyListeners();
     post = await getSinglePostData(id);
     loading = false;
-
     notifyListeners();
   }
 }
@@ -49,7 +49,6 @@ class SurveyDataProvider extends ChangeNotifier {
 
   Future<void> fetchSurveyData(String departmentName) async {
     _isLoading = true;
-    notifyListeners();
 
     try {
       final response = await http.get(showop(departmentName));

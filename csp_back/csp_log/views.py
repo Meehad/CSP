@@ -1,11 +1,8 @@
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserProfileSerializer, DeptProfileSerializer, CitizenSerializer, DeptSerializer
 from .models import UserProfile, DeptProfile, CitizenLogin, DeptLogin
 from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
-from django.contrib.auth import logout
-from rest_framework.response import Response
 from rest_framework import status, generics
 import random
 from django.contrib.auth import logout, login, authenticate

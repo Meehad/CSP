@@ -2,8 +2,6 @@ from django.db import models
 from csp_log.models import UserProfile, DeptProfile
 
 # Create your models here.
-
-
 class event(models.Model):
     name = models.ForeignKey(
         DeptProfile, to_field='name', on_delete=models.CASCADE)

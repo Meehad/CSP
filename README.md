@@ -1,6 +1,6 @@
 # Centralized Survey Portal (CSP)
 
-Centralized Survey Portal (CSP) is an academic project designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
+Centralized Survey Portal (CSP) is an academic project as part of our Bachelors of Computer Applications, designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
 
 ## Team Members
 - **Meehad**: [GitHub Profile](https://github.com/Meehad/)

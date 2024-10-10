@@ -1,21 +1,25 @@
 # Centralized Survey Portal (CSP)
 
-Centralized Survey Portal (CSP) is an application designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
+Centralized Survey Portal (CSP) is an academic project designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
+
+## Team Members
+- **Meehad**: [GitHub Profile](https://github.com/Meehad/)
+- **Anshad K**: [GitHub Profile](https://github.com/AnshadKoz)
+- **Wissam**: [GitHub Profile](https://github.com/MWP47)
+- **Shafad**
 
 ## Table of Contents
 - [Features](#features)
 - [User Roles](#user-roles)
 - [Problem Statement](#problem-statement)
-- [Our Solution](#our-solution)
+- [Proposed Solution](#proposed-solution)
 - [Advantages](#advantages)
 - [Installation](#installation)
 - [Setup](#setup)
 - [Connecting PostgreSQL with Django](#connecting-postgresql-with-django)
 - [Contributing](#contributing)
+- [License](#license)
 - [Contact](#contact)
-
-## Problem Statement
-In many districts, communication between departments and citizens is often fragmented, leading to inefficient data collection, lack of awareness about events, and difficulties in reporting complaints. The Centralized Survey Portal addresses these challenges by providing a unified platform that streamlines interactions, enhances data collection, and improves overall governance.
 
 ## Features
 - **Surveys and Feedback:** Conduct and respond to surveys easily.
@@ -30,16 +34,8 @@ In many districts, communication between departments and citizens is often fragm
 3. **Admin:** District collectors manage the overall operations and ensure smooth functioning.
 
 ## Problem Statement
-In many districts, communication between departments and citizens is often fragmented, leading to inefficient data collection and event management. CSP addresses these challenges by providing a centralized platform that streamlines interactions and feedback collection.
+In many districts, communication between departments and citizens is often fragmented, leading to inefficient data collection, lack of awareness about events, and difficulties in reporting complaints. The Centralized Survey Portal addresses these challenges by providing a unified platform that streamlines interactions, enhances data collection, and improves overall governance.
 
-## Our Solution
-The CSP app centralizes various departmental functions, allowing for streamlined data collection, event management, and citizen engagement. By enabling direct feedback and communication channels, we create a more efficient governance model.
-
-## Advantages
-- **Streamlined Communication:** Reduces the distance between citizens and departments.
-- **User-Centric Design:** Focuses on citizen engagement and satisfaction.
-- **Data Analysis:** Facilitates easy data analysis for better decision-making.
-- **Comprehensive Features:** Covers all essential functionalities for effective governance.
 ## Installation
 
 ### Prerequisites
@@ -137,8 +133,20 @@ Ensure you have the following installed:
    flutter run
    ```
 
+## Proposed Solution
+The CSP app centralizes various departmental functions, allowing for streamlined data collection, event management, and citizen engagement. By enabling direct feedback and communication channels, we create a more efficient governance model.
+
+## Advantages
+- **Streamlined Communication:** Reduces the distance between citizens and departments.
+- **User-Centric Design:** Focuses on citizen engagement and satisfaction.
+- **Data Analysis:** Facilitates easy data analysis for better decision-making.
+- **Comprehensive Features:** Covers all essential functionalities for effective governance.
+
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any changes or suggestions.
 
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 ## Contact
-For any questions or feedback, please reach out at [Mohammedmihad2@gmail.com](mailto:Mohammedmihad2@gmail.com
+For any questions or feedback, please reach out at [Mohammedmihad2@gmail.com](mailto:Mohammedmihad2@gmail.com).

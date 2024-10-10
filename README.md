@@ -1,6 +1,3 @@
-Here's the complete **README.md** content in markdown code format, structured attractively without any additional text:
-
-```markdown
 # Centralized Survey Portal (CSP)
 
 Centralized Survey Portal (CSP) is an application designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
@@ -100,9 +97,5 @@ The CSP app centralizes various departmental functions, allowing for streamlined
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any changes or suggestions.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 For any questions or feedback, please reach out at [Mohammedmihad2@gmail.com](mailto:Mohammedmihad2@gmail.com).
-```

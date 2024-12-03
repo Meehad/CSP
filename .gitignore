@@ -10,4 +10,5 @@ csp_back/feedback/__pycache__/
 csp_back/feedback/migrations/__pycache__/
 csp_back/gov_pdf/__pycache__/
 csp_back/survey/__pycache__/
+csp_front/.vscode/
 .vscode/

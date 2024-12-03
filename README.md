@@ -3,10 +3,13 @@
 Centralized Survey Portal (CSP) is an academic project as part of our Bachelors of Computer Applications, designed to centralize departments in a district for conducting data collections, managing events, and gathering feedback from citizens. The app is structured to facilitate communication between citizens, departments, and admin users effectively.
 
 ## Team Members
-- **Meehad**: [GitHub Profile](https://github.com/Meehad/)
-- **Anshad K**: [GitHub Profile](https://github.com/AnshadKoz)
-- **Wissam**: [GitHub Profile](https://github.com/MWP47)
-- **Shafad**
+- **Meehad**: [![GitHub](https://img.shields.io/badge/-github-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Meehad/) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohammed-meehad/)
+
+- **Anshad K**: [![GitHub](https://img.shields.io/badge/-github-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/AnshadKoz/) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anshad-k-8b337b297/)
+
+- **Wissam**: [![GitHub](https://img.shields.io/badge/-github-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MWP47/) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohammed-wissam-4b06b0318/)
+
+- **Shafad**: Not Available
 
 ## Table of Contents
 - [Features](#features)

@@ -3,3 +3,10 @@ venv/
 workingreport.docx
 csp_back/.env
 Ui/
+csp_back/complaint/__pycache__/
+csp_back/csp_log/__pycache__/
+csp_back/csp_back/__pycache__/
+csp_back/feedback/__pycache__/
+csp_back/feedback/migrations/__pycache__/
+csp_back/gov_pdf/__pycache__/
+csp_back/survey/__pycache__/
